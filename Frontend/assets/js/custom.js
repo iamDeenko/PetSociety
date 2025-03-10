@@ -8,7 +8,11 @@ $(document).ready(function() {
   app.route({
     view: 'view_main',
     load:"view_main.html"
-  });
+  },
+      {
+        view : 'view_2',
+        load:'view_2.html'
+      });
 
 
   // run app
