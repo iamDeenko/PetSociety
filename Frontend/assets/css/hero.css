@@ -27,6 +27,8 @@
     gap: 1.3rem;
 }
 
+
+
 .shop-item-div:hover{
     cursor: pointer;
 }
@@ -39,6 +41,8 @@
     justify-content: center;
     align-items: center;
     background-color: #373737;
+    font-size: 4rem;
+    color: white;
 }
 
 
