@@ -1,0 +1,25 @@
+
+
+.filter-box{
+    background-color: #373737;
+    border-radius: 16px;
+}
+
+
+
+.line{
+    height: 2.5rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+    z-index: 232;
+
+}
+
+.testbox{
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #373737;
+}

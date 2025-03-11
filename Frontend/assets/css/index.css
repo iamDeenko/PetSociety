@@ -10,6 +10,7 @@
     border-radius: 16px;
 }
 
+
 .navbar span {
     color: white;
     font-size: 22px;
@@ -44,10 +45,40 @@
 
 .nav-middle {
     display: flex;
+
     align-items: center;
     position: relative;
     width: 100%;
     max-width: 400px;
+}
+
+
+.nav-middle button {
+    position: absolute;
+    right: 10px;
+    background-color: transparent;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    width: 30px;
+    color: #373737;
+    font-size: 16px;
+    border-left: 1px dashed #373737FA;
+}
+
+.shop-container{
+    position: fixed; /* Key for fixed positioning */
+    bottom: 150px;   /* Distance from the bottom */
+    right: 50px;    /* Distance from the right */
+    background-color: #373737;
+    color: white;/* Optional: Add a background */
+    padding: 25px;         /* Optional: Add some padding */
+    border-radius: 50%;    /* Optional: Make it circular */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Optional: Add a shadow */
+    cursor: pointer;     /* Change cursor on hover */
+    z-index: 1000;       /* Ensure it's above other content */
 }
 
 .navbar input {
@@ -67,6 +98,8 @@
     color: #555;
     cursor: pointer;
 }
+
+
 
 .nav-link {
     text-decoration: none;

@@ -2,18 +2,23 @@ $(document).ready(function() {
 
 
 
-  var app = $.spapp({pageNotFound : 'error_404'}); // initialize
+    var app = $.spapp({
+        defaultView  : "#view_main",
+        templateDir  : "./tpl/",
+        pageNotFound : "error_404"
+    });
 
   // define routes
-  app.route({
-    view: 'view_main',
-    load:"view_main.html"
-  },
+  app.route(
       {
-        view : 'view_2',
-        load:'view_2.html'
-      });
-
+                view: 'view_main',
+                load:"view_main.html"
+            },
+            {
+                view : 'view_pets',
+                load:'view_pets.html'
+            }
+            );
 
   // run app
   app.run();

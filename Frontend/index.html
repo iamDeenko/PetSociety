@@ -2,14 +2,15 @@
   <title>PetSociety</title>
   <meta charset="utf-8">
 
+  <link rel="stylesheet" href="./assets/css/shop.css">
   <link rel="stylesheet" href="./assets/css/index.css">
   <link rel="stylesheet" href="./assets/css/hero.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="../node_modules/@fortawesome/fontawesome-free/css/all.min.css">
 </head>
 
-<body class = "container">
-<nav class="container-fluid text-center">
+<body class = "container-fluid">
+<nav class="container text-center">
   <div class="container row navbar">
     <div class="nav-link col-md-3 justify-content-lg-evenly ">
       <a href="#view_main" class="nav-link "><span>PetSociety</span></a>
@@ -24,23 +25,31 @@
           <option value="Toys">Toys</option>
         </select>
       </div>
-      <div class="nav-middle box">
-        <!-- Use Bootstrap icons if you're not using React -->
+
+      <div class="nav-middle">
         <i class="bi bi-search search-icon" style="font-size: 22px;"></i>
         <input class="text-center rounded-5 text-black w-50" type="text" name="search" id="search" />
+        <button type="submit" class =>
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+
       </div>
     </div>
 
     <div class="nav-link col-md-3 justify-content-evenly">
-      <a href="#view_2" class="nav-link"><span>Login</span></a>
+      <a href="#view_pets" class="nav-link"><span>Shop</span></a>
     </div>
   </div>
 </nav>
 
 <main id="spapp" role="main">
-  <section id="view_main" data-load="view_main.html"></section>
-  <section id="view_2" data-load = "tpl/view_2.html"></section>
+  <section id="view_main" class="container" data-load="view_main.html"></section>
+  <section id="view_pets" data-load = "view_pets.html"></section>
 </main>
+
+<div class="shop-container">
+  <i class="fa-solid fa-cart-shopping"></i>
+</div>
 
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
