@@ -15,8 +15,8 @@ $(document).ready(function() {
                 load:"view_main.html"
             },
             {
-                view : 'view_pets',
-                load:'view_pets.html'
+                view : 'view_shop',
+                load:'view_shop.html'
             }
             );
 
