@@ -1,4 +1,3 @@
-
 .test *{
     padding:1.5rem;
     font-family: 'SF Pro Rounded', sans-serif;
@@ -9,8 +8,20 @@
     font-stretch: extra-expanded;
     font-family: 'SF Pro Rounded', monospace;
 }
+
 .hero{
     max-height: 200vh;
+}
+
+.puppy-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.puppy-container img {
+    max-width: 100%;
+    height: auto;
 }
 
 .test2 h1{
@@ -26,8 +37,6 @@
     align-items: center;
     gap: 1.3rem;
 }
-
-
 
 .shop-item-div:hover{
     cursor: pointer;
@@ -45,19 +54,18 @@
     color: white;
 }
 
-
 .partners-container {
     width: 100%;
     height: 250px;
-    overflow: hidden;  /* Hide the overflowing part of the marquee */
+    overflow: hidden;
     display: flex;
-    align-items: center; /* Align items vertically */
+    align-items: center;
 }
 
 .partners-marquee {
     display: flex;
-    gap:20px;
-    animation: scroll 30s linear infinite;  /* 15 seconds duration for the scroll, adjust as needed */
+    gap: 20px;
+    animation: scroll 30s linear infinite;
 }
 
 .partners-marquee img {
@@ -68,21 +76,20 @@
 .partner-logo {
     font-size: 24px;
     font-weight: bold;
-    margin-right: 50px; /* Space between logos */
-    white-space: nowrap; /* Prevent text wrapping */
+    margin-right: 50px;
+    white-space: nowrap;
     display: inline-block;
     color: #333;
 }
 
 @keyframes scroll {
     0% {
-        transform: translateX(100%);  /* Start from the right */
+        transform: translateX(100%);
     }
     100% {
-        transform: translateX(-100%);  /* Move all the way to the left */
+        transform: translateX(-100%);
     }
 }
-
 
 @keyframes bounce {
     0%, 50%, 100% {
