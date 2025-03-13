@@ -135,7 +135,9 @@
 
 
 .categories-section{
-
+    padding-top: 2rem;
+    display: flex;
+    align-items: center;
     border: black solid 1px;
     background-color: #373737;
 }
