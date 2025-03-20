@@ -78,8 +78,14 @@
     border-radius: 50%;    /* Optional: Make it circular */
     box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Optional: Add a shadow */
     cursor: pointer;     /* Change cursor on hover */
-    z-index: 1000;       /* Ensure it's above other content */
+    z-index: 4;       /* Ensure it's above other content */
+    transition: 0.25s ease-in-out;  
 }
+
+.shop-container:hover{
+  transform: scale(110%);
+}
+
 
 .navbar input {
     flex-grow: 1;
@@ -88,6 +94,10 @@
     border-radius: 25px;
     outline: none;
     font-size: 16px;
+}
+
+.is-visible{
+  display: block;
 }
 
 .search-icon {
@@ -99,6 +109,108 @@
     cursor: pointer;
 }
 
+
+.cartflyout {
+  position: fixed;
+  top: 5%;
+  right: -15%;
+  width: 15%;
+  height: 90%;
+  border-top-left-radius: 16px;
+  border-bottom-left-radius: 16px;
+  z-index: 300;
+  background-color: #373737;
+  animation-fill-mode: forwards;
+  animation: slide-left 0.1s ease-in-out;
+  display: none;
+  flex-direction:column;
+ }
+
+.cartflyout.active {
+  display: block;
+  right: 0%;
+}
+
+.cartflyout.inactive {
+  animation: slide-right 0.1s ease-in-out;
+  right: -15%;
+  animation-fill-mode: forwards;
+}
+
+@keyframes slide-left {
+  from {
+    right: -15%;
+  }
+  to {
+    right: 0%;
+  }
+}
+
+@keyframes slide-right {
+  from {
+    right: 0;
+  }
+  to {
+    right: -15%;
+  }
+}
+
+
+.cartflyout span {
+  margin-top: 3rem;
+  position: absolute;
+  right:10px;
+  top:-10px;
+  background-color:whitesmoke;
+  width: 41px;
+  height: 5px;
+  z-index: 301;
+  transform: rotate(45deg);
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-in-out;
+}
+
+.cartflyout span:nth-of-type(1){
+
+ transform: rotate(-45deg);
+}
+
+.spansection{
+  z-index:3001;
+  background-color:orange;
+  position:absolute;
+  height:80px;
+  width:100%;
+}
+
+
+.shoppingcartspan:hover {
+  cursor: pointer;
+}
+
+
+.shoppingcart-items{
+  display:flex;
+  flex-direction:column;
+  height:80%;
+  gap:1.2rem;
+  width:90%;
+  margin-top:30%;
+  align-self:center;
+  position:absolute;
+  z-index:300;
+  background-color:pink;
+  overflow-y:auto;
+
+}
+
+.shoppingcart-item{
+  border-radius:16px;
+  padding:1rem;
+  height:100px;
+  background-color:white;
+}
 
 
 .nav-link {
@@ -112,4 +224,5 @@
 .nav-link:hover {
     animation: bounce 0.5s infinite;
 }
+
 

@@ -36,10 +36,12 @@
     flex-direction: column;
     align-items: center;
     gap: 1.3rem;
+    transition: transform 0.3s ease-in-out;
 }
 
 .shop-item-div:hover{
     cursor: pointer;
+    transform: scale(110%);
 }
 
 .item{
@@ -80,7 +82,9 @@
     white-space: nowrap;
     display: inline-block;
     color: #333;
+    transition: 0.3s ease-in-out;
 }
+
 
 @keyframes scroll {
     0% {
