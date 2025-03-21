@@ -1,23 +1,22 @@
-nav {
+.navbar {
   display:flex;
   justify-content:center;
   align-items: center;
-  color: black;
+  color: #333;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   border-bottom: 1px solid #eee;
   text-decoration: none;
-
 }
 
-nav a {
+.navbar a {
   font-family: 'SF Pro Rounded';
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
-  color: #373737;
-  font-size: 16px;
+  color: #333;
+  font-size: 18px;
+  font-weight: 700;
   transition: 0.25532s ease-in-out;
   text-decoration: none;
   border-bottom: 1px solid transparent;
-
 }
 
 body{
@@ -34,40 +33,16 @@ nav a:first-child:hover{
 }
 
 .navbar-brand{
-
-  font-weight:400;
-  font-size:24px !important;
+  font-weight:700;
+  color: #333 !important;
+  font-size:26px !important;
 }
 
-.navbar-links {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 16px;
-  transition: border-bottom 0.3s ease-in-out; /* Corrected transition */
-}
-
-.navbar-links a {
-  border-bottom: 1px solid transparent; /* Corrected typo */
-  text-decoration: none; /* Add this to remove underlines */
-  color: #373737; /* Add this to set the text color */
-  padding: 0.5rem; /* Add some padding for spacing */
-}
-
-.navbar-links a:hover {
-  box-shadow: 1px 1px 1px rgba(0,0,0,0.1);
-  border-bottom: 1px solid black;
-}
-
-.navrow{
-  width:100%;
-
-}
 .shop-container{
     position: fixed; /* Key for fixed positioning */
     bottom: 150px;   /* Distance from the bottom */
     right: 50px;    /* Distance from the right */
-    background-color: #373737;
+    background-color: #333;
     color: white;/* Optional: Add a background */
     padding: 25px;         /* Optional: Add some padding */
     border-radius: 50%;    /* Optional: Make it circular */
@@ -92,18 +67,19 @@ nav a:first-child:hover{
 
 .cartflyout {
   position: fixed;
-  top: 5%;
+  top: 8%;
   right: -15%;
   width: 15%;
   height: 90%;
   border-top-left-radius: 16px;
   border-bottom-left-radius: 16px;
   z-index: 300;
-  background-color: #373737;
+  background-color:white;
   animation-fill-mode: forwards;
   animation: slide-left 0.1s ease-in-out;
   display: none;
   flex-direction:column;
+  border: 2.5px solid #333;
  }
 
 .cartflyout.active {
@@ -137,13 +113,14 @@ nav a:first-child:hover{
 
 
 .cartflyout span {
+  background-color: #333;
   margin-top: 3rem;
   position: absolute;
   right:10px;
   top:-10px;
-  background-color:whitesmoke;
   width: 41px;
-  height: 5px;
+  height: 6px;
+  border-radius:16px;
   z-index: 301;
   transform: rotate(45deg);
   animation-duration: 0.5s;
@@ -158,7 +135,6 @@ nav a:first-child:hover{
 
 .spansection{
   z-index:3001;
-  background-color:orange;
   position:absolute;
   height:80px;
   width:100%;
@@ -180,16 +156,17 @@ nav a:first-child:hover{
   align-self:center;
   position:absolute;
   z-index:300;
-  background-color:pink;
   overflow-y:auto;
 
 }
 
 .shoppingcart-item{
+  font-family: "SF Pro Rounded";
+  font-weight:700;
   border-radius:16px;
   padding:1rem;
   height:100px;
-  background-color:white;
+  border: 1px solid black;
 }
 
 
