@@ -1,33 +1,68 @@
-.navbar {
-  margin-top: 1.5rem !important;
-  display: flex;
-  justify-content: space-between;
+nav {
+  display:flex;
+  justify-content:center;
   align-items: center;
-  padding: 15px 30px;
-  background-color: #333333;
-  margin-bottom: 5rem;
-  position:absolute;
-  border-radius: 16px;
-}
-
-
-.navbar span {
-  color: white;
-  font-size: 22px;
-}
-
-.nav-link {
+  color: black;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid #eee;
   text-decoration: none;
+
 }
 
-.nav-link span {
-  font-size: 20px;
+nav a {
+  font-family: 'SF Pro Rounded';
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
+  color: #373737;
+  font-size: 16px;
+  transition: 0.25532s ease-in-out;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+
 }
 
-.nav-link:hover {
-  animation: bounce 0.5s infinite;
+body{
+  overflow-x:hidden !important;
 }
 
+
+nav a:hover{
+  border-bottom: 1px solid black;
+}
+
+nav a:first-child:hover{
+  border-botton: 1px solid transparent !important;
+}
+
+.navbar-brand{
+
+  font-weight:400;
+  font-size:24px !important;
+}
+
+.navbar-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  transition: border-bottom 0.3s ease-in-out; /* Corrected transition */
+}
+
+.navbar-links a {
+  border-bottom: 1px solid transparent; /* Corrected typo */
+  text-decoration: none; /* Add this to remove underlines */
+  color: #373737; /* Add this to set the text color */
+  padding: 0.5rem; /* Add some padding for spacing */
+}
+
+.navbar-links a:hover {
+  box-shadow: 1px 1px 1px rgba(0,0,0,0.1);
+  border-bottom: 1px solid black;
+}
+
+.navrow{
+  width:100%;
+
+}
 .shop-container{
     position: fixed; /* Key for fixed positioning */
     bottom: 150px;   /* Distance from the bottom */
@@ -47,27 +82,12 @@
 }
 
 
-.navbar input {
-    flex-grow: 1;
-    padding: 8px 12px;
-    border: 1px solid #ccc;
-    border-radius: 25px;
-    outline: none;
-    font-size: 16px;
-}
 
 .is-visible{
   display: block;
 }
 
-.search-icon {
-    position: absolute;
-    right: 12px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #555;
-    cursor: pointer;
-}
+
 
 
 .cartflyout {
@@ -172,17 +192,5 @@
   background-color:white;
 }
 
-
-.nav-link {
-    text-decoration: none;
-}
-
-.nav-link span {
-    font-size: 20px;
-}
-
-.nav-link:hover {
-    animation: bounce 0.5s infinite;
-}
 
 

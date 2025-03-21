@@ -3,6 +3,7 @@
   display: flex;
   justify-content: space-between;
   padding: 5.5rem;
+  font-family: 'SF Pro Rounded';
 }
 
 .test h1 {
@@ -18,6 +19,7 @@
 }
 
 .test button {
+  font-family: 'SF Pro Rounded';
   margin-top: 9rem;
   margin-bottom: 3rem;
   padding: 1rem 2rem; /* Adjusted button padding */
@@ -118,6 +120,17 @@
 .partners-marquee img {
   width: 120px; /* Increased image width */
   object-fit: contain;
+}
+
+
+
+.aboutus h1{
+
+  font-size: 3.7rem;
+  font-stretch: extra-expanded;
+  font-family: 'SF Pro Rounded', monospace;
+
+
 }
 
 /* Animations */
