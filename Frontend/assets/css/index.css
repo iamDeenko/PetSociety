@@ -1,71 +1,31 @@
 .navbar {
-    margin-top: 1.5rem !important;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 30px;
-    box-shadow: 0px 6px 12px 0 #D3D3D3FF;
-    background-color: #333333;
-    margin-bottom: 5rem;
-    border-radius: 16px;
+  margin-top: 1.5rem !important;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px;
+  background-color: #333333;
+  margin-bottom: 5rem;
+  position:absolute;
+  border-radius: 16px;
 }
 
 
 .navbar span {
-    color: white;
-    font-size: 22px;
-    font-family: 'SF Pro Rounded', sans-serif;
+  color: white;
+  font-size: 22px;
 }
 
-.nav-search {
-    display: flex;
-    align-items: center;
-    gap: 10px; /* Proper spacing */
-    flex-grow: 1;
-    justify-content: center;
+.nav-link {
+  text-decoration: none;
 }
 
-.nav-left{
-    display: flex;
-    align-items: center;
-    z-index: 1;
-    position: absolute;
-    left:35%;
-    cursor: pointer;
+.nav-link span {
+  font-size: 20px;
 }
 
-
-.nav-left select {
-    cursor: pointer;
-    outline: none;
-    border-radius: 8px;
-    border: none;
-    background-color: white;
-}
-
-.nav-middle {
-    display: flex;
-
-    align-items: center;
-    position: relative;
-    width: 100%;
-    max-width: 400px;
-}
-
-
-.nav-middle button {
-    position: absolute;
-    right: 10px;
-    background-color: transparent;
-    border: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 40px;
-    width: 30px;
-    color: #373737;
-    font-size: 16px;
-    border-left: 1px dashed #373737FA;
+.nav-link:hover {
+  animation: bounce 0.5s infinite;
 }
 
 .shop-container{
