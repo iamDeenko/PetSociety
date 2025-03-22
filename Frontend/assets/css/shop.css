@@ -1,9 +1,6 @@
 .categories span{
   color:grey;
 }
-
-
-
 .categories{
   gap:14px;
   border-bottom: 1px solid #333;
@@ -37,8 +34,28 @@
 }
 
 .price-range-divs{
+
   display:flex;
   flex-direction: column;
   justify-content:space-around;
 }
 
+.product-item{
+  display:flex;
+
+  align-items:center;
+  flex-direction:column;
+
+  margin-bottom:1rem;
+  padding:1rem;
+  width:300px;
+  background-color:yellow;
+  height: 400px
+}
+
+
+.product-item-image{
+  width:250px;
+  background-color:pink;
+  height: 270px;
+}
