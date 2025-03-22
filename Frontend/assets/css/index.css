@@ -1,3 +1,6 @@
+*{
+  font-family: "SF Pro Rounded";
+}
 .navbar {
   z-index:3;
   display:flex;
@@ -188,14 +191,14 @@ nav a:first-child:hover{
   transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.320, 1.275);
 }
 
-.shop-flydown-menu span{
+.shop-flydown-menu a{
   color:grey;
   font-family: "SF Pro Rounded";
   padding-bottom:5px;
-
+  text-decoration:none;
 }
 
-.shop-flydown-menu span:first-child{
+.shop-flydown-menu a:first-child{
   font-family: "SF Pro Rounded";
   color: #333 !important;
   font-weight: bold;
@@ -203,11 +206,11 @@ nav a:first-child:hover{
   padding-bottom: 10px;
 }
 
-.shop-flydown-menu span:first-child:hover{
+.shop-flydown-menu a:first-child:hover{
   font-weight:bold !important;
 }
 
-.shop-flydown-menu span:hover{
+.shop-flydown-menu a:hover{
   cursor:pointer;
   color: #333;
   font-weight: 500;

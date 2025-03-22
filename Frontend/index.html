@@ -17,67 +17,83 @@
     </div>
     <div class="col-md-4 d-flex align-items-center gap-5 navbar-links">
       <a href="#home">Home</a>
-      <a href="#shop" id = "menu-shop">Shop</a>
+      <a href="#home" id = "menu-shop">Shop</a>
       <a href="#about-us">About Us</a>
       <a href="#register">Register</a>
     </div>
   </div>
 </nav>
 
-<div class = "shop-flydown-menu" id="shop-flydown-menu">
-<div class="container mt-5 text-center">
-  <div class="row">
-    <div class="col-md-3 d-flex flex-column ">
-        <span class = "shop-category">Pets</span>
-        <span>Dogs</span>
-        <span>Cats</span>
-        <span>Small Animals</span> 
-        <span>Birds</span>
-        <span>Fish</span>
-        <span>Reptiles</span>
-        <span>Amphibians</span>
+<div class="shop-flydown-menu" id="shop-flydown-menu">
+    <div class="container mt-5 text-center">
+        <div class="row">
+            <div class="col-md-3 d-flex flex-column">
+                <a href="#pets" class="shop-category">Pets</a>
+                <a href="#pets-dogs">Dogs</a>
+                <a href="#pets-cats">Cats</a>
+                <a href="#pets-small-animals">Small Animals</a>
+                <a href="#pets-birds">Birds</a>
+                <a href="#pets-fish">Fish</a>
+                <a href="#pets-reptiles">Reptiles</a>
+                <a href="#pets-amphibians">Amphibians</a>
+            </div>
+            <div class="col-md-3 d-flex flex-column">
+                <a class="shop-category">Accessories</a>
+                <a href="#accessories-leashes">Leashes</a>
+                <a href="#accessories-bowls">Bowls</a>
+                <a href="#accessories-carriers">Carriers</a>
+                <a href="#accessories-grooming-tools">Grooming Tools</a>
+                <a href="#accessories-travel-accessories">Travel Accessories</a>
+            </div>
+            <div class="col-md-3 d-flex flex-column">
+                <a class="shop-category">Food</a>
+                <a href="#food-dry-food">Dry Food</a>
+                <a href="#food-wet-food">Wet Food</a>
+                <a href="#food-treats">Treats</a>
+                <a href="#food-supplements">Supplements</a>
+            </div>
+            <div class="col-md-3 d-flex flex-column">
+                <a class="shop-category">Toys</span>
+                <a href="#toys-chewing">Chewing</a>
+                <a href="#toys-interactive">Interactive</a>
+                <a href="#toys-fetch-retrieve">Fetch & Retrieve</a>
+            </div>
+        </div>
     </div>
-    <div class="col-md-3 d-flex flex-column">
-       <span>Accessories</span>
-       <span>Leashes</span> 
-       <span>Bowls</span>
-       <span>Leashes</span> 
-       <span>Carriers</span>
-       <span>Grooming Tools</span>
-       <span>Travel Accessories</span>
-    </div>
-
-
-
-    <div class="col-md-3 d-flex flex-column">
-       <span>Food</span>
-       <span>Dry Food</span> 
-       <span>Wet Food</span>
-       <span>Treats</span> 
-       <span>Supplements</span>
-    </div>
-
-    
-      <div class="col-md-3 d-flex flex-column">
-       <span>Toys</span>
-       <span>Chewing</span>
-       <span>Interactive</span>
-       <span>Fetch & Retrieve</span>
-    </div>
-
-
-
-  </div>
 </div>
-</div>
-
-
 
 <main id="spapp" role="main">
-  <section id="home"  data-load="view_main.html"></section>
-  <section id="shop" data-load = "view_shop.html"></section>
+    <section id="home" data-load="view_main.html"></section>
 
+    <section id="pets" data-load="views/Pets/view_pets.html"></section>
+    <section id="accessories" data-load="views/Accessories/view_accessories.html"></section>
+    <section id="food" data-load="views/Food/view_food.html"></section>
+    <section id="toys" data-load="views/Toys/view_toys.html"></section>
+
+    <section id="pets-dogs" data-load="views/Pets/Dogs/view_dogs.html"></section>
+    <section id="pets-cats" data-load="views/Pets/Cats/view_cats.html"></section>
+    <section id="pets-small-animals" data-load="views/Pets/Small-Animals/view_small_animals.html"></section>
+    <section id="pets-birds" data-load="views/Pets/Birds/view_birds.html"></section>
+    <section id="pets-fish" data-load="views/Pets/Fish/view_fish.html"></section>
+    <section id="pets-reptiles" data-load="views/Pets/Reptiles/view_reptiles.html"></section>
+    <section id="pets-amphibians" data-load="views/Pets/Amphibians/view_amphibians.html"></section>
+
+    <section id="accessories-leashes" data-load="views/Accessories/Leashes/view_leashes.html"></section>
+    <section id="accessories-bowls" data-load="views/Accessories/Bowls/view_bowls.html"></section>
+    <section id="accessories-carriers" data-load="views/Accessories/Carriers/view_carriers.html"></section>
+    <section id="accessories-grooming-tools" data-load="views/Accessories/Grooming-Tools/view_grooming_tools.html"></section>
+    <section id="accessories-travel-accessories" data-load="views/Accessories/Travel-Accessories/view_travel_accessories.html"></section>
+
+    <section id="food-dry-food" data-load="views/Food/Dry-Food/view_dry_food.html"></section>
+    <section id="food-wet-food" data-load="views/Food/Wet-Food/view_wet_food.html"></section>
+    <section id="food-treats" data-load="views/Food/Treats/view_treats.html"></section>
+    <section id="food-supplements" data-load="views/Food/Supplements/view_supplements.html"></section>
+
+    <section id="toys-chewing" data-load="views/Toys/Chewing/view_chewing.html"></section>
+    <section id="toys-interactive" data-load="views/Toys/Interactive/view_interactive.html"></section>
+    <section id="toys-fetch-retrieve" data-load="views/Toys/Fetch-Retrieve/view_fetch_retrieve.html"></section>
 </main>
+
 
 <div class="shop-container" id="shoppingcart">
   <i class="fa-solid fa-cart-shopping"></i>
