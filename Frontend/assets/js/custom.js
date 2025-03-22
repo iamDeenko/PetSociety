@@ -5,18 +5,25 @@ $(document).ready(function() {
   var app = $.spapp({
     defaultView: "home",
     templateDir: "./tpl/",
-    pageNotFound: "error_404"
+    pageNotFound: "error_404",
+    historyEnabled: true,
+    baseUrl: '/'
   });
 
   // define routes
   app.route(
     {
       view: 'home',
-      load: "view_main.html"
+      load: "views/view_main.html",
     },
     {
-      view: 'shop',
-      load: 'view_shop.html'
+      view: 'pets',
+      load: 'view_pews.html',
+      path: 'views/megatestsemprice'
+    },
+    {
+      view: 'accessories',
+      load: 'view_accessories.html'
     }
   );
 

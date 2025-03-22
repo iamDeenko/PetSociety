@@ -6,11 +6,22 @@
   font-family: 'SF Pro Rounded';
 }
 
+
+
 .test h1 {
-  font-size: 3.7rem;
+  color: #333;
+  font-size: 4.7rem;
   font-stretch: extra-expanded;
   font-family: 'SF Pro Rounded', monospace;
   animation: hidetext 1.5s ease-in;
+
+
+    text-shadow: 
+    0 0 100px rgba(51,51,51,0.7),  
+    0 0 500px rgba(51,51,51,0.7),
+    0 0 1000px rgba(51,51,51,0.7);
+    
+    transition: text-shadow 0.5s ease-in-out;
 }
 
 .test h3,
@@ -25,7 +36,7 @@
   margin-bottom: 3rem;
   padding: 1rem 2rem;
   color: white;
-  border: none;
+  border:2px solid  white;
   border-radius: 16px;
   background-color: #333333;
   transition: transform 0.2374211s ease-in-out;
