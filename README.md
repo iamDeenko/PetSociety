@@ -11,5 +11,5 @@ A beautiful pet shop website for purchasing pets, accessories, toys & food.
 TODO:
     Admin Dashboard.
     Make the cart prettier. 
-    Make sure the font is consistent.
+
     
