@@ -1,74 +1,89 @@
-.categories span{
-  color:grey;
+.categories span {
+  color: grey;
 }
-.categories{
-  gap:14px;
+.categories {
+  gap: 14px;
   border-bottom: 1px solid #333;
 }
 
-.categories span:hover{
-  cursor:pointer;
+.categories span:hover {
+  cursor: pointer;
   text-decoration: underline;
 }
 
-.inputfields input{
+.inputfields input {
   padding-top: 1rem;
-  border:none;
+  border: none;
   border-bottom: 1px #333 solid;
-  outline:none;
+  outline: none;
   background-color: transparent;
-  width:100%;
+  width: 100%;
 }
 
-.fieldname{
+.fieldname {
   padding-bottom: 1rem;
 }
 
-.fieldname range{
-  background-color:pink;
-  color:orange;
+.fieldname range {
+  background-color: pink;
+  color: orange;
 }
 
-.fieldname h6{
-  margin-top:3rem;
+.fieldname h6 {
+  margin-top: 3rem;
 }
 
-.price-range-divs{
-
-  display:flex;
+.price-range-divs {
+  display: flex;
   flex-direction: column;
-  justify-content:space-around;
+  justify-content: space-around;
 }
 
-.product-item{
-  display:flex;
-  flex-direction:column;
-  margin-bottom:1rem;
-  padding:1rem;
-  width:300px;
-  height: 400px
+.product-item {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  width: 300px;
+  height: 400px;
 }
 
-.product-item-image{
-  background-color: rgba(245,245,245,1.0);
-  width:100%;
+.product-item-image {
+  background-color: rgba(245, 245, 245, 0.53242);
+  width: 100%;
   height: 270px;
 }
 
-.product-item-image img{
-  object-fit:cover;
-  height:auto;
-  width:100%;
+.product-item a {
+  text-decoration: none;
+  color: inherit;
+}
+.product-item-image img {
+  object-fit: cover;
+  height: auto;
+  width: 100%;
 }
 
-.product-item:hover{
+.product-item:hover {
   box-shadow: 0px 5px 10px #eee, 5px 10px 20px #eee;
-  transform:scale(100%);
+  transform: scale(100%);
 }
 
-
-.product-item-info{
-  padding-top:10px;
-  gap:10px;
+.product-item-info {
+  padding-top: 10px;
+  gap: 10px;
 }
 
+.buttondiv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.buttondiv button {
+  margin-top: 3rem;
+  padding: 5px 10px;
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid #333;
+}

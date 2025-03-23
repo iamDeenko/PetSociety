@@ -48,14 +48,15 @@ nav a:first-child:hover{
     position: fixed;
     bottom: 150px;   
     right: 50px;    
-    background-color: #eee;
-    border: 2px solid #333; 
-    color: black;
-    padding: 20px;
+    background-color: white;
+    border: 1px solid #333;
+    color: #333333;
+    padding: 23px;
     border-radius: 50%; 
     cursor: pointer;    
     z-index: 4;      
-    transition: 0.25s ease-in-out;  
+    transition: 0.25s ease-in-out;
+
 }
 
 .shop-container:hover{
@@ -85,7 +86,7 @@ nav a:first-child:hover{
   animation: slide-left 0.1s ease-in-out;
   display: none;
   flex-direction:column;
-  border: 2.5px solid #333;
+  border: 1px solid #eeeeee;
  }
 
 .cartflyout.active {
@@ -124,8 +125,8 @@ nav a:first-child:hover{
   position: absolute;
   right:10px;
   top:-10px;
-  width: 41px;
-  height: 6px;
+  width: 30px;
+  height: 2.5px;
   border-radius:16px;
   z-index: 301;
   transform: rotate(45deg);
@@ -163,16 +164,14 @@ nav a:first-child:hover{
   position:absolute;
   z-index:300;
   overflow-y:auto;
-
 }
 
 .shoppingcart-item{
   font-family: "SF Pro Rounded";
   font-weight:700;
-  border-radius:16px;
   padding:1rem;
   height:100px;
-  border: 1px solid black;
+  border-bottom: 1px solid #eee;
 }
 
 
@@ -181,13 +180,13 @@ nav a:first-child:hover{
   position:relative;
   height:fit-content;
   top: -250px;
-  background-color:white;
+  background-color: rgba(250,250,250,0.8) !important;
   z-index:1;
   display:none;
   padding-bottom: 3rem; 
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   border-bottom: 1px solid #eee;
-  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.320, 1.275);
+  transition: 0.2s ease-in-out;
 }
 
 .shop-flydown-menu a{
