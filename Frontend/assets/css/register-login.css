@@ -1,0 +1,26 @@
+.countrychanger{
+  display:flex;
+  flex-direction: row;
+}
+
+.countrychanger span:nth-of-type(2){
+ color: gray;
+ text-decoration: underline;
+padding-left:1rem;
+}
+
+.gather-email input{
+  margin-top:3rem;
+  outline:none;
+  border:none;
+  border-bottom: 1px solid #333;
+  background-color:#fbfbfb;
+  width:34%;
+}
+
+.termsandservices{
+  margin-top:38rem !important;
+}
+.termsandservices tos{
+ text-decoration:underline; 
+}
