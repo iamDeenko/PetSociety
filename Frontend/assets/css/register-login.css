@@ -1,13 +1,4 @@
-.countrychanger{
-  display:flex;
-  flex-direction: row;
-}
 
-.countrychanger span:nth-of-type(2){
- color: gray;
- text-decoration: underline;
-padding-left:1rem;
-}
 
 .gather-email input{
   margin-top:3rem;
@@ -15,12 +6,45 @@ padding-left:1rem;
   border:none;
   border-bottom: 1px solid #333;
   background-color:#fbfbfb;
-  width:34%;
+  width:80%;
+  text-align:center;
+  align-self:center;
 }
 
-.termsandservices{
-  margin-top:38rem !important;
+.register-form{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
 }
+.register-form button{
+  padding: 5px 10px;
+  width:25%;
+  background-color:#333;
+  border:none;
+  outline:none;
+  border-radius:32px;
+  color:white;
+  box-shadow: 0px 2px 4px #eee, 8px 16px 32px #eee;
+  transition: 0.15s ease-in-out;
+  align-self:center;
+}
+
+.register-form button:hover{
+  transform:scale(110%);
+}
+
 .termsandservices tos{
  text-decoration:underline; 
 }
+
+
+
+.namesection input{
+  width:35%;
+}
+
+.dateofbirth input{
+  color: #737373;
+}
+
