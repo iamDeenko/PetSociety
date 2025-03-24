@@ -1,0 +1,181 @@
+.test {
+  height: 800px;
+  display: flex;
+  justify-content: space-between;
+  padding: 5.5rem;
+  font-family: 'SF Pro Rounded';
+}
+
+
+
+.test h1 {
+  color: #333;
+  font-size: 4.7rem;
+  font-stretch: extra-expanded;
+  font-family: 'SF Pro Rounded', monospace;
+  animation: hidetext 1.5s ease-in;
+
+
+    text-shadow: 
+    0 0 100px rgba(51,51,51,0.7),  
+    0 0 500px rgba(51,51,51,0.7),
+    0 0 1000px rgba(51,51,51,0.7);
+    
+    transition: text-shadow 0.5s ease-in-out;
+}
+
+.test h3,
+.test button {
+  animation: hidetext 1.5s ease-in;
+}
+
+.test button {
+  font-family: 'SF Pro Rounded';
+  margin-top: 7rem;
+  font-weight: 700;
+  margin-bottom: 3rem;
+  padding: 1rem 2rem;
+  color: white;
+  border:2px solid  white;
+  border-radius: 16px;
+  background-color: #333333;
+  transition: transform 0.2374211s ease-in-out;
+}
+
+.test button:hover {
+  transform: scale(1.1);
+}
+
+.puppy-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding:5rem;
+}
+
+.puppy-container h3 {
+  margin-top:3rem;
+  text-align: left;
+}
+
+.puppy-container img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Collections Section */
+.test2 h1 {
+  margin-top: 5rem;
+  font-size: 3.7rem;
+  font-stretch: extra-expanded;
+  font-family: 'SF Pro Rounded', monospace;
+  text-align: center;
+}
+
+.shop-items {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 20px;
+  padding: 20px;
+  justify-items: center;
+  align-items: center;
+}
+
+.shop-item-div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.3rem;
+  transition: transform 0.3s ease-in-out;
+  text-align: center;
+}
+
+.shop-item-div:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+}
+
+.item {
+  width: 150px;
+  height: 150px;
+  display: flex;
+  border-radius: 50%;
+  justify-content: center;
+  align-items: center;
+  background-color: #333;
+  font-size: 4rem;
+  color: white;
+}
+
+.shop-item-div h4 {
+  font-size: 1rem;
+  margin-top: 0.5rem;
+}
+
+/* Partners Section */
+.partners-container {
+  width: 100%;
+  height: 300px; /* Increased height */
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Center content */
+}
+
+.partners-marquee {
+  display: flex;
+  gap: 40px; /* Increased gap */
+  animation: scroll 30s linear infinite;
+}
+
+.partners-marquee img {
+  width: 120px; /* Increased image width */
+  object-fit: contain;
+}
+
+
+.aboutus{
+background-color:grey;
+height: 300px;
+
+}
+
+.aboutus h1{
+  font-size: 3.7rem;
+  font-family: 'SF Pro Rounded', monospace;
+}
+
+/* Animations */
+@keyframes scroll {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes hidetext {
+  from {
+    opacity: 25%;
+  }
+  to {
+    opacity: 100%;
+  }
+}
+
+@keyframes bounce {
+  0%,
+50%,
+  100% {
+    transform: translateX(0);
+  }
+  30%,
+  70% {
+    transform: translateX(-2.5px);
+  }
+}
+
+
+
