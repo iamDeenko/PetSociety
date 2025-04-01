@@ -99,7 +99,7 @@ class BaseDao{
                 $_id = "order_id";
                 break;
             default:
-                $_id = rtrim($table, 's') . '_id';
+                $_id = "product_id";
                 break;
         }
 
@@ -125,8 +125,6 @@ class BaseDao{
         $sql = "DELETE FROM " . $this->table . " WHERE " . $this->idColumn . " = :id";
         $stmt = $this->connection->prepare($sql);
         $stmt->bindParam(':id', $id);
-
-
 
         return $stmt->execute();
     }

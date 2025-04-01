@@ -12,12 +12,6 @@ class CategoryDao extends BaseDao {
     }
 
 
-    public function getAllCategories()
-    {
-
-    }
-
-
 }
 
 
