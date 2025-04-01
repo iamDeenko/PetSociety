@@ -63,8 +63,11 @@ class ProductDao extends BaseDao{
 
     private function insertPetDetails($product_id, $details)
     {
-        $sql = "INSERT INTO pet_details (product_id, breed, age, gender, color, health_status, vaccination_status, special_needs)
-            VALUES (:product_id, :breed, :age, :gender, :color, :vaccination_status, :special_needs)";
+        $sql = "INSERT INTO pet_details 
+        (product_id, breed, age, gender, color, health_status, vaccination_status, special_needs)
+        VALUES 
+        (:product_id, :breed, :age, :gender, :color, :health_status, :vaccination_status, :special_needs)";
+
         $stmt = $this->connection->prepare($sql);
         $stmt->execute([
             ':product_id' => $product_id,
@@ -72,11 +75,11 @@ class ProductDao extends BaseDao{
             ':age' => $details['age'],
             ':gender' => $details['gender'],
             ':color' => $details['color'],
+            ':health_status' => $details['health_status'],
             ':vaccination_status' => $details['vaccination_status'],
             ':special_needs' => $details['special_needs']
         ]);
     }
-
 
     private function insertFoodDetails($product_id, $details)
     {

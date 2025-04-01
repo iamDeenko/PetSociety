@@ -10,8 +10,4 @@ class FoodDetailsDao extends BaseDao
         parent::__construct($table);
     }
 
-
-
-
-
 }

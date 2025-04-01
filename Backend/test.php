@@ -1,18 +1,26 @@
 <?php
 
+
+# Base DAO
 require_once './Dao/BaseDao.php';
-require_once './Dao/ProductDao.php';
-require_once './Dao/SubcategoryDao.php';
-require_once './Dao/FoodDetailsDao.php';
+
+
+# Categories DAOs
 require_once './Dao/CategoryDao.php';
+require_once './Dao/SubcategoryDao.php';
+
+
+# Product DAO
+require_once './Dao/ProductDao.php';
+
+
+# Product Details DAOs
+require_once './Dao/FoodDetailsDao.php';
 require_once './Dao/ToyDetailsDao.php';
-
-$productDao = new ProductDao();
-
-$tpd = new ToyDetailsDao();
+require_once './Dao/AccessoriesDetailsDao.php';
+require_once './Dao/PetDetailsDao.php';
 
 
+$productDao = new SubcategoryDao();
 
-
-
-echo print_r($tpd->findBy(['brand'],['ZoomPlay']));
+echo print_r($productDao->findBy(['category_id'],[3], ['name']));
