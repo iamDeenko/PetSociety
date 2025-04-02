@@ -2,7 +2,8 @@
 
 require_once 'Database.php';
 
-class BaseDao{
+class BaseDao
+{
 
     protected $table;
     protected $idColumn;
@@ -15,34 +16,29 @@ class BaseDao{
         $this->connection = Database::connect();
     }
 
-    public function getAll() {
+    public function getAll()
+    {
 
-        try
-        {
+        try {
             $stmt = $this->connection->prepare("SELECT * FROM " . $this->table);
             $stmt->execute();
             return $stmt->fetchAll();
-        }
-        catch (PDOException $exception)
-        {
+        } catch (PDOException $exception) {
             echo $exception->getMessage();
         }
-        }
+    }
 
 
     public function getById($id)
     {
 
-        try
-        {
+        try {
             $stmt = $this->connection->prepare("SELECT * FROM " . $this->table . " WHERE " . $this->idColumn . " = :id");
             $stmt->bindParam(':id', $id);
             $stmt->execute();
 
             return $stmt->fetch();
-        }
-        catch (PDOException $exception)
-        {
+        } catch (PDOException $exception) {
             echo $exception->getMessage();
         }
     }
@@ -50,8 +46,7 @@ class BaseDao{
 
     public function update($id, $data)
     {
-        try
-        {
+        try {
             $fields = '';
 
             foreach ($data as $key => $value) {
@@ -63,13 +58,10 @@ class BaseDao{
             $stmt = $this->connection->prepare($sql);
             $data['id'] = $id;
             return $stmt->execute($data);
-        }
-        catch (PDOException $exception)
-        {
+        } catch (PDOException $exception) {
             echo $exception->getMessage();
         }
     }
-
 
 
     public function convertName($table)
@@ -129,27 +121,23 @@ class BaseDao{
         return $stmt->execute();
     }
 
-
-    public function findBy($whereColumns = [], $whereValues = [], $selectColumns = [])
+    public function findBy($whereColumns = [], $whereValues = [], $selectColumns = [], $orderBy = null, $direction = 'ASC')
     {
         try {
-            // Step 1: Handle SELECT clause
             $select = '*';
             if (!empty($selectColumns)) {
                 $select = implode(', ', $selectColumns);
             }
 
-            // Step 2: Handle WHERE clause
             $sql = "SELECT $select FROM " . $this->table;
 
+            $params = [];
             if (!empty($whereColumns) && !empty($whereValues)) {
                 if (count($whereColumns) !== count($whereValues)) {
                     throw new Exception("Mismatch in number of columns and values.");
                 }
 
                 $conditions = [];
-                $params = [];
-
                 for ($i = 0; $i < count($whereColumns); $i++) {
                     $col = $whereColumns[$i];
                     $val = $whereValues[$i];
@@ -159,10 +147,15 @@ class BaseDao{
 
                 $whereClause = implode(" AND ", $conditions);
                 $sql .= " WHERE $whereClause";
-            } else {
-                $params = [];
             }
 
+            // ORDER BY clause
+
+
+            if (!empty($orderBy)) {
+                $direction = strtoupper($direction) === 'DESC' ? 'DESC' : 'ASC';
+                $sql .= " ORDER BY $orderBy $direction";
+            }
 
             $stmt = $this->connection->prepare($sql);
             $stmt->execute($params);
