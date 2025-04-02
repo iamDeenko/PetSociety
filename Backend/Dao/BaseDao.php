@@ -166,4 +166,10 @@ class BaseDao
             return false;
         }
     }
+
+
+    public function getSpecificFromCategory()
+    {
+
+    }
 }
