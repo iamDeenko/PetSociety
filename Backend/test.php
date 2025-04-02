@@ -39,7 +39,7 @@ if ($productId) {
     exit;
 }
 
-// 4️⃣ READ 
+// 4️⃣ READ
 
 //This function finds ALL products with the name -Test Doggo-
 //Does NOT support joins as of now.
