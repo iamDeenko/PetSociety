@@ -2,7 +2,7 @@
  
   $.spapp = function(options) {
 
-    // set config and routes
+    // set Database.php and routes
     var config, routes = {};
 
     config = $.extend({
