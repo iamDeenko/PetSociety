@@ -63,9 +63,13 @@ class BaseDao
         }
     }
 
-
     public function convertName($table)
     {
+        // Ensure that $table is a string
+        if (!is_string($table)) {
+            throw new InvalidArgumentException("The table name must be a string.");
+        }
+
         $_id = "";
 
         switch (trim($table)) {

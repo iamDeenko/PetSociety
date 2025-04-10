@@ -62,6 +62,16 @@ class ProductDao extends BaseDao{
         }
     }
 
+    public function getAllPets(){
+        $sql = "SELECT *
+                FROM products
+                JOIN PetSociety.subcategories ps ON products.subcategory_id = ps.subcategory_id
+                JOIN PetSociety.categories AS categories ON ps.category_id = categories.category_id
+                WHERE categories.name = 'Pets'";
+        $stmt = $this->connection->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
 
     public function findByCategory($category_name)
     {
@@ -203,6 +213,7 @@ class ProductDao extends BaseDao{
             ':chew_resistance' => $details['chew_resistance']
         ]);
     }
+
 
 
 }
