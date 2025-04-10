@@ -2,6 +2,15 @@
 
 require_once 'Dao/Factory.php';
 
+
+// To test creation of a product in the database use the Factory::make() method.
+// It can make an object of all types in my database.
+
+
+// Then to plug in the values you must understand the schema of the database.
+
+// Follow the template below to put items in the database. Test in your own free will.2
+
 echo "🐾🔧 Starting Full CRUD Test for PET Product 🔧🐾\n\n";
 
 // 1️⃣ Create DAO
