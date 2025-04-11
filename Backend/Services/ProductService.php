@@ -16,34 +16,59 @@ class ProductService
 
     public function createProduct($data)
     {
-        return $this->productDao->createProduct($data);
+        try {
+            return $this->productDao->createProduct($data);
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        }
     }
 
     public function getAll()
     {
-        return $this->productDao->getAll();
+        try {
+            return $this->productDao->getAll();
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        }
     }
 
 
     public function getAllToys()
     {
-        return $this->productDao->getAllToys();
+        try {
+
+            return $this->productDao->getAllToys();
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        }
     }
 
 
     public function getAllAccessorries()
     {
-        return $this->productDao->getAllAccessories();
+        try {
+            return $this->productDao->getAllAccessories();
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        }
     }
 
     public function getAllFood()
     {
-        return $this->productDao->getAllFood();
+        try {
+            return $this->productDao->getAllFood();
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        }
     }
 
     public function getAllPets()
     {
-        return $this->productDao->getAllPets();
+        try {
+            return $this->productDao->getAllPets();
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        }
     }
 
 }

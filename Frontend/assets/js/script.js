@@ -10,13 +10,20 @@ shopmenu.addEventListener('mouseover', () => {
   shopFlyDownMenu.classList.add('show');
   navbar.style.borderBottom = 'none';
   navbar.style.boxShadow = 'none';
+
+
 });
+
+
 
 
 shopFlyDownMenu.addEventListener('mouseleave', () => {
   shopFlyDownMenu.classList.remove('show');
   navbar.style.borderBottom = '1px solid #eee';
   navbar.style.boxShadow = '0 1px 3px rgba(0, 0, 0, 0.1)';
+
+  console.log("123");
+
 });
 
 shoppingCartDiv.addEventListener('click', () => {
@@ -24,6 +31,7 @@ shoppingCartDiv.addEventListener('click', () => {
   cartflyout.classList.add('active');
   cartflyout.style.display = 'flex';
   shoppingCartDiv.style.display = 'none';
+  console.log("123");
 });
 
 closeCart.forEach(span => {

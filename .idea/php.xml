@@ -15,7 +15,15 @@
       <phpcs_by_interpreter asDefaultInterpreter="true" interpreter_id="e0e5c237-bb27-4be4-987c-d18116a23fe7" timeout="30000" />
     </phpcs_settings>
   </component>
-  <component name="PhpProjectSharedConfiguration" php_language_level="7.4" />
+  <component name="PhpIncludePathManager">
+    <include_path>
+      <path value="$PROJECT_DIR$/vendor/flightphp/core" />
+      <path value="$PROJECT_DIR$/vendor/composer" />
+    </include_path>
+  </component>
+  <component name="PhpProjectSharedConfiguration" php_language_level="8.0">
+    <option name="suggestChangeDefaultLanguageLevel" value="false" />
+  </component>
   <component name="PhpStan">
     <PhpStan_settings>
       <phpstan_by_interpreter asDefaultInterpreter="true" interpreter_id="e0e5c237-bb27-4be4-987c-d18116a23fe7" timeout="60000" />
