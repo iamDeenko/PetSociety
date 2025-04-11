@@ -73,65 +73,60 @@ class ProductDao extends BaseDao{
         return $stmt->fetchAll();
     }
 
-    public function findByCategory($category_name)
-    {
-        switch (strtolower($category_name)):
-            case "pets":
-                $sql = "SELECT 
-                            p.*, 
-                            pd.breed, pd.age, pd.gender, pd.color, 
-                            pd.health_status, pd.vaccination_status, pd.special_needs
-                        FROM products p
-                        JOIN subcategories s ON p.subcategory_id = s.subcategory_id
-                        JOIN categories c ON s.category_id = c.category_id
-                        JOIN pet_details pd ON p.product_id = pd.product_id
-                        WHERE c.name = :category_name";
-                break;
-
-            case "food":
-                $sql = "SELECT 
-                            p.*, 
-                            fd.brand, fd.weight, fd.ingredients, fd.nutritional_info,
-                            fd.age_group, fd.pet_type, fd.dietary_type, fd.storage_instructions
-                        FROM products p
-                        JOIN subcategories s ON p.subcategory_id = s.subcategory_id
-                        JOIN categories c ON s.category_id = c.category_id
-                        JOIN food_details fd ON p.product_id = fd.product_id
-                        WHERE c.name = :category_name";
-                break;
-
-            case "toys":
-                $sql = "SELECT 
-                            p.*, 
-                            td.brand, td.material, td.pet_type, td.age_recommendation,
-                            td.durability_rating, td.chew_resistance
-                        FROM products p
-                        JOIN subcategories s ON p.subcategory_id = s.subcategory_id
-                        JOIN categories c ON s.category_id = c.category_id
-                        JOIN toys_details td ON p.product_id = td.product_id
-                        WHERE c.name = :category_name";
-                break;
-
-            case "accessories":
-                $sql = "SELECT 
-                            p.*, 
-                            ad.brand, ad.material, ad.color, ad.size, ad.pet_type
-                        FROM products p
-                        JOIN subcategories s ON p.subcategory_id = s.subcategory_id
-                        JOIN categories c ON s.category_id = c.category_id
-                        JOIN accessories_details ad ON p.product_id = ad.product_id
-                        WHERE c.name = :category_name";
-                break;
-
-            default:
-                throw new Exception("Category '$category_name' is not supported.");
-        endswitch;
+    public function getAllProducts(){
+        $sql = "SELECT * FROM products";
 
         $stmt = $this->connection->prepare($sql);
-        $stmt->bindParam(':category_name', $category_name);
         $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return $stmt->fetchAll();
     }
+
+
+    public function getAllToys(){
+        $sql = "SELECT *
+                FROM products
+                JOIN PetSociety.subcategories ps ON products.subcategory_id = ps.subcategory_id
+                JOIN PetSociety.categories AS categories ON ps.category_id = categories.category_id
+                WHERE categories.name = 'Pets'";
+
+        $stmt = $this->connection->prepare($sql);
+
+        $stmt->execute();
+
+        return $stmt->fetchAll();
+    }
+
+
+    public function getAllAccessories(){
+        $sql = "SELECT *
+                FROM products
+                JOIN PetSociety.subcategories ps ON products.subcategory_id = ps.subcategory_id
+                JOIN PetSociety.categories AS categories ON ps.category_id = categories.category_id
+                WHERE categories.name = 'Accessories'";
+
+        $stmt = $this->connection->prepare($sql);
+
+        $stmt->execute();
+
+        return $stmt->fetchAll();
+    }
+
+
+    public function getAllFood(){
+        $sql = "SELECT *
+                FROM products
+                JOIN PetSociety.subcategories ps ON products.subcategory_id = ps.subcategory_id
+                JOIN PetSociety.categories AS categories ON ps.category_id = categories.category_id
+                WHERE categories.name = 'Food'";
+
+        $stmt = $this->connection->prepare($sql);
+
+        $stmt->execute();
+
+        return $stmt->fetchAll();
+    }
+
 
 
     private function insertPetDetails($product_id, $details)
