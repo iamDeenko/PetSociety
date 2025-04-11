@@ -5,14 +5,15 @@
     <meta charset="utf-8">
 
     <!-- CSS styles -->
-    <link rel="stylesheet" href="./assets/css/fonts.css">
-    <link rel="stylesheet" href="./assets/css/shop.css">
-    <link rel="stylesheet" href="./assets/css/index.css">
-    <link rel="stylesheet" href="./assets/css/hero.css">
-    <link rel="stylesheet" href="./assets/css/register-login.css">
-    <link rel="stylesheet" href="./assets/css/product.css">
+    <link rel="stylesheet" href="/assets/css/fonts.css">
+    <link rel="stylesheet" href="/assets/css/shop.css">
+    <link rel="stylesheet" href="/assets/css/index.css">
+    <link rel="stylesheet" href="/assets/css/hero.css">
+    <link rel="stylesheet" href="/assets/css/register-login.css">
+    <link rel="stylesheet" href="/assets/css/product.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../node_modules/@fortawesome/fontawesome-free/css/all.min.css">
+    <base href="/" />
 </head>
 <body>
 
@@ -96,9 +97,9 @@
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://unpkg.com/navigo@8"></script>
-<script src="./assets/js/script.js"></script>
+<script src="/assets/js/script.js"></script>
 
-<script src="./assets/js/navigation.js"></script>
+<script src="/assets/js/navigation.js"></script>
 
 </body>
 </html>

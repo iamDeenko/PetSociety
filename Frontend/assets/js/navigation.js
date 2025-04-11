@@ -19,10 +19,8 @@ router
     .on('/register', () => loadPage('register'))
     .on('/login', () => loadPage('login'))
     .on('/shop', () => loadPage('view_dogs'))
-    .on('/shop/pets/:type', (params) => {
-        console.log("Subcategory:", params.type);
-        loadPage('view_dogs');
-    })
+    .on('/shop/pets/dogs', () => loadPage('view_dogs'))
+    .on('/shop/pets/cats', () => loadPage('view_dogs'))
     .on('/product', () => loadPage('view_product'))
     .notFound(() => {
         document.getElementById('app').innerHTML = '<h1>404 - Not Found</h1>';
