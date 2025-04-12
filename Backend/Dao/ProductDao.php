@@ -88,7 +88,7 @@ class ProductDao extends BaseDao{
                 FROM products
                 JOIN PetSociety.subcategories ps ON products.subcategory_id = ps.subcategory_id
                 JOIN PetSociety.categories AS categories ON ps.category_id = categories.category_id
-                WHERE categories.name = 'Pets'";
+                WHERE categories.name = 'Toys'";
 
         $stmt = $this->connection->prepare($sql);
 
@@ -332,6 +332,7 @@ class ProductDao extends BaseDao{
 
         $statement->bindParam(":id", $id);
 
+
        return $statement->execute();
     }
 
@@ -364,6 +365,28 @@ class ProductDao extends BaseDao{
 
         return $statement->execute();
     }
+
+
+    public function deleteBy($id, $category_name)
+    {
+        try {
+            $sql = "
+            DELETE products FROM products
+            JOIN subcategories ps ON products.subcategory_id = ps.subcategory_id
+            JOIN categories c ON ps.category_id = c.category_id
+            WHERE c.name = :category_name AND products.product_id = :id
+        ";
+
+            $statement = $this->connection->prepare($sql);
+            $statement->bindParam(':id', $id);
+            $statement->bindParam(':category_name', $category_name);
+            return $statement->execute();
+        } catch (PDOException $e) {
+            error_log("DeleteBy failed: " . $e->getMessage());
+            return false;
+        }
+    }
+
 
 
     public function deleteByFoodId($id)

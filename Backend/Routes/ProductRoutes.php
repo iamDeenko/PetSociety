@@ -66,22 +66,8 @@ Flight::route('GET /shop/pets/@id', function($id) {
 
 
 // DELETE routes
-Flight::route('DELETE /shop/pets/@id', function($id) {
-    $service = new ProductService();
-    $deleted = $service->deleteByPetId($id);
-});
 
-Flight::route('DELETE /shop/food/@id', function($id) {
-    $service = new ProductService();
-    $deleted = $service->delete($id);
-});
-
-Flight::route('DELETE /shop/accessories/@id', function($id) {
-    $service = new ProductService();
-    $deleted = $service->delete($id);
-});
-
-Flight::route('DELETE /shop/toys/@id', function($id) {
-    $service = new ProductService();
-    $deleted = $service->delete($id);
+Flight::route('DELETE /shop/@category_name/@id', function ($id, $category_name){
+   $service = new ProductService();
+   $service->deleteBy($id, $category_name);
 });

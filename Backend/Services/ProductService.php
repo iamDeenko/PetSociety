@@ -183,5 +183,11 @@ class ProductService
             return false;
         }
     }
+
+
+    public function deleteBy($id, $category_name)
+    {
+        return $this->productDao->deleteBy($id, $category_name);
+    }
 }
 
