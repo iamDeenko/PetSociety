@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="/assets/css/product.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../node_modules/@fortawesome/fontawesome-free/css/all.min.css">
-    <base href="/" /> 
+    <base href="/" />
 </head>
 <body>
 
