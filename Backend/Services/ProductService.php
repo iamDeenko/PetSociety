@@ -2,6 +2,7 @@
 
 require_once __DIR__ . '/../Dao/Factory.php';
 
+require_once 'BaseService.php';
 
 class ProductService
 {
@@ -10,7 +11,7 @@ class ProductService
 
     public function __construct()
     {
-        $this->productDao = Factory::make("product");
+        $this->productDao = new ProductDao();
     }
 
 
@@ -44,7 +45,7 @@ class ProductService
     }
 
 
-    public function getAllAccessorries()
+    public function getAllAccessories()
     {
         try {
             return $this->productDao->getAllAccessories();
@@ -70,5 +71,64 @@ class ProductService
             echo $e->getMessage();
         }
     }
+
+
+    public function getById($id)
+    {
+        try {
+            return $this->productDao->getById($id);
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        }
+    }
+
+
+    public function getPetById($id)
+    {
+        try {
+            return $this->productDao->getPetById($id);
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        }
+    }
+
+    public function getFoodById($id)
+    {
+        try {
+            return $this->productDao->getFoodById($id);
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        }
+    }
+
+    public function getToyById($id)
+    {
+        try {
+            return $this->productDao->getToyById($id);
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        }
+    }
+
+    public function getAccessoryById($id)
+    {
+        try {
+            return $this->productDao->getAccessoryById($id);
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        }
+    }
+
+
+    public function getByName($name)
+    {
+        try{
+            return $this->productDao->getByName($name);
+        } catch (Exception $exception){
+            return $exception->getMessage();
+        }
+    }
+
+
 
 }

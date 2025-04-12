@@ -30,7 +30,7 @@ class Factory
             case 'basedao':
                 return new BaseDao();
             default:
-                throw new Exception("Factory Error: DAO for '{$item}' not found.");
+                throw new Exception("Factory Error: DAO for '{$item}' not found. {TIP: `USE SINGULAR NAMES: e.g product`");
         }
     }
 }

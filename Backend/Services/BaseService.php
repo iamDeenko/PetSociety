@@ -26,7 +26,7 @@ class BaseService
     public function getById($id)
     {
         try {
-            $this->baseDao->getById($id);
+            return $this->baseDao->getById($id);
         } catch (Exception $e){
             return $e->getMessage();
         }
@@ -37,7 +37,7 @@ class BaseService
     public function getAll()
     {
         try{
-            $this->baseDao->getAll();
+            return $this->baseDao->getAll();
         } catch (Exception $e){
             return $e->getMessage();
         }
@@ -47,7 +47,7 @@ class BaseService
     public function delete($id)
     {
         try{
-            $this->baseDao->delete();
+           return $this->baseDao->delete();
         } catch (Exception $e){
             return $e->getMessage();
         }

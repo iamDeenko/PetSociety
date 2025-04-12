@@ -5,7 +5,7 @@ require_once "Services/ProductService.php";
 
 $productService = new ProductService();
 
-$res = $productService->
+$res = $productService->getOneByName('Test Doggo');
 
 print_r($res);
 

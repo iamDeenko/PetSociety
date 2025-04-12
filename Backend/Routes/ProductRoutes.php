@@ -7,21 +7,62 @@ require_once __DIR__ . '/../Services/ProductService.php';
 
 
 
-Flight::route('GET /', function(){
-    echo "Working test";
+
+// GET ROUTES //
+
+Flight::route('GET /t', function () {
+   echo "WORKING!";
 });
 
 
-Flight::route('GET /shop/pets/dogs', function(){
-   echo "Test!";
+Flight::route('GET /shop', function(){
+   $service = new ProductService();
+   Flight::json($service->getAll());
 });
 
 
-Flight::route('GET /shopwww', function(){
-   echo "Working!";
+Flight::route('GET /shop/pets', function () {
+    $service = new ProductService();
+    Flight::json($service->getAllPets());
 });
 
 
-Flight::route('GET /shop', function () {
-    echo WORKING_3;
+Flight::route('GET /shop/toys', function () {
+    $service = new ProductService();
+    Flight::json($service->getAllToys());
+});
+
+Flight::route('GET /shop/food', function () {
+    $service = new ProductService();
+    Flight::json($service->getAllFood());
+});
+
+Flight::route('GET /shop/accessories', function () {
+    $service = new ProductService();
+    Flight::json($service->getAllAccessories());
+});
+
+
+Flight::route('GET /shop/toys/@id', function($id) {
+    $service = new ProductService();
+    Flight::json($service->getToyById($id));
+});
+
+Flight::route('GET /shop/accessories/@id', function($id) {
+    $service = new ProductService();
+    Flight::json($service->getAccessoryById($id));
+});
+
+Flight::route('GET /shop/food/@id', function($id) {
+    $service = new ProductService();
+    Flight::json($service->getFoodById($id));
+});
+
+
+
+
+
+Flight::route('GET /shop/pets/@id', function($id) {
+    $service = new ProductService();
+    Flight::json($service->getPetById($id));
 });

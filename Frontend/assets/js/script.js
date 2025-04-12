@@ -45,3 +45,5 @@ closeCart.forEach(span => {
   });
 });
 // Add this JavaScript to your script.js file
+
+

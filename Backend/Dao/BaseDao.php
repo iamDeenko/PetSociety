@@ -32,7 +32,7 @@ class BaseDao
     public function getById($id)
     {
 
-        if(!id) throw new Exception("ERROR::No_Data");
+        if(!$id) throw new Exception("ERROR::No_Data");
 
         try {
             $stmt = $this->connection->prepare("SELECT * FROM " . $this->table . " WHERE " . $this->idColumn . " = :id");
@@ -49,7 +49,7 @@ class BaseDao
     public function update($id, $data)
     {
 
-        if(!id || !data) throw new Exception("ERROR::No_Data");
+        if(!$id || !$data) throw new Exception("ERROR::No_Data");
 
 
         try {

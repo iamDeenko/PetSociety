@@ -127,6 +127,117 @@ class ProductDao extends BaseDao{
         return $stmt->fetchAll();
     }
 
+    public function getByName($name)
+    {
+        try {
+
+
+            $sql = "SELECT *
+                FROM products
+                JOIN PetSociety.subcategories ps ON products.subcategory_id = ps.subcategory_id
+                JOIN PetSociety.categories AS categories ON ps.category_id = categories.category_id
+                WHERE categories.name = 'Pets' AND product_id = :id";
+
+            $stmt = $this->connection->prepare($sql);
+            $stmt->bindParam(':id', $id);
+            $stmt->execute();
+
+            return $stmt->fetchAll();
+        } catch (PDOException $e) {
+            error_log("ProductDao::getByName() failed - " . $e->getMessage());
+            return false;
+        }
+    }
+
+
+    public function getPetById($id)
+    {
+        try {
+            $sql = "
+            SELECT *
+            FROM products
+            JOIN subcategories ps ON products.subcategory_id = ps.subcategory_id
+            JOIN categories AS categories ON ps.category_id = categories.category_id
+            WHERE categories.name = 'Pets' AND products.product_id = :id
+        ";
+
+            $stmt = $this->connection->prepare($sql);
+            $stmt->bindParam(':id', $id);
+            $stmt->execute();
+
+            return $stmt->fetch(); // return just one item
+        } catch (PDOException $e) {
+            error_log("ProductDao::getPetById() failed - " . $e->getMessage());
+            return false;
+        }
+    }
+
+    public function getToyById($id)
+    {
+        try {
+            $sql = "
+            SELECT *
+            FROM products
+            JOIN subcategories ps ON products.subcategory_id = ps.subcategory_id
+            JOIN categories AS categories ON ps.category_id = categories.category_id
+            WHERE categories.name = 'Toys' AND products.product_id = :id
+        ";
+
+            $stmt = $this->connection->prepare($sql);
+            $stmt->bindParam(':id', $id);
+            $stmt->execute();
+
+            return $stmt->fetch();
+        } catch (PDOException $e) {
+            error_log("ProductDao::getToyById() failed - " . $e->getMessage());
+            return false;
+        }
+    }
+
+    public function getAccessoryById($id)
+    {
+        try {
+            $sql = "
+            SELECT *
+            FROM products
+            JOIN subcategories ps ON products.subcategory_id = ps.subcategory_id
+            JOIN categories AS categories ON ps.category_id = categories.category_id
+            WHERE categories.name = 'Accessories' AND products.product_id = :id
+        ";
+
+            $stmt = $this->connection->prepare($sql);
+            $stmt->bindParam(':id', $id);
+            $stmt->execute();
+
+            return $stmt->fetch();
+        } catch (PDOException $e) {
+            error_log("ProductDao::getToyById() failed - " . $e->getMessage());
+            return false;
+        }
+    }
+
+    public function getFoodById($id)
+    {
+        try {
+            $sql = "
+            SELECT *
+            FROM products
+            JOIN subcategories ps ON products.subcategory_id = ps.subcategory_id
+            JOIN categories AS categories ON ps.category_id = categories.category_id
+            WHERE categories.name = 'Food' AND products.product_id = :id
+        ";
+
+            $stmt = $this->connection->prepare($sql);
+            $stmt->bindParam(':id', $id);
+            $stmt->execute();
+
+            return $stmt->fetch();
+        } catch (PDOException $e) {
+            error_log("ProductDao::getToyById() failed - " . $e->getMessage());
+            return false;
+        }
+    }
+
 
 
     private function insertPetDetails($product_id, $details)

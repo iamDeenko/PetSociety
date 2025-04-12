@@ -1,5 +1,5 @@
 RewriteEngine On
-RewriteBase /Backend/
+RewriteBase /api/
 
 # If the request is NOT an existing file or folder
 RewriteCond %{REQUEST_FILENAME} !-f
