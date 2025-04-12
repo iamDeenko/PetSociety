@@ -135,7 +135,7 @@ class BaseDao
     public function delete($id)
     {
 
-        if(!id) throw new Exception("ERROR::No_Data");
+        if(!$id) throw new Exception("ERROR::No_Data");
 
         try{
             $sql = "DELETE FROM " . $this->table . " WHERE " . $this->idColumn . " = :id";

@@ -139,6 +139,49 @@ class ProductService
             return false;
         }
     }
+
+    public function deleteByPetId($id)
+    {
+        try {
+            if (!$id) throw new Exception("ID is required for deletion.");
+            return $this->productDao->deleteByPetId($id);
+        } catch (Exception $e) {
+            error_log("Delete Error: " . $e->getMessage());
+            return false;
+        }
+    }
+
+    public function deleteByFoodId($id)
+    {
+        try {
+            if (!$id) throw new Exception("ID is required for deletion.");
+            return $this->productDao->deleteByFoodId($id);
+        } catch (Exception $e) {
+            error_log("Delete Error: " . $e->getMessage());
+            return false;
+        }
+    }
+
+    public function deleteByAccessoryId($id)
+    {
+        try {
+            if (!$id) throw new Exception("ID is required for deletion.");
+            return $this->productDao->deleteByAccessoryId($id);
+        } catch (Exception $e) {
+            error_log("Delete Error: " . $e->getMessage());
+            return false;
+        }
+    }
+
+    public function deleteByToyId($id)
+    {
+        try {
+            if (!$id) throw new Exception("ID is required for deletion.");
+            return $this->productDao->deleteByToyId($id);
+        } catch (Exception $e) {
+            error_log("Delete Error: " . $e->getMessage());
+            return false;
+        }
+    }
 }
 
-}

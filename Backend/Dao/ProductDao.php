@@ -321,5 +321,63 @@ class ProductDao extends BaseDao{
     }
 
 
+    public function deleteByPetId($id)
+    {
+        $sql = "DELETE FROM products
+            JOIN subcategories ps ON products.subcategory_id = ps.subcategory_id
+            JOIN categories AS categories ON ps.category_id = categories.category_id
+            WHERE categories.name = 'Food' AND products.product_id = :id";
+
+        $statement = $this->connection->prepare($sql);
+
+        $statement->bindParam(":id", $id);
+
+       return $statement->execute();
+    }
+
+
+    public function deleteByToyId($id)
+    {
+        $sql = "DELETE FROM products
+            JOIN subcategories ps ON products.subcategory_id = ps.subcategory_id
+            JOIN categories AS categories ON ps.category_id = categories.category_id
+            WHERE categories.name = 'Toys' AND products.product_id = :id";
+
+        $statement = $this->connection->prepare($sql);
+
+        $statement->bindParam(":id", $id);
+
+        return $statement->execute();
+    }
+
+
+    public function deleteByAccessoryId($id)
+    {
+        $sql = "DELETE FROM products
+            JOIN subcategories ps ON products.subcategory_id = ps.subcategory_id
+            JOIN categories AS categories ON ps.category_id = categories.category_id
+            WHERE categories.name = 'Accessories' AND products.product_id = :id";
+
+        $statement = $this->connection->prepare($sql);
+
+        $statement->bindParam(":id", $id);
+
+        return $statement->execute();
+    }
+
+
+    public function deleteByFoodId($id)
+    {
+        $sql = "DELETE FROM products
+            JOIN subcategories ps ON products.subcategory_id = ps.subcategory_id
+            JOIN categories AS categories ON ps.category_id = categories.category_id
+            WHERE categories.name = 'Food' AND products.product_id = :id";
+
+        $statement = $this->connection->prepare($sql);
+
+        $statement->bindParam(":id", $id);
+
+        return $statement->execute();
+    }
 
 }
