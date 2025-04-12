@@ -129,6 +129,16 @@ class ProductService
         }
     }
 
-
+    public function delete($id)
+    {
+        try {
+            if (!$id) throw new Exception("ID is required for deletion.");
+            return $this->productDao->delete($id);
+        } catch (Exception $e) {
+            error_log("Delete Error: " . $e->getMessage());
+            return false;
+        }
+    }
+}
 
 }

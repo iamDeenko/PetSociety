@@ -58,11 +58,27 @@ Flight::route('GET /shop/food/@id', function($id) {
     Flight::json($service->getFoodById($id));
 });
 
-
-
-
-
 Flight::route('GET /shop/pets/@id', function($id) {
     $service = new ProductService();
     Flight::json($service->getPetById($id));
+});
+
+
+
+// DELETE routes
+Flight::route('DELETE /shop/pets/@id', function($id) {
+    $service = new ProductService();
+    $result = $service->delete($id);
+
+    if ($result) {
+        Flight::json([
+            'status' => 'success',
+            'message' => "Deleted product with ID $id"
+        ]);
+    } else {
+        Flight::json([
+            'status' => 'error',
+            'message' => "Failed to delete product with ID $id"
+        ], 500);
+    }
 });

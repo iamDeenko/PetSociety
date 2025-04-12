@@ -23,7 +23,7 @@
         <div class="col-md-2">
             <span class="navbar-brand">PetSociety</span>
         </div>
-        <div class="col-md-4 d-flex align-items-center gap-5 navbar-links">
+        <div class="col-md-4 d-flex align-items-r gap-5 navbar-links">
             <a href="/" data-navigo>Home</a>
             <a href="/shop" id="menu-shop" data-navigo>Shop</a>
             <a href="/register" data-navigo>Register</a>
