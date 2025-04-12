@@ -5,7 +5,7 @@ require_once "Services/ProductService.php";
 
 $productService = new ProductService();
 
-$res = $productService->getAllAccessorries();
+$res = $productService->
 
 print_r($res);
 

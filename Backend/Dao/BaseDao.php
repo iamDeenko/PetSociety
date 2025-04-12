@@ -32,6 +32,8 @@ class BaseDao
     public function getById($id)
     {
 
+        if(!id) throw new Exception("ERROR::No_Data");
+
         try {
             $stmt = $this->connection->prepare("SELECT * FROM " . $this->table . " WHERE " . $this->idColumn . " = :id");
             $stmt->bindParam(':id', $id);
@@ -46,6 +48,10 @@ class BaseDao
 
     public function update($id, $data)
     {
+
+        if(!id || !data) throw new Exception("ERROR::No_Data");
+
+
         try {
             $fields = '';
 
@@ -105,24 +111,41 @@ class BaseDao
 
     public function create($data)
     {
-        $columns = implode(", ", array_keys($data));
-        $placeholders = ":" . implode(", :", array_keys($data));
+
+        if(!$data) throw new Exception("ERROR::No_Data");
 
 
-        $sql = "INSERT INTO " . $this->table . " ($columns) VALUES ($placeholders)";
-        $stmt = $this->connection->prepare($sql);
+        try{
+            $columns = implode(", ", array_keys($data));
+            $placeholders = ":" . implode(", :", array_keys($data));
 
-        return $stmt->execute($data);
+
+            $sql = "INSERT INTO " . $this->table . " ($columns) VALUES ($placeholders)";
+            $stmt = $this->connection->prepare($sql);
+
+            return $stmt->execute($data);
+
+        } catch (Exception $e){
+            return $e->getMessage();
+        }
+
     }
 
 
     public function delete($id)
     {
-        $sql = "DELETE FROM " . $this->table . " WHERE " . $this->idColumn . " = :id";
-        $stmt = $this->connection->prepare($sql);
-        $stmt->bindParam(':id', $id);
 
-        return $stmt->execute();
+        if(!id) throw new Exception("ERROR::No_Data");
+
+        try{
+            $sql = "DELETE FROM " . $this->table . " WHERE " . $this->idColumn . " = :id";
+            $stmt = $this->connection->prepare($sql);
+            $stmt->bindParam(':id', $id);
+
+            return $stmt->execute();
+        } catch (Exception $e){
+            return $e->getMessage();
+        }
     }
 
     public function findBy($whereColumns = [], $whereValues = [], $selectColumns = [], $orderBy = null, $direction = 'ASC')

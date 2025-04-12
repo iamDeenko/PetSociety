@@ -1,5 +1,11 @@
 <?php
 
+const WORKING_3 = "Working!!3!";
+require_once __DIR__ . '/../Services/ProductService.php';
+
+
+
+
 
 Flight::route('GET /', function(){
     echo "Working test";
@@ -16,3 +22,6 @@ Flight::route('GET /shopwww', function(){
 });
 
 
+Flight::route('GET /shop', function () {
+    echo WORKING_3;
+});
