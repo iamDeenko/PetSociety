@@ -1,0 +1,33 @@
+.product-view img {
+  width: 100%;
+  height: auto;
+  background-color: rgba(245, 245, 245, 0.53242);
+}
+
+.product-info{
+  gap: 1rem;
+  margin-top: 3rem;
+}
+
+.product-info .product-info-header{
+  color:black;
+  font-size:1.5rem;
+
+}
+
+
+.product-view button{
+  margin-top: 3rem;
+  padding: 5px 10px;
+  background-color: transparent;
+  border: none;
+  width: 25%;
+  align-self: center;
+  border-bottom: 1px solid #333;
+  transition: 0.2s ease-in-out;
+}
+
+.product-view button:hover{
+  transform: scale( 1.04);
+
+}
