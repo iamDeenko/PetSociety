@@ -112,6 +112,22 @@ class ProductDao extends BaseDao{
         return $stmt->fetchAll();
     }
 
+    public function getByCategory($category_name)
+    {
+        $sql = "SELECT * FROM products pr
+                JOIN subcategories ps ON pr.subcategory_id = ps.subcategory_id
+                JOIN categories c ON ps.category_id = c.category_id
+                WHERE c.name = :category_name
+            ";
+
+        $statement = $this->connection->prepare($sql);
+
+        $statement->bindParam('category_name', $category_name);
+
+        $statement->execute();
+
+        return $statement->fetchAll();
+    }
 
     public function getAllFood(){
         $sql = "SELECT *
@@ -144,27 +160,6 @@ class ProductDao extends BaseDao{
         return $statement->fetchAll();
 
 
-    }
-    public function getByName($name)
-    {
-        try {
-
-
-            $sql = "SELECT *
-                FROM products
-                JOIN PetSociety.subcategories ps ON products.subcategory_id = ps.subcategory_id
-                JOIN PetSociety.categories AS categories ON ps.category_id = categories.category_id
-                WHERE categories.name = 'Pets' AND product_id = :id";
-
-            $stmt = $this->connection->prepare($sql);
-            $stmt->bindParam(':id', $id);
-            $stmt->execute();
-
-            return $stmt->fetchAll();
-        } catch (PDOException $e) {
-            error_log("ProductDao::getByName() failed - " . $e->getMessage());
-            return false;
-        }
     }
 
 

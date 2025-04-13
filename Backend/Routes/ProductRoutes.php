@@ -1,10 +1,7 @@
 <?php
 
-const WORKING_3 = "Working!!3!";
+
 require_once __DIR__ . '/../Services/ProductService.php';
-
-
-
 
 
 
@@ -22,6 +19,11 @@ Flight::route('GET /shop/@category_name/@id', function ($category_name, $id){
 });
 
 
+Flight::route('GET /shop/@category_name', function($category_name){
+    $service = new ProductService();
+    Flight::json($service->getByCategory($category_name));
+});
+
 
 // DELETE routes
 
@@ -30,3 +32,4 @@ Flight::route('DELETE /shop/@category_name/@id', function ($category_name, $id){
    echo "SEMPRA";
    $service->deleteBy($category_name, $id);
 });
+
