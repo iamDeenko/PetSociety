@@ -185,9 +185,22 @@ class ProductService
     }
 
 
-    public function deleteBy($id, $category_name)
+    public function deleteBy($category_name, $id)
     {
-        return $this->productDao->deleteBy($id, $category_name);
+        return $this->productDao->deleteBy($category_name, $id);
+    }
+
+    public function getBy($category_name, $id)
+    {
+        try{
+            $res = $this->productDao->getBy($category_name,$id);
+            if($res){
+                return $res;
+            }
+        } catch (Exception $e){
+            Flight::json($e->getMessage());
+        }
+
     }
 }
 

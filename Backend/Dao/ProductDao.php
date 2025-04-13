@@ -126,7 +126,25 @@ class ProductDao extends BaseDao{
 
         return $stmt->fetchAll();
     }
+    public function getBy($category_name, $id)
+    {
+        $sql = "SELECT * FROM products pr
+                JOIN subcategories ps ON pr.subcategory_id = ps.subcategory_id
+                JOIN categories c ON ps.category_id = c.category_id
+                WHERE c.name = :category_name AND product_id = :id
+            ";
 
+        $statement = $this->connection->prepare($sql);
+
+        $statement->bindParam('category_name', $category_name);
+        $statement->bindParam('id', $id);
+
+        $statement->execute();
+
+        return $statement->fetchAll();
+
+
+    }
     public function getByName($name)
     {
         try {
@@ -367,22 +385,27 @@ class ProductDao extends BaseDao{
     }
 
 
-    public function deleteBy($id, $category_name)
+    public function deleteBy($category_name, $id)
     {
         try {
             $sql = "
-            DELETE products FROM products
-            JOIN subcategories ps ON products.subcategory_id = ps.subcategory_id
-            JOIN categories c ON ps.category_id = c.category_id
-            WHERE c.name = :category_name AND products.product_id = :id
+                DELETE pr
+                       FROM products pr
+                JOIN subcategories ps ON pr.subcategory_id = ps.subcategory_id
+                JOIN categories c ON ps.category_id = c.category_id
+                WHERE c.name = :category_name AND pr.product_id = :id
+                       
+                       
         ";
 
-            $statement = $this->connection->prepare($sql);
-            $statement->bindParam(':id', $id);
-            $statement->bindParam(':category_name', $category_name);
-            return $statement->execute();
+           $statement = $this->connection->prepare($sql);
+
+            $statement->bindParam('category_name', $category_name);
+            $statement->bindParam('id', $id);
+
+            $statement->execute();
         } catch (PDOException $e) {
-            error_log("DeleteBy failed: " . $e->getMessage());
+            error_log("❌ DeleteBy failed: " . $e->getMessage());
             return false;
         }
     }
