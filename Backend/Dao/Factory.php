@@ -8,6 +8,7 @@ require_once 'CartItemDao.php';
 require_once 'Database.php';
 require_once 'ProductDao.php';
 require_once 'UserDao.php';
+require_once 'OrderDao.php';
 
 
 class Factory
@@ -33,4 +34,19 @@ class Factory
                 throw new Exception("Factory Error: DAO for '{$item}' not found. {TIP: `USE SINGULAR NAMES: e.g product`");
         }
     }
+
+    public static function make_by_category_ADMIN($item)
+    {
+        switch (strtolower($item)) {
+            case 'shop':
+                return new ProductDao();
+            case 'users':
+                return new UserDao();
+            case 'orders':
+                return new OrderDao();
+            default:
+                throw new Exception("Factory Error: '{$item}' not found. {TIP: `USE SINGULAR NAMES: e.g product`");
+        }
+    }
+
 }

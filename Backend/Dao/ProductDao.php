@@ -62,55 +62,7 @@ class ProductDao extends BaseDao{
         }
     }
 
-    public function getAllPets(){
-        $sql = "SELECT *
-                FROM products
-                JOIN PetSociety.subcategories ps ON products.subcategory_id = ps.subcategory_id
-                JOIN PetSociety.categories AS categories ON ps.category_id = categories.category_id
-                WHERE categories.name = 'Pets'";
-        $stmt = $this->connection->prepare($sql);
-        $stmt->execute();
-        return $stmt->fetchAll();
-    }
 
-    public function getAllProducts(){
-        $sql = "SELECT * FROM products";
-
-        $stmt = $this->connection->prepare($sql);
-        $stmt->execute();
-
-        return $stmt->fetchAll();
-    }
-
-
-    public function getAllToys(){
-        $sql = "SELECT *
-                FROM products
-                JOIN PetSociety.subcategories ps ON products.subcategory_id = ps.subcategory_id
-                JOIN PetSociety.categories AS categories ON ps.category_id = categories.category_id
-                WHERE categories.name = 'Toys'";
-
-        $stmt = $this->connection->prepare($sql);
-
-        $stmt->execute();
-
-        return $stmt->fetchAll();
-    }
-
-
-    public function getAllAccessories(){
-        $sql = "SELECT *
-                FROM products
-                JOIN PetSociety.subcategories ps ON products.subcategory_id = ps.subcategory_id
-                JOIN PetSociety.categories AS categories ON ps.category_id = categories.category_id
-                WHERE categories.name = 'Accessories'";
-
-        $stmt = $this->connection->prepare($sql);
-
-        $stmt->execute();
-
-        return $stmt->fetchAll();
-    }
 
     public function getByCategory($category_name)
     {
@@ -129,19 +81,7 @@ class ProductDao extends BaseDao{
         return $statement->fetchAll();
     }
 
-    public function getAllFood(){
-        $sql = "SELECT *
-                FROM products
-                JOIN PetSociety.subcategories ps ON products.subcategory_id = ps.subcategory_id
-                JOIN PetSociety.categories AS categories ON ps.category_id = categories.category_id
-                WHERE categories.name = 'Food'";
 
-        $stmt = $this->connection->prepare($sql);
-
-        $stmt->execute();
-
-        return $stmt->fetchAll();
-    }
     public function getBy($category_name, $id)
     {
         $sql = "SELECT * FROM products pr
@@ -160,95 +100,6 @@ class ProductDao extends BaseDao{
         return $statement->fetchAll();
 
 
-    }
-
-
-    public function getPetById($id)
-    {
-        try {
-            $sql = "
-            SELECT *
-            FROM products
-            JOIN subcategories ps ON products.subcategory_id = ps.subcategory_id
-            JOIN categories AS categories ON ps.category_id = categories.category_id
-            WHERE categories.name = 'Pets' AND products.product_id = :id
-        ";
-
-            $stmt = $this->connection->prepare($sql);
-            $stmt->bindParam(':id', $id);
-            $stmt->execute();
-
-            return $stmt->fetch(); // return just one item
-        } catch (PDOException $e) {
-            error_log("ProductDao::getPetById() failed - " . $e->getMessage());
-            return false;
-        }
-    }
-
-    public function getToyById($id)
-    {
-        try {
-            $sql = "
-            SELECT *
-            FROM products
-            JOIN subcategories ps ON products.subcategory_id = ps.subcategory_id
-            JOIN categories AS categories ON ps.category_id = categories.category_id
-            WHERE categories.name = 'Toys' AND products.product_id = :id
-        ";
-
-            $stmt = $this->connection->prepare($sql);
-            $stmt->bindParam(':id', $id);
-            $stmt->execute();
-
-            return $stmt->fetch();
-        } catch (PDOException $e) {
-            error_log("ProductDao::getToyById() failed - " . $e->getMessage());
-            return false;
-        }
-    }
-
-    public function getAccessoryById($id)
-    {
-        try {
-            $sql = "
-            SELECT *
-            FROM products
-            JOIN subcategories ps ON products.subcategory_id = ps.subcategory_id
-            JOIN categories AS categories ON ps.category_id = categories.category_id
-            WHERE categories.name = 'Accessories' AND products.product_id = :id
-        ";
-
-            $stmt = $this->connection->prepare($sql);
-            $stmt->bindParam(':id', $id);
-            $stmt->execute();
-
-            return $stmt->fetch();
-        } catch (PDOException $e) {
-            error_log("ProductDao::getToyById() failed - " . $e->getMessage());
-            return false;
-        }
-    }
-
-    public function getFoodById($id)
-    {
-        try {
-            $sql = "
-            SELECT *
-            FROM products
-            JOIN subcategories ps ON products.subcategory_id = ps.subcategory_id
-            JOIN categories AS categories ON ps.category_id = categories.category_id
-            WHERE categories.name = 'Food' AND products.product_id = :id
-        ";
-
-            $stmt = $this->connection->prepare($sql);
-            $stmt->bindParam(':id', $id);
-            $stmt->execute();
-
-            return $stmt->fetch();
-        } catch (PDOException $e) {
-            error_log("ProductDao::getToyById() failed - " . $e->getMessage());
-            return false;
-        }
     }
 
 
@@ -334,51 +185,6 @@ class ProductDao extends BaseDao{
     }
 
 
-    public function deleteByPetId($id)
-    {
-        $sql = "DELETE FROM products
-            JOIN subcategories ps ON products.subcategory_id = ps.subcategory_id
-            JOIN categories AS categories ON ps.category_id = categories.category_id
-            WHERE categories.name = 'Food' AND products.product_id = :id";
-
-        $statement = $this->connection->prepare($sql);
-
-        $statement->bindParam(":id", $id);
-
-
-       return $statement->execute();
-    }
-
-
-    public function deleteByToyId($id)
-    {
-        $sql = "DELETE FROM products
-            JOIN subcategories ps ON products.subcategory_id = ps.subcategory_id
-            JOIN categories AS categories ON ps.category_id = categories.category_id
-            WHERE categories.name = 'Toys' AND products.product_id = :id";
-
-        $statement = $this->connection->prepare($sql);
-
-        $statement->bindParam(":id", $id);
-
-        return $statement->execute();
-    }
-
-
-    public function deleteByAccessoryId($id)
-    {
-        $sql = "DELETE FROM products
-            JOIN subcategories ps ON products.subcategory_id = ps.subcategory_id
-            JOIN categories AS categories ON ps.category_id = categories.category_id
-            WHERE categories.name = 'Accessories' AND products.product_id = :id";
-
-        $statement = $this->connection->prepare($sql);
-
-        $statement->bindParam(":id", $id);
-
-        return $statement->execute();
-    }
-
 
     public function deleteBy($category_name, $id)
     {
@@ -407,18 +213,5 @@ class ProductDao extends BaseDao{
 
 
 
-    public function deleteByFoodId($id)
-    {
-        $sql = "DELETE FROM products
-            JOIN subcategories ps ON products.subcategory_id = ps.subcategory_id
-            JOIN categories AS categories ON ps.category_id = categories.category_id
-            WHERE categories.name = 'Food' AND products.product_id = :id";
-
-        $statement = $this->connection->prepare($sql);
-
-        $statement->bindParam(":id", $id);
-
-        return $statement->execute();
-    }
 
 }
