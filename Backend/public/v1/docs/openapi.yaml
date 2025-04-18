@@ -68,7 +68,7 @@ paths:
 
   /admin/{category}:
     get:
-      summary: Get all admin-level data for a category
+      summary: Get all admin-level data for a category [SHOP, USERS, ORDERS]
       tags: [Admin]
       parameters:
         - name: category
@@ -79,6 +79,7 @@ paths:
       responses:
         '200':
           description: Admin data
+
 
   /admin/users/{id}:
     get:

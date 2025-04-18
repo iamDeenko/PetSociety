@@ -11,6 +11,36 @@ class ProductDao extends BaseDao{
         parent::__construct($table);
     }
 
+
+    public function getAllProducts()
+    {
+        $sql = "SELECT  pr.* , ps.name AS subcategory_name, c.name AS category_name FROM products pr
+                  JOIN subcategories ps ON pr.subcategory_id = ps.subcategory_id
+                  JOIN categories c ON ps.category_id = c.category_id";
+
+        $statement = $this->connection->prepare($sql);
+
+        $statement->execute();
+
+        return $statement->fetchAll();
+    }
+
+
+    public function getBySubcategory($category_name, $subcategory_name)
+    {
+        $sql = "SELECT * FROM products pr
+                  JOIN subcategories ps ON pr.subcategory_id = ps.subcategory_id
+                  JOIN categories c ON ps.category_id = c.category_id where c.name = :category_name AND ps.name = :subcategory_name";
+
+        $statement = $this->connection->prepare($sql);
+
+        $statement->bindParam(':category_name', $category_name);
+        $statement->bindParam(':subcategory_name', $subcategory_name);
+
+        $statement->execute();
+
+        return $statement->fetchAll();
+    }
     public function createProduct($data)
     {
         try {

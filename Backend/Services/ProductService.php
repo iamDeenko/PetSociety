@@ -24,10 +24,18 @@ class ProductService
         }
     }
 
-    public function getAll()
+    public function getAllProducts()
     {
         try {
-            return $this->productDao->getAll();
+            return $this->productDao->getAllProducts();
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        }
+    }
+
+    public function getBySubcategory($category_name, $subcategory_name){
+        try {
+            return $this->productDao->getBySubcategory($category_name, $subcategory_name);
         } catch (Exception $e) {
             echo $e->getMessage();
         }
