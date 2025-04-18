@@ -38,14 +38,14 @@ class Factory
     public static function make_by_category_ADMIN($item)
     {
         switch (strtolower($item)) {
-            case 'shop':
+            case 'products':
                 return new ProductDao();
             case 'users':
                 return new UserDao();
             case 'orders':
                 return new OrderDao();
             default:
-                throw new Exception("Factory Error: '{$item}' not found. {TIP: `USE SINGULAR NAMES: e.g product`");
+                throw new Exception("Factory Error: '{$item}' not found. {TIP: `USE PLURAL NAMES: e.g productS`");
         }
     }
 

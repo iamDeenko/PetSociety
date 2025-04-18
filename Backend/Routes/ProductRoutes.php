@@ -6,13 +6,15 @@ require_once __DIR__ . '/../Services/UserService.php';
 
 
 
+
 // GET ROUTES //
+
+
 
 Flight::route('GET /shop', function(){
    $service = new ProductService();
     print_r($service->getAllProducts());
 });
-
 
 Flight::route('GET /shop/@category_name/@id', function ($category_name, $id){
    $service = new ProductService();
@@ -26,9 +28,24 @@ Flight::route('GET /shop/@category_name', function($category_name){
 });
 
 
+
+
+
+
+
+
+
+
+// ADMIN ROUTES
+
 Flight::route('GET /admin/@category', function ($category){
     $service = Factory::make_by_category_ADMIN($category);
-    Flight::json($service->getAllProducts());
+    Flight::json(print_r($service->getAll()));
+});
+
+Flight::route('GET /admin/@category/@subcategory', function ($category_name, $subcategory_name){
+    $service = Factory::make_by_category_ADMIN($category_name);
+    Flight::json(print_r($service->getBySubcategory($category_name, $subcategory_name)));
 });
 
 Flight::route('GET /admin/users/@id', function ($id){
@@ -39,10 +56,7 @@ Flight::route('GET /admin/users/@id', function ($id){
 
 
 
-
 // POST routes
-
-
 
 
 Flight::route('POST /register', function(){
@@ -51,13 +65,5 @@ Flight::route('POST /register', function(){
 
 
 
-
-// DELETE routes
-
-Flight::route('DELETE /shop/@category_name/@id', function ($category_name, $id){
-   $service = new ProductService();
-   echo "SEMPRA";
-   $service->deleteBy($category_name, $id);
-});
 
 
