@@ -1,0 +1,106 @@
+openapi: 3.0.0
+info:
+  title: PetSociety API
+  description: API documentation for PetSociety project.
+  version: 1.0.0
+
+servers:
+  - url: http://localhost/api
+
+paths:
+  /shop:
+    get:
+      summary: Get all products
+      tags: [Shop]
+      responses:
+        '200':
+          description: List of all products
+
+  /shop/{category_name}/{id}:
+    get:
+      summary: Get product by category and ID
+      tags: [Shop]
+      parameters:
+        - name: category_name
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Product data
+    delete:
+      summary: Delete a product by category and ID
+      tags: [Shop]
+      parameters:
+        - name: category_name
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Deletion result
+
+  /shop/{category_name}:
+    get:
+      summary: Get all products in a category
+      tags: [Shop]
+      parameters:
+        - name: category_name
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Products by category
+
+  /admin/{category}:
+    get:
+      summary: Get all admin-level data for a category
+      tags: [Admin]
+      parameters:
+        - name: category
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Admin data
+
+  /admin/users/{id}:
+    get:
+      summary: Get all orders for a user
+      tags: [Admin]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: User order data
+
+  /register:
+    post:
+      summary: Register a new user
+      tags: [Auth]
+      requestBody:
+        description: User data
+        required: false
+      responses:
+        '200':
+          description: Register echo

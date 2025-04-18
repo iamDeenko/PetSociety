@@ -10,7 +10,7 @@ require_once __DIR__ . '/../Services/UserService.php';
 
 Flight::route('GET /shop', function(){
    $service = new ProductService();
-   Flight::json($service->getAll());
+    print_r($service->getAll());
 });
 
 
@@ -22,7 +22,7 @@ Flight::route('GET /shop/@category_name/@id', function ($category_name, $id){
 
 Flight::route('GET /shop/@category_name', function($category_name){
     $service = new ProductService();
-    Flight::json($service->getByCategory($category_name));
+    print_r($service->getAll());
 });
 
 Flight::route('GET /admin/@category', function ($category){
