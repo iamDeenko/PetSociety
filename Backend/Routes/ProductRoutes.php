@@ -7,9 +7,12 @@ require_once __DIR__ . '/../Services/UserService.php';
 
 
 
-// GET ROUTES //
+// SHOP ROUTES //
 
 
+
+
+// GET //
 
 Flight::route('GET /shop', function(){
    $service = new ProductService();
@@ -30,40 +33,32 @@ Flight::route('GET /shop/@category_name', function($category_name){
 
 
 
+// ADMIN ROUTES //
 
+// GET //
 
-
-
-
-
-// ADMIN ROUTES
-
-Flight::route('GET /admin/@category', function ($category){
-    $service = Factory::make_by_category_ADMIN($category);
-    Flight::json(print_r($service->getAll()));
+Flight::route('GET /admin/product/@id', function ($id){
+    $service = Factory::make('product');
+    Flight::json($service->getById($id));
 });
 
-Flight::route('GET /admin/@category/@subcategory', function ($category_name, $subcategory_name){
-    $service = Factory::make_by_category_ADMIN($category_name);
+Flight::route('GET /admin/products/@category/@subcategory', function ($category_name, $subcategory_name){
+    $service = Factory::make('product');
     Flight::json(print_r($service->getBySubcategory($category_name, $subcategory_name)));
 });
 
-Flight::route('GET /admin/users/@id', function ($id){
-    $service = new UserService();
-    Flight::json($service->getUserOrders($id));
+Flight::route('GET /admin/user/@id', function ($id) {
+    $service = new UserDao();
+    Flight::json(print_r($service->getById($id)));
 });
 
-
-
-
-// POST routes
-
-
-Flight::route('POST /register', function(){
-    echo "ECHO ECHO";
+Flight::route('GET /admin/user/@id/orders', function ($id){
+    $service = new UserDao();
+    Flight::json(print_r($service->getUserOrders($id)));
 });
 
-
-
-
+Flight::route('GET /admin/users', function () {
+    $service = new UserDao();
+    Flight::json(print_r($service->getAll()));
+});
 
