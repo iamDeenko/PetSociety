@@ -4,7 +4,7 @@ require_once __DIR__ . '/../Dao/Factory.php';
 
 require_once 'BaseService.php';
 
-class ProductService
+class ProductService extends BaseService
 {
 
     private ProductDao $productDao;
@@ -65,6 +65,11 @@ class ProductService
         return $this->productDao->getByCategory($category_name);
     }
 
+
+    public function getById($id)
+    {
+        return $this->productDao->getById($id);
+    }
     public function getBy($category_name, $id)
     {
         try{

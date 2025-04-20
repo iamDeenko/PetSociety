@@ -133,6 +133,19 @@ class ProductDao extends BaseDao{
     }
 
 
+    public function getById($id)
+    {
+        $sql = 'SELECT * FROM products WHERE product_id = :product_id';
+
+        $statement = $this->connection->prepare($sql);
+
+        $statement->bindParam('product_id', $id);
+
+        $statement->execute();
+
+        return $statement->fetchAll();
+    }
+
 
     private function insertPetDetails($product_id, $details)
     {
