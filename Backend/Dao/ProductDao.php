@@ -83,7 +83,6 @@ class ProductDao extends BaseDao{
             }
 
             $this->connection->commit();
-            return $product_id;
 
         } catch (PDOException $e) {
             $this->connection->rollBack();

@@ -42,6 +42,16 @@ Flight::route('GET /admin/users', function () {
 });
 
 
+// POST //
+
+Flight::route('POST /admin/product/new', function ($data = [], ){
+    $service = new ProductService();
+    if($data != empty($data)){
+        $service->createProduct($data);
+    }
+});
+
+
 // DELETE //
 
 Flight::route('DELETE /admin/product/@id', function($id){

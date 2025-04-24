@@ -148,49 +148,5 @@ class BaseDao
         }
     }
 
-    public function findBy($whereColumns = [], $whereValues = [], $selectColumns = [], $orderBy = null, $direction = 'ASC')
-    {
-        try {
-            $select = '*';
-            if (!empty($selectColumns)) {
-                $select = implode(', ', $selectColumns);
-            }
 
-            $sql = "SELECT $select FROM " . $this->table;
-
-            $params = [];
-            if (!empty($whereColumns) && !empty($whereValues)) {
-                if (count($whereColumns) !== count($whereValues)) {
-                    throw new Exception("Mismatch in number of columns and values.");
-                }
-
-                $conditions = [];
-                for ($i = 0; $i < count($whereColumns); $i++) {
-                    $col = $whereColumns[$i];
-                    $val = $whereValues[$i];
-                    $conditions[] = "$col = :$col";
-                    $params[":$col"] = $val;
-                }
-
-                $whereClause = implode(" AND ", $conditions);
-                $sql .= " WHERE $whereClause";
-            }
-
-            // ORDER BY clause
-
-
-            if (!empty($orderBy)) {
-                $direction = strtoupper($direction) === 'DESC' ? 'DESC' : 'ASC';
-                $sql .= " ORDER BY $orderBy $direction";
-            }
-
-            $stmt = $this->connection->prepare($sql);
-            $stmt->execute($params);
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-        } catch (Exception $e) {
-            error_log("Error in findBy: " . $e->getMessage());
-            return false;
-        }
-    }
 }
