@@ -15,6 +15,17 @@
 
 }
 
+.product-item{
+  border-radius: 1rem;
+}
+
+
+.products-items{
+  display: flex;
+  justify-content: space-around;
+  gap: 1rem;
+  align-items: center;
+}
 
 .product-view button{
   margin-top: 3rem;

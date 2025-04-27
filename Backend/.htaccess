@@ -1,0 +1,9 @@
+RewriteEngine On
+RewriteBase /api/
+
+# If the request is NOT an existing file or folder
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Redirect all to api.php
+RewriteRule ^(.*)$ api.php [QSA,L]
