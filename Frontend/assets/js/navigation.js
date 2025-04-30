@@ -28,3 +28,5 @@ router
     .resolve();
 
 router.updatePageLinks().resolve();
+
+

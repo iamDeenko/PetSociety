@@ -5,6 +5,9 @@ const content = document.querySelector('#spapp');
 const shopmenu = document.querySelector('#menu-shop');
 const shopFlyDownMenu = document.querySelector('#shop-flydown-menu');
 const navbar = document.querySelector('#navbar');
+const categoriesdiv = document.querySelector('#categories-div');
+
+
 
 shopmenu.addEventListener('mouseover', () => {
   shopFlyDownMenu.classList.add('show');
@@ -44,6 +47,5 @@ closeCart.forEach(span => {
     }, 100);
   });
 });
-// Add this JavaScript to your script.js file
 
 

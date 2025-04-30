@@ -12,11 +12,13 @@ require_once __DIR__ . '/../Services/UserService.php';
 
 
 
+
+
 // GET //
 
 Flight::route('GET /shop', function(){
    $service = new ProductService();
-    print_r($service->getAllProducts());
+  Flight::json($service->getAllProducts());
 });
 
 Flight::route('GET /shop/@category_name/@id', function ($category_name, $id){

@@ -2,8 +2,8 @@
 class Database{
   private static $host = 'localhost';
   private static $dbName = 'PetSociety';
-  private static $username = 'adminuser';
-  private static $password = 'admin123';
+  private static $username = 'root';
+  private static $password = '';
   private static $connection = null;
 
 

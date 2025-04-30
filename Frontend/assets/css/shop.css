@@ -49,6 +49,11 @@
 }
 
 
+.category-collection{
+  overflow-y: auto;
+  overflow-x: auto;
+  overflow: hidden;
+}
 
 .product-item a {
   text-decoration: none;

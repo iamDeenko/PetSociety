@@ -52,6 +52,20 @@ Flight::route('POST /admin/product/new', function ($data = [], ){
 });
 
 
+
+// PUT //
+
+
+Flight::route('PUT /admin/product/@id', function ($id, $data = []){
+    $service = new ProductService();
+    if($service->getById($id)){
+        if($data != empty($data)){
+            $service->updateProduct($id, $data);
+        }
+    }
+});
+
+
 // DELETE //
 
 Flight::route('DELETE /admin/product/@id', function($id){

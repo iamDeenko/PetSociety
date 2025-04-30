@@ -2,11 +2,15 @@
 
 require_once 'Database.php';
 
+
 class BaseDao
 {
 
     protected $table;
     protected $idColumn;
+
+
+    protected ?PDO $connection;
 
 
     public function __construct($table)
@@ -71,7 +75,9 @@ class BaseDao
 
     public function convertName($table)
     {
-        // Ensure that $table is a string
+        if (empty($table)) {
+            throw new InvalidArgumentException("The table name cannot be empty.");
+        }
         if (!is_string($table)) {
             throw new InvalidArgumentException("The table name must be a string.");
         }
@@ -81,7 +87,7 @@ class BaseDao
         switch (trim($table)) {
             case "products":
                 $_id = "product_id";
-                break;
+                break;sfg
             case "categories":
                 $_id = "category_id";
                 break;
