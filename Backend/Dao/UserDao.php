@@ -25,4 +25,8 @@ class UserDao extends BaseDao
         return $statement->fetchAll();
     }
 
+    public function createOrder(){
+        
+    }
+
 }

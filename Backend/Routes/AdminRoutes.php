@@ -42,6 +42,7 @@ Flight::route('GET /admin/users', function () {
     $service = new AdminService();
     $users = $service->getAllUsers();
 
+    Flight::json($users);
 });
 
 

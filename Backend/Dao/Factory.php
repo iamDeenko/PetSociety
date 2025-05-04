@@ -3,8 +3,8 @@
 require_once 'BaseDao.php';
 
 
-require_once 'CartDao.php';
-require_once 'CartItemDao.php';
+
+
 require_once 'Database.php';
 require_once 'ProductDao.php';
 require_once 'UserDao.php';
@@ -18,10 +18,6 @@ class Factory
         switch (strtolower($item)) {
             case 'product':
                 return new ProductDao();
-            case 'cart':
-                return new CartDao();
-            case 'cartitem':
-                return new CartItemDao();
             case 'order':
                 return new OrderDao();
             case 'orderitem':
