@@ -55,6 +55,17 @@ class ProductService extends BaseService
         }
     }
 
+    public function update($id, $data)
+    {
+        try {
+            if (!$id) throw new Exception("ID is required for update.");
+            return $this->productDao->update($id, $data);
+        } catch (Exception $e) {
+            error_log("Update Error: " . $e->getMessage());
+            return false;
+        }
+    }
+
 
 
     public function deleteBy($category_name, $id)

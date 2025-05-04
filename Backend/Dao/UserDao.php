@@ -13,5 +13,16 @@ class UserDao extends BaseDao
     }
 
 
+    public function getOrders($id){
+        $sql = "SELECT * FROM orders WHERE user_id = :id";
+       
+        $statement = $this->connection->prepare($sql);
+
+        $statement->bindParam(':id', $id);
+
+        $statement->execute();
+
+        return $statement->fetchAll();
+    }
 
 }

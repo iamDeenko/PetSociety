@@ -1,7 +1,7 @@
 <?php
 
 
-class AdminDao extends UserDao {
+class AdminDao extends BaseDao {
 
     protected $table = 'users';
 
@@ -29,7 +29,7 @@ class AdminDao extends UserDao {
 
     public function getAllUsers()
     {
-        $sql = "SELECT * FROM users";
+        $sql = 'SELECT * FROM users';
         $statement = $this->connection->prepare($sql);
 
         $statement->execute();

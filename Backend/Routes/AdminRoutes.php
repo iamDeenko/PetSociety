@@ -1,4 +1,4 @@
-<?php
+'<?php
 
 require_once __DIR__ . '/../Services/AdminService.php';
 
@@ -24,8 +24,9 @@ Flight::route('GET /admin/@category', function ($category_name){
 
 Flight::route('GET /admin/user/@id', function ($id) {
     $service = new AdminService();
+    
     if($service->getById($id)){
-        Flight::json(print_r($service->getById($id)));
+        Flight::json($service->getById($id));
     } else{
         echo "NOT FOUND";
     }
@@ -37,8 +38,10 @@ Flight::route('GET /admin/user/@id/orders', function ($id){
 });
 
 Flight::route('GET /admin/users', function () {
+   
     $service = new AdminService();
-    Flight::json(print_r($service->getAllUsers()));
+    $users = $service->getAllUsers();
+
 });
 
 
@@ -75,14 +78,44 @@ Flight::route('POST /admin/product/new', function ($data = [], ){
 // PUT //
 
 
-Flight::route('PUT /admin/product/@id', function ($id, $data = []){
+Flight::route('PUT /admin/product/@id', function ($id){
     $service = new ProductService();
-    if($service->getById($id)){
-        if($data != empty($data)){
-            $service->update($id, $data);
-        }
+    $request = Flight::request();
+
+
+    $updateData = $request->data->getData();
+
+    // 2. Validate Input Data
+    if (empty($updateData)) {
+        Flight::halt(400, Flight::json(['success' => false, 'message' => 'Bad Request: No update data provided in the request body.']));
+        return; 
+    }
+
+
+    if (empty($id) || !ctype_digit((string)$id)) { 
+         Flight::halt(400, Flight::json(['success' => false, 'message' => 'Bad Request: Invalid or missing product ID.']));
+        return;
+    }
+    $productId = (int)$id;
+
+
+    $existingProduct = $service->getById($productId);
+    if (empty($existingProduct)) { 
+        Flight::halt(404, Flight::json(['success' => false, 'message' => 'Product not found.']));
+        return;
+    }
+
+
+    try {
+        $success = $service->update($productId, $updateData); 
+
+    } catch (Exception $e) {
+
+        error_log($e->getMessage());
+   
     }
 });
+
 
 
 // DELETE //

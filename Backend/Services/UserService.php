@@ -13,10 +13,6 @@ class UserService
     }
 
 
-    public function getAllUsers()
-    {
-        $this->userDao->getAllUsers();
-    }
 
     public function getUserOrders($id)
     {

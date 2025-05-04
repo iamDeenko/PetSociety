@@ -23,8 +23,13 @@
     <nav id="navbar" class="navbar">
         <div class="col-md-12 text-center d-flex justify-content-center align-items-center">
             <div class="col-md-2 d-flex gap-5 justify-content-center align-items-center">
-                <span>Home</span>
-                <span>Shop</span>
+                <span> 
+                    <a href="/">Home</a>
+                </span>
+                <span id="menu-shop">
+                    <a href="/shop/pets/dogs" id="shop-link">Shop</a>
+          
+                </span>
             </div>
             <div class="col-md-4 navbar-brand">
                 PetSociety
