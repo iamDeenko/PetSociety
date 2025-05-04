@@ -19,7 +19,6 @@ shopmenu.addEventListener('mouseover', () => {
 
 
 
-
 shopFlyDownMenu.addEventListener('mouseleave', () => {
   shopFlyDownMenu.classList.remove('show');
   navbar.style.borderBottom = '1px solid #eee';
@@ -49,3 +48,17 @@ closeCart.forEach(span => {
 });
 
 
+
+
+if(
+  $(document).ready()){
+   
+    const appContainer = document.getElementById('app') || document.body; 
+    
+    const test = appContainer.closest('#testid');
+
+    if(test){
+
+      console.log(testid);
+    }
+  }

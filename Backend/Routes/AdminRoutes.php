@@ -3,9 +3,6 @@
 require_once __DIR__ . '/../Services/AdminService.php';
 
 
-Flight::route('GET /admin/smth', function () {
-    echo "TEST";
-});
 
 
 
@@ -17,10 +14,13 @@ Flight::route('GET /admin/product/@id', function ($id){
     Flight::json($service->getById($id));
 });
 
-Flight::route('GET /admin/products/@category/@subcategory', function ($category_name, $subcategory_name){
+
+Flight::route('GET /admin/@category', function ($category_name){
     $service = new ProductService();
-    Flight::json(print_r($service->getBySubcategory($category_name, $subcategory_name)));
+    Flight::json($service->getByCategory($category_name));
 });
+
+
 
 Flight::route('GET /admin/user/@id', function ($id) {
     $service = new AdminService();
@@ -46,8 +46,27 @@ Flight::route('GET /admin/users', function () {
 
 Flight::route('POST /admin/product/new', function ($data = [], ){
     $service = new ProductService();
-    if($data != empty($data)){
-        $service->createProduct($data);
+
+    $request = Flight::request();
+
+    $productData = $request->data->getData();
+
+    if (empty($productData)) {
+        Flight::halt(400, Flight::json(['error' => 'Bad Request: No product data received or invalid format.']));
+        return; // Stop execution
+    }
+
+    try {
+        $newProduct = $service->createProduct($productData); 
+
+        Flight::json($newProduct, 201); 
+        
+
+    } catch (InvalidArgumentException $e) { 
+        Flight::halt(400, Flight::json(['error' => 'Bad Request: ' . $e->getMessage()]));
+    } catch (Exception $e) { 
+
+        Flight::halt(500, Flight::json(['error' => 'Internal Server Error: Could not create product.']));
     }
 });
 
@@ -60,7 +79,7 @@ Flight::route('PUT /admin/product/@id', function ($id, $data = []){
     $service = new ProductService();
     if($service->getById($id)){
         if($data != empty($data)){
-            $service->updateProduct($id, $data);
+            $service->update($id, $data);
         }
     }
 });
@@ -73,7 +92,7 @@ Flight::route('DELETE /admin/product/@id', function($id){
 
     if($service->getById($id)){
         if($service->delete($id)){
-            echo "DELETED!";
+            Flight::json(["status" => "success", "message" => "Product deleted successfully."]);
         }
     }
 });

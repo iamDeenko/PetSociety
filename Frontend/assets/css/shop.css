@@ -1,12 +1,12 @@
-.categories span {
+.categories-shop span {
   color: grey;
 }
-.categories {
+.categories-shop {
   gap: 14px;
   border-bottom: 1px solid #333;
 }
 
-.categories span:hover {
+.categories-shop span:hover {
   cursor: pointer;
   text-decoration: underline;
 }

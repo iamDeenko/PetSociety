@@ -20,6 +20,11 @@ class BaseDao
         $this->connection = Database::connect();
     }
 
+    public function getTable()
+    {
+        return $this->table;
+    }
+
     public function getAll()
     {
 
@@ -87,7 +92,7 @@ class BaseDao
         switch (trim($table)) {
             case "products":
                 $_id = "product_id";
-                break;sfg
+                break;
             case "categories":
                 $_id = "category_id";
                 break;

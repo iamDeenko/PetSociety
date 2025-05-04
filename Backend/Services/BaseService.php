@@ -1,27 +1,19 @@
 <?php
 
-require_once __DIR__ . "/../Dao/Factory.php";
+require_once __DIR__ . "/../Dao/BaseDao.php";
 
 class BaseService
 {
 
     private BaseDao $baseDao;
+    
 
-
-    public function __construct()
+    public function __construct(BaseDao $dao) 
     {
-        $this->baseDao = Factory::make('basedao');
+ 
+        $this->baseDao = $dao;
     }
-
-    public function findBy($whereColumns = [], $whereValues = [], $selectColumns = [], $orderBy = null, $direction = 'ASC')
-    {
-        try {
-            $this->baseDao->findBy($whereColumns,$whereValues,$selectColumns,$orderBy,$direction);
-        }catch (Exception $e){
-            return $e->getMessage();
-        }
-    }
-
+ 
 
     public function getById($id)
     {
@@ -47,7 +39,7 @@ class BaseService
     public function delete($id)
     {
         try{
-           return $this->baseDao->delete();
+           return $this->baseDao->delete($id);
         } catch (Exception $e){
             return $e->getMessage();
         }

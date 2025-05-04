@@ -1,7 +1,7 @@
 <?php
 
-require_once __DIR__ . '/../Dao/Factory.php';
-
+require_once __DIR__ . '/../Dao/BaseDao.php';
+require_once __DIR__ . '/../Dao/ProductDao.php';
 require_once 'BaseService.php';
 
 class ProductService extends BaseService
@@ -10,7 +10,9 @@ class ProductService extends BaseService
     private ProductDao $productDao;
 
     public function __construct()
-    {
+    {   
+       
+
         $this->productDao = new ProductDao();
     }
 
@@ -70,6 +72,7 @@ class ProductService extends BaseService
     {
         return $this->productDao->getById($id);
     }
+
     public function getBy($category_name, $id)
     {
         try{
@@ -82,5 +85,8 @@ class ProductService extends BaseService
         }
 
     }
+
+
+  
 }
 

@@ -11,9 +11,6 @@ require_once __DIR__ . '/../Services/UserService.php';
 
 
 
-
-
-
 // GET //
 
 Flight::route('GET /shop', function(){

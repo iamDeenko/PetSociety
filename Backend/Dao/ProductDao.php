@@ -254,6 +254,30 @@ class ProductDao extends BaseDao{
     }
 
 
+    public function update($id, $data)
+    {
+
+        if(!$id || !$data) throw new Exception("ERROR::No_Data");
+
+
+        try {
+            $fields = '';
+
+            foreach ($data as $key => $value) {
+                $fields .= " $key = :$key, ";
+            }
+
+            $fields = rtrim($fields, ", ");
+            $sql = "UPDATE " . $this->table . " SET $fields WHERE " . $this->idColumn . " = :id";
+            $stmt = $this->connection->prepare($sql);
+            $data['id'] = $id;
+            return $stmt->execute($data);
+        } catch (PDOException $exception) {
+            echo $exception->getMessage();
+        }
+    }
+
+
 
 
 }
