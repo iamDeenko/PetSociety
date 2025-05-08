@@ -11,6 +11,36 @@ class ProductDao extends BaseDao{
         parent::__construct($table);
     }
 
+
+    public function getAllProducts()
+    {
+        $sql = "SELECT  pr.* , ps.name AS subcategory_name, c.name AS category_name FROM products pr
+                  JOIN subcategories ps ON pr.subcategory_id = ps.subcategory_id
+                  JOIN categories c ON ps.category_id = c.category_id";
+
+        $statement = $this->connection->prepare($sql);
+
+        $statement->execute();
+
+        return $statement->fetchAll();
+    }
+
+
+    public function getBySubcategory($category_name, $subcategory_name)
+    {
+        $sql = "SELECT * FROM products pr
+                  JOIN subcategories ps ON pr.subcategory_id = ps.subcategory_id
+                  JOIN categories c ON ps.category_id = c.category_id where c.name = :category_name AND ps.name = :subcategory_name";
+
+        $statement = $this->connection->prepare($sql);
+
+        $statement->bindParam(':category_name', $category_name);
+        $statement->bindParam(':subcategory_name', $subcategory_name);
+
+        $statement->execute();
+
+        return $statement->fetchAll();
+    }
     public function createProduct($data)
     {
         try {
@@ -53,7 +83,6 @@ class ProductDao extends BaseDao{
             }
 
             $this->connection->commit();
-            return $product_id;
 
         } catch (PDOException $e) {
             $this->connection->rollBack();
@@ -63,64 +92,57 @@ class ProductDao extends BaseDao{
     }
 
 
-    public function findByCategory($category_name)
+
+    public function getByCategory($category_name)
     {
-        switch (strtolower($category_name)):
-            case "pets":
-                $sql = "SELECT 
-                            p.*, 
-                            pd.breed, pd.age, pd.gender, pd.color, 
-                            pd.health_status, pd.vaccination_status, pd.special_needs
-                        FROM products p
-                        JOIN subcategories s ON p.subcategory_id = s.subcategory_id
-                        JOIN categories c ON s.category_id = c.category_id
-                        JOIN pet_details pd ON p.product_id = pd.product_id
-                        WHERE c.name = :category_name";
-                break;
+        $sql = "SELECT * FROM products pr
+                JOIN subcategories ps ON pr.subcategory_id = ps.subcategory_id
+                JOIN categories c ON ps.category_id = c.category_id
+                WHERE c.name = :category_name
+            ";
 
-            case "food":
-                $sql = "SELECT 
-                            p.*, 
-                            fd.brand, fd.weight, fd.ingredients, fd.nutritional_info,
-                            fd.age_group, fd.pet_type, fd.dietary_type, fd.storage_instructions
-                        FROM products p
-                        JOIN subcategories s ON p.subcategory_id = s.subcategory_id
-                        JOIN categories c ON s.category_id = c.category_id
-                        JOIN food_details fd ON p.product_id = fd.product_id
-                        WHERE c.name = :category_name";
-                break;
+        $statement = $this->connection->prepare($sql);
 
-            case "toys":
-                $sql = "SELECT 
-                            p.*, 
-                            td.brand, td.material, td.pet_type, td.age_recommendation,
-                            td.durability_rating, td.chew_resistance
-                        FROM products p
-                        JOIN subcategories s ON p.subcategory_id = s.subcategory_id
-                        JOIN categories c ON s.category_id = c.category_id
-                        JOIN toys_details td ON p.product_id = td.product_id
-                        WHERE c.name = :category_name";
-                break;
+        $statement->bindParam('category_name', $category_name);
 
-            case "accessories":
-                $sql = "SELECT 
-                            p.*, 
-                            ad.brand, ad.material, ad.color, ad.size, ad.pet_type
-                        FROM products p
-                        JOIN subcategories s ON p.subcategory_id = s.subcategory_id
-                        JOIN categories c ON s.category_id = c.category_id
-                        JOIN accessories_details ad ON p.product_id = ad.product_id
-                        WHERE c.name = :category_name";
-                break;
+        $statement->execute();
 
-            default:
-                throw new Exception("Category '$category_name' is not supported.");
-        endswitch;
+        return $statement->fetchAll();
+    }
 
-        $stmt = $this->connection->prepare($sql);
-        $stmt->bindParam(':category_name', $category_name);
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    public function getBy($category_name, $id)
+    {
+        $sql = "SELECT * FROM products pr
+                JOIN subcategories ps ON pr.subcategory_id = ps.subcategory_id
+                JOIN categories c ON ps.category_id = c.category_id
+                WHERE c.name = :category_name AND product_id = :id
+            ";
+
+        $statement = $this->connection->prepare($sql);
+
+        $statement->bindParam('category_name', $category_name);
+        $statement->bindParam('id', $id);
+
+        $statement->execute();
+
+        return $statement->fetchAll();
+
+
+    }
+
+
+    public function getById($id)
+    {
+        $sql = 'SELECT * FROM products WHERE product_id = :product_id';
+
+        $statement = $this->connection->prepare($sql);
+
+        $statement->bindParam('product_id', $id);
+
+        $statement->execute();
+
+        return $statement->fetchAll();
     }
 
 
@@ -203,6 +225,59 @@ class ProductDao extends BaseDao{
             ':chew_resistance' => $details['chew_resistance']
         ]);
     }
+
+
+
+    public function deleteBy($category_name, $id)
+    {
+        try {
+            $sql = "
+                DELETE pr
+                       FROM products pr
+                JOIN subcategories ps ON pr.subcategory_id = ps.subcategory_id
+                JOIN categories c ON ps.category_id = c.category_id
+                WHERE c.name = :category_name AND pr.product_id = :id
+                       
+                       
+        ";
+
+           $statement = $this->connection->prepare($sql);
+
+            $statement->bindParam('category_name', $category_name);
+            $statement->bindParam('id', $id);
+
+            $statement->execute();
+        } catch (PDOException $e) {
+            error_log("❌ DeleteBy failed: " . $e->getMessage());
+            return false;
+        }
+    }
+
+
+    public function update($id, $data)
+    {
+
+        if(!$id || !$data) throw new Exception("ERROR::No_Data");
+
+
+        try {
+            $fields = '';
+
+            foreach ($data as $key => $value) {
+                $fields .= " $key = :$key, ";
+            }
+
+            $fields = rtrim($fields, ", ");
+            $sql = "UPDATE " . $this->table . " SET $fields WHERE " . $this->idColumn . " = :id";
+            $stmt = $this->connection->prepare($sql);
+            $data['id'] = $id;
+            return $stmt->execute($data);
+        } catch (PDOException $exception) {
+            echo $exception->getMessage();
+        }
+    }
+
+
 
 
 }

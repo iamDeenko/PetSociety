@@ -1,0 +1,18 @@
+RewriteEngine On
+
+# Optional: Usually not needed if .htaccess is in the /Backend/ directory
+# RewriteBase /api/ 
+
+# --- Prevent looping ---
+# If the request is already for api.php, stop processing rewrite rules
+RewriteCond %{REQUEST_URI} api\.php$ [NC]
+RewriteRule ^ - [L]
+
+# --- Standard conditions ---
+# If the request is NOT an existing file
+RewriteCond %{REQUEST_FILENAME} !-f
+# If the request is NOT an existing directory
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# --- Rewrite to api.php ---
+RewriteRule ^(.*)$ api.php [QSA,L]
