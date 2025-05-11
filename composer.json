@@ -14,5 +14,7 @@
             "email": "denis.mahmutovic@stu.ibu.edu.ba"
         }
     ],
-    "require": {}
+    "require": {
+        "zircote/swagger-php": "^5.1"
+    }
 }

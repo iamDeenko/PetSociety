@@ -1,16 +1,10 @@
 <?php
 
-require_once "Dao/Factory.php";
+require_once '../PetSociety/Backend/Services/AdminService.php';
 
-require_once "Dao/AdminDao.php";
+$adminService = new AdminService();
 
+print_r($adminService->getAllUsers())
 
-$object = new AdminDao();
-
-
-
-$res = $object->getAllUsers();
-
-print_r($res);
 
 ?>
