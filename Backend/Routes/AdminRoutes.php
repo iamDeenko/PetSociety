@@ -45,9 +45,9 @@ Flight::route('GET /admin/users', function () {
 });
 
 
-// POST T// 
+// POST // 
 
-Flight::route('POST /admin/product/new', function ($data = [], ){
+Flight::route('POST /admin/product/new', function ($data = [] ){
     $service = new ProductService();
 
     $request = Flight::request();

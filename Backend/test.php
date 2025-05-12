@@ -1,10 +1,11 @@
 <?php
 
-require_once '../PetSociety/Backend/Services/AdminService.php';
+require_once 'Backend/Dao/AuthDao.php';
 
-$adminService = new AdminService();
+$dao = new AuthDao();
 
-print_r($adminService->getAllUsers())
+$res = $dao->getUserByEmail("admin@petsociety.test");
 
+print_r($res)
 
 ?>
