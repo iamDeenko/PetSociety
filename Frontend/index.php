@@ -37,10 +37,10 @@
             </div>
             <div class="col-md-2 d-flex gap-5 justify-content-center align-items-center">
                 <span>
-                    Register
+                    <a href="/auth/register">Register</a>
                 </span>
                 <span>
-                    Cart
+                    <a href="/auth/login">Login</a>
                 </span>
             </div>
         </div>
