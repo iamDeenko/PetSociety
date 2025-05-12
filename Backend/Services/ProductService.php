@@ -11,8 +11,6 @@ class ProductService extends BaseService
 
     public function __construct()
     {   
-       
-
         $this->productDao = new ProductDao();
     }
 

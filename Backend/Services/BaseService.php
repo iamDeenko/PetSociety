@@ -54,4 +54,14 @@ class BaseService
             return $e->getMessage();
         }
     }
+
+    public function create($data)
+    {
+        try{
+            return $this->baseDao->create($data);
+        }catch (Exception $e){
+            return $e->getMessage();
+        }
+        
+    }
 }

@@ -1,11 +1,23 @@
 <?php
 
 require_once 'Backend/Dao/AuthDao.php';
+require_once 'Backend/Services/ProductService.php';
+require_once 'Backend/Services/AuthService.php';
 
-$dao = new AuthDao();
 
-$res = $dao->getUserByEmail("admin@petsociety.test");
 
-print_r($res)
+$data = [
+    "email" => "deenko@petsociety.test",
+    "password" => "test123"
+];
+
+$authService = new AuthService();
+
+
+$response = $authService->register($data);
+
+print_r($response);
+
+
 
 ?>

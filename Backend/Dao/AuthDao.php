@@ -25,5 +25,8 @@ class AuthDao extends BaseDao{
         return $statement->fetch();
     }
 
+
+ 
+
 }
 
