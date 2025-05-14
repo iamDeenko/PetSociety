@@ -11,7 +11,7 @@ function loadPage(page) {
     })
     .catch(() => {
       document.getElementById("app").innerHTML =
-        "<h1>404 - Page Not Found!!!</h1>";
+        "<h1>4041414 - Page Not Found!!!</h1>";
     });
 }
 
