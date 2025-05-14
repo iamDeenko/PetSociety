@@ -1,39 +1,39 @@
 <?php
 
-require_once __DIR__ . '/../Dao/AdminDao.php';
+require_once __DIR__ . '/../Dao/dao.php';
 
 require_once 'BaseService.php';
 
 class AdminService extends BaseService
 {
 
-    private AdminDao $adminDao;
+
 
     public function __construct()
     {
-        $this->adminDao = new AdminDao();
+        $dao = new AdminDao();
+
+        parent::__construct($dao);
     }
 
 
     public function getAllUsers()
     {
-        return $this->adminDao->getAllUsers();
+        return $this->dao->getAllUsers();
     }
 
     public function getById($id)
     {
-        return $this->adminDao->getById($id);
+        return $this->dao->getById($id);
     }
 
     public function getUserOrders($id)
     {
-        return $this->adminDao->getUserOrders($id);
+        return $this->dao->getUserOrders($id);
     }
 
     public function deleteUser($id)
     {
-        return $this->adminDao->deleteUser($id);
+        return $this->dao->deleteUser($id);
     }
-
-
 }

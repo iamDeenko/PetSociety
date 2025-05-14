@@ -1,20 +1,19 @@
 <?php
 
 require_once __DIR__ . '/../Dao/BaseDao.php';
-require_once __DIR__ . '/../Dao/dao.php';
+require_once __DIR__ . '/../Dao/AdminDao.php';
 require_once 'BaseService.php';
 
 class ProductService extends BaseService
 {
 
- 
+
 
     public function __construct()
-    {   
+    {
         $dao = new ProductDao();
 
         parent::__construct($dao);
-
     }
 
 
@@ -36,7 +35,8 @@ class ProductService extends BaseService
         }
     }
 
-    public function getBySubcategory($category_name, $subcategory_name){
+    public function getBySubcategory($category_name, $subcategory_name)
+    {
         try {
             return $this->dao->getBySubcategory($category_name, $subcategory_name);
         } catch (Exception $e) {
@@ -75,7 +75,8 @@ class ProductService extends BaseService
     }
 
 
-    public function getByCategory($category_name){
+    public function getByCategory($category_name)
+    {
         return $this->dao->getByCategory($category_name);
     }
 
@@ -87,18 +88,13 @@ class ProductService extends BaseService
 
     public function getBy($category_name, $id)
     {
-        try{
-            $res = $this->dao->getBy($category_name,$id);
-            if($res){
+        try {
+            $res = $this->dao->getBy($category_name, $id);
+            if ($res) {
                 return $res;
             }
-        } catch (Exception $e){
+        } catch (Exception $e) {
             Flight::json($e->getMessage());
         }
-
     }
-
-
-  
 }
-

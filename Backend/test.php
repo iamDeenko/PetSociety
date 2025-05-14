@@ -3,21 +3,14 @@
 require_once 'Backend/Dao/AuthDao.php';
 require_once 'Backend/Services/ProductService.php';
 require_once 'Backend/Services/AuthService.php';
+require_once 'Backend/Dao/Factory.php';
 
 
 
-$data = [
-    "email" => "deenko@petsociety.test",
-    "password" => "test123"
-];
 
-$authService = new AuthService();
+$test = Factory::make('product');
 
 
-$response = $authService->register($data);
+$res = $test->getAllProducts();
 
-print_r($response);
-
-
-
-?>
+print_r($res);
