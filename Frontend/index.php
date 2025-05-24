@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="/assets/css/hero.css">
     <link rel="stylesheet" href="/assets/css/register-login.css">
     <link rel="stylesheet" href="/assets/css/product.css">
+    <link rel="stylesheet" href="https://cdn.fluenticon.com/icon.min.css" /> 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../node_modules/@fortawesome/fontawesome-free/css/all.min.css">
     <base href="/" />
@@ -36,10 +37,10 @@
             </div>
             <div class="col-md-2 d-flex gap-5 justify-content-center align-items-center">
                 <span>
-                    Register
+                    <a href="/auth/register">Register</a>
                 </span>
                 <span>
-                    Cart
+                    <a href="/auth/login">Login</a>
                 </span>
             </div>
         </div>

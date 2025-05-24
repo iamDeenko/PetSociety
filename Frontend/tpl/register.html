@@ -1,22 +1,46 @@
-<div class="mt-5 container ">
-    <div class="mt-5 register-form text-center">
-        <h3>Enter your information to join us.</h3>
-        <form action="submit" method="post" class="d-flex flex-column gather-email">
-            <input type="text" class="text-center" placeholder="Your email here..." required />
-                      <input type="text" placeholder="Password" min="8" max= "31"> 
+<div class="mt-5 container">
+  <div class="mt-5 register-form text-center">
+    <h3>Enter your information to join us.</h3>
+    <form
+      action="/api/auth/register"
+      method="post"
+      class="d-flex flex-column gather-email"
+      id="registrationForm"
+    >
+      <input
+        type="email"
+        class="text-center"
+        placeholder="Your email here..."
+        name="email"
+        required
+      />
+      <input
+        type="password"
+        placeholder="Password"
+        min="8"
+        max="31"
+        name="password_hash"
+      />
 
-            <div class="namesection d-flex text-center flex-row justify-content-evenly ">
-<input type="text" placeholder="First Name..." required>
+      <div
+        class="namesection d-flex text-center flex-row justify-content-evenly"
+      >
+        <input
+          type="text"
+          placeholder="First Name..."
+          name="first_name"
+          required
+        />
 
-<input type="text" placeholder="Last Name..." required>
-            </div>
-<div class="dateofbirth d-flex align-items-center justify-content-around">
-<input type="date" required>
+        <input
+          type="text"
+          placeholder="Last Name..."
+          name="last_name"
+          required
+        />
+      </div>
+
+      <button class="mt-5">Continue</button>
+    </form>
+  </div>
 </div>
-
-              <button class="mt-5">Continue </button>
-        </form>
-        </div>
-    </div>
-</div>
-

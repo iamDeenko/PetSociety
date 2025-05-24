@@ -1,7 +1,6 @@
-'<?php
+<?php
 
 require_once __DIR__ . '/../Services/AdminService.php';
-
 
 
 
@@ -38,17 +37,17 @@ Flight::route('GET /admin/user/@id/orders', function ($id){
 });
 
 Flight::route('GET /admin/users', function () {
-   
-    $service = new AdminService();
-    $users = $service->getAllUsers();
 
-    Flight::json($users);
+    $service = new AdminService();
+
+
+    Flight::json($service->getAllUsers());
 });
 
 
-// POST //
+// POST // 
 
-Flight::route('POST /admin/product/new', function ($data = [], ){
+Flight::route('POST /admin/product/new', function ($data = [] ){
     $service = new ProductService();
 
     $request = Flight::request();
@@ -86,7 +85,6 @@ Flight::route('PUT /admin/product/@id', function ($id){
 
     $updateData = $request->data->getData();
 
-    // 2. Validate Input Data
     if (empty($updateData)) {
         Flight::halt(400, Flight::json(['success' => false, 'message' => 'Bad Request: No update data provided in the request body.']));
         return; 

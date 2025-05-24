@@ -123,8 +123,9 @@ class BaseDao
     public function create($data)
     {
 
-        if(!$data) throw new Exception("ERROR::No_Data");
-
+        if (empty($data)) { 
+            throw new InvalidArgumentException("Data for creation cannot be empty.");
+        }
 
         try{
             $columns = implode(", ", array_keys($data));
@@ -134,7 +135,12 @@ class BaseDao
             $sql = "INSERT INTO " . $this->table . " ($columns) VALUES ($placeholders)";
             $stmt = $this->connection->prepare($sql);
 
-            return $stmt->execute($data);
+            $success = $stmt->execute($data);
+
+            if ($success){
+                $lastId = $this->connection->lastInsertId();
+                return $lastId;
+            }
 
         } catch (Exception $e){
             return $e->getMessage();
