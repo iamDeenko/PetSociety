@@ -1,14 +1,16 @@
 <?php
 
-require_once 'Backend/Dao/AuthDao.php';
-require_once 'Backend/Services/ProductService.php';
-require_once 'Backend/Services/AuthService.php';
-require_once 'Backend/Dao/Factory.php';
 
-uyjety
+require_once '../PetSociety/Backend/Dao/ProductDao.php';
+require_once '../PetSociety/Backend/Dao/AuthDao.php';
+require_once '../PetSociety/Backend/Dao/BaseDao.php';
+require_once '../PetSociety/Backend/Dao/OrderDao.php';
+require_once '../PetSociety/Backend/Dao/OrderItemDao.php';
+require_once '../PetSociety/Backend/Dao/UserDao.php';
 
 
-$test = Factory::make('product');
+
+$test = new ProductDao();
 
 
 $res = $test->getAllProducts();

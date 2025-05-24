@@ -23,8 +23,6 @@ Flight::route('GET /shop', function () {
 
 
 
-// Get specific product //
-
 Flight::route('GET /shop/@category_name/@id', function ($category_name, $id) {
    $service = new ProductService();
    Flight::json($service->getBy($category_name, $id));

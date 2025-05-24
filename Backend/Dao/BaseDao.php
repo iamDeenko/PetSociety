@@ -2,168 +2,125 @@
 
 require_once 'Database.php';
 
-
 class BaseDao
 {
+    protected $connection;
+    protected $table_name;
 
-    protected $table;
-    protected $idColumn;
-
-
-    protected ?PDO $connection;
-
-
-    public function __construct($table)
+    public function __construct($table_name)
     {
-        $this->table = $table;
-        $this->idColumn = $this->convertName($this->table);
         $this->connection = Database::connect();
+        $this->table_name = $table_name;
     }
 
-    public function getTable()
+
+
+    protected function query($query, $params)
     {
-        return $this->table;
+        $stmt = $this->connection->prepare($query);
+        $stmt->execute($params);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    protected function query_unique($query, $params)
+    {
+        $results = $this->query($query, $params);
+        return reset($results);
     }
 
     public function getAll()
     {
-
-        try {
-            $stmt = $this->connection->prepare("SELECT * FROM " . $this->table);
-            $stmt->execute();
-            return $stmt->fetchAll();
-        } catch (PDOException $exception) {
-            echo $exception->getMessage();
-        }
+        $stmt = $this->connection->prepare("SELECT * FROM " . $this->table_name);
+        $stmt->execute();
+        return $stmt->fetchAll();
     }
-
 
     public function getById($id)
     {
+        $stmt = $this->connection->prepare("SELECT * FROM " . $this->table_name . " WHERE " . self::getTableName() . " = :id");
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+        return $stmt->fetch();
+    }
 
-        if(!$id) throw new Exception("ERROR::No_Data");
-
-        try {
-            $stmt = $this->connection->prepare("SELECT * FROM " . $this->table . " WHERE " . $this->idColumn . " = :id");
-            $stmt->bindParam(':id', $id);
-            $stmt->execute();
-
-            return $stmt->fetch();
-        } catch (PDOException $exception) {
-            echo $exception->getMessage();
+    public function add(array $entity)
+    {
+        $query = "INSERT INTO " . $this->table_name . " (";
+        foreach ($entity as $column => $value) {
+            $query .= $column . ', ';
         }
+        $query = substr($query, 0, -2);
+        $query .= ") VALUES (";
+        foreach ($entity as $column => $value) {
+            $query .= ":" . $column . ', ';
+        }
+        $query = substr($query, 0, -2);
+        $query .= ")";
+
+        $stmt = $this->connection->prepare($query);
+        $stmt->execute($entity);
+        $entity['id'] = $this->connection->lastInsertId();
+        return $entity;
     }
 
 
-    public function update($id, $data)
+    public function update(array $data, int $id): bool
     {
+        if (empty($data)) {
+            throw new \Exception('Update data array cannot be empty.');
+        }
 
-        if(!$id || !$data) throw new Exception("ERROR::No_Data");
+        $setParts = [];
+        $params = [];
 
-
-        try {
-            $fields = '';
-
-            foreach ($data as $key => $value) {
-                $fields .= " $key = :$key, ";
+        foreach ($data as $column => $value) {
+            if (!preg_match('/^[a-zA-Z0-9_]+$/', $column)) {
+                error_log("Skipping invalid column name in update data: " . $column);
+                continue;
             }
 
-            $fields = rtrim($fields, ", ");
-            $sql = "UPDATE " . $this->table . " SET $fields WHERE " . $this->idColumn . " = :id";
+            $placeholder = ":" . $column;
+            $setParts[] = "`{$column}` = {$placeholder}";
+            $params[$placeholder] = $value;
+        }
+
+        if (empty($setParts)) {
+            throw new \Exception('No valid columns provided for update.');
+        }
+
+        $setClause = implode(', ', $setParts);
+
+        $sql = "UPDATE `{$this->table_name}` SET {$setClause} WHERE " . self::getTableName() . " = :id;";
+
+        $params[':id'] = $id;
+
+        try {
             $stmt = $this->connection->prepare($sql);
-            $data['id'] = $id;
-            return $stmt->execute($data);
-        } catch (PDOException $exception) {
-            echo $exception->getMessage();
-        }
-    }
+            $success = $stmt->execute($params);
 
-    public function convertName($table)
-    {
-        if (empty($table)) {
-            throw new InvalidArgumentException("The table name cannot be empty.");
-        }
-        if (!is_string($table)) {
-            throw new InvalidArgumentException("The table name must be a string.");
-        }
+            if ($success) {
+                $result = ['Message' => 'Update successful', 'ID' => $id];
 
-        $_id = "";
-
-        switch (trim($table)) {
-            case "products":
-                $_id = "product_id";
-                break;
-            case "categories":
-                $_id = "category_id";
-                break;
-            case "subcategories":
-                $_id = "subcategory_id";
-                break;
-            case "users":
-                $_id = "user_id";
-                break;
-            case "carts":
-                $_id = "cart_id";
-                break;
-            case "cart_items":
-                $_id = "cart_item_id";
-                break;
-            case "orders":
-                $_id = "order_id";
-                break;
-            default:
-                $_id = "product_id";
-                break;
-        }
-
-        return $_id;
-    }
-
-
-    public function create($data)
-    {
-
-        if (empty($data)) { 
-            throw new InvalidArgumentException("Data for creation cannot be empty.");
-        }
-
-        try{
-            $columns = implode(", ", array_keys($data));
-            $placeholders = ":" . implode(", :", array_keys($data));
-
-
-            $sql = "INSERT INTO " . $this->table . " ($columns) VALUES ($placeholders)";
-            $stmt = $this->connection->prepare($sql);
-
-            $success = $stmt->execute($data);
-
-            if ($success){
-                $lastId = $this->connection->lastInsertId();
-                return $lastId;
+                return true;
             }
 
-        } catch (Exception $e){
-            return $e->getMessage();
+            return $success;
+        } catch (\PDOException $e) {
+            error_log("Database update error in {$this->table_name} (ID: {$id}): " . $e->getMessage());
+            return false;
         }
-
     }
 
 
-    public function delete($id)
+    public function delete(int $id)
     {
-
-        if(!$id) throw new Exception("ERROR::No_Data");
-
-        try{
-            $sql = "DELETE FROM " . $this->table . " WHERE " . $this->idColumn . " = :id";
-            $stmt = $this->connection->prepare($sql);
-            $stmt->bindParam(':id', $id);
-
-            return $stmt->execute();
-        } catch (Exception $e){
-            return $e->getMessage();
-        }
+        $stmt = $this->connection->prepare("DELETE FROM " . $this->table_name . " WHERE " . self::getTableName() .  " = :id");
+        $stmt->bindValue(':id', $id);
+        return $stmt->execute();
     }
 
-
+    public function getTableName()
+    {
+        $name = $this->table_name;
+    }
 }

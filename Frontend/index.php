@@ -7,12 +7,14 @@
 
     <!-- CSS styles -->
     <link rel="stylesheet" href="/assets/css/fonts.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <link rel="stylesheet" href="/assets/css/shop.css">
     <link rel="stylesheet" href="/assets/css/index.css">
     <link rel="stylesheet" href="/assets/css/hero.css">
     <link rel="stylesheet" href="/assets/css/register-login.css">
     <link rel="stylesheet" href="/assets/css/product.css">
-    <link rel="stylesheet" href="https://cdn.fluenticon.com/icon.min.css" /> 
+    <link rel="stylesheet" href="/assets/css/spapp.css">
+    <link rel="stylesheet" href="https://cdn.fluenticon.com/icon.min.css" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../node_modules/@fortawesome/fontawesome-free/css/all.min.css">
     <base href="/" />
@@ -24,12 +26,12 @@
     <nav id="navbar" class="navbar">
         <div class="col-md-12 text-center d-flex justify-content-center align-items-center">
             <div class="col-md-2 d-flex gap-5 justify-content-center align-items-center">
-                <span> 
+                <span>
                     <a href="/">Home</a>
                 </span>
                 <span id="menu-shop">
-                    <a href="/shop/pets/dogs" id="shop-link">Shop</a>
-          
+                    <a href="#view_dogs" id="shop-link">Shop</a>
+
                 </span>
             </div>
             <div class="col-md-4 navbar-brand">
@@ -37,16 +39,16 @@
             </div>
             <div class="col-md-2 d-flex gap-5 justify-content-center align-items-center">
                 <span>
-                    <a href="/auth/register">Register</a>
+                    <a href="#view_register">Register</a>
                 </span>
                 <span>
-                    <a href="/auth/login">Login</a>
+                    <a href="#view_login">Login</a>
                 </span>
             </div>
         </div>
     </nav>
 
-    <!-- Shop flydown menu -->
+
     <div class="shop-flydown-menu" id="shop-flydown-menu">
         <div class="container mt-5 text-center">
             <div class="row">
@@ -87,8 +89,11 @@
 
 
     <!-- Main dynamic page content container -->
-    <main id="app">
-
+    <main id="spapp" role="main">
+        <section id="view_login"></section>
+        <section id="view_register"></section>
+        <section id="view_dogs"></section>
+        <section id="view_main" data-load="view_main.html"></section>
     </main>
 
     <!-- Cart flyout -->
@@ -110,14 +115,24 @@
         </div>
     </div>
 
+    <script src="./assets/utils/Constants.js"></script>
+    <script src="./assets/utils/RestClient.js"></script>
+    <script src="./assets/utils/AuthService.js"></script>
+
     <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.7.0.js"
+        integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"
+        integrity="sha512-rstIgDs0xPgmG6RX1Aba4KV5cWJbAMcvRCVmglpam9SoHZiUCyQVDdH2LPlxoHtrv17XWblE/V/PP+Tr04hbtA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://code.jquery.com/jquery-3.1.0.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://unpkg.com/navigo@8"></script>
     <script src="/assets/js/script.js"></script>
-
-    <script src="/assets/js/navigation.js"></script>
-
+    <script src="/assets/js/custom.js"></script>
+    <script src="/assets/js/jquery.spapp.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 </body>
 
 </html>

@@ -2,9 +2,10 @@
 
 require_once 'BaseDao.php';
 
-class AdminDao extends BaseDao {
+class AdminDao extends BaseDao
+{
 
-    protected $table = 'users';
+
 
     public function __construct($table = 'users')
     {
@@ -67,7 +68,4 @@ class AdminDao extends BaseDao {
 
         return $statement->fetchAll();
     }
-
-
-
 }

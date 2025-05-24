@@ -1,7 +1,9 @@
 <?php
 
+require_once 'BaseDao.php';
 
-class ProductDao extends BaseDao{
+class ProductDao extends BaseDao
+{
 
     protected $table = 'products';
 
@@ -41,6 +43,10 @@ class ProductDao extends BaseDao{
 
         return $statement->fetchAll();
     }
+
+
+
+
     public function createProduct($data)
     {
         try {
@@ -83,7 +89,6 @@ class ProductDao extends BaseDao{
             }
 
             $this->connection->commit();
-
         } catch (PDOException $e) {
             $this->connection->rollBack();
             error_log("Error in createProduct: " . $e->getMessage());
@@ -127,8 +132,6 @@ class ProductDao extends BaseDao{
         $statement->execute();
 
         return $statement->fetchAll();
-
-
     }
 
 
@@ -241,7 +244,7 @@ class ProductDao extends BaseDao{
                        
         ";
 
-           $statement = $this->connection->prepare($sql);
+            $statement = $this->connection->prepare($sql);
 
             $statement->bindParam('category_name', $category_name);
             $statement->bindParam('id', $id);
@@ -252,32 +255,4 @@ class ProductDao extends BaseDao{
             return false;
         }
     }
-
-
-    public function update($id, $data)
-    {
-
-        if(!$id || !$data) throw new Exception("ERROR::No_Data");
-
-
-        try {
-            $fields = '';
-
-            foreach ($data as $key => $value) {
-                $fields .= " $key = :$key, ";
-            }
-
-            $fields = rtrim($fields, ", ");
-            $sql = "UPDATE " . $this->table . " SET $fields WHERE " . $this->idColumn . " = :id";
-            $stmt = $this->connection->prepare($sql);
-            $data['id'] = $id;
-            return $stmt->execute($data);
-        } catch (PDOException $exception) {
-            echo $exception->getMessage();
-        }
-    }
-
-
-
-
 }

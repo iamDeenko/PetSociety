@@ -3,14 +3,14 @@
 require __DIR__ . '/vendor/autoload.php';
 
 
-
-// --- CORRECTION START ---
-// Use __DIR__ which resolves to C:\wamp64\PetSociety\Backend
-// Then append the path relative TO that directory
 require __DIR__ . '/Services/AuthService.php';
 require __DIR__ . '/Services/ProductService.php';
-// --- CORRECTION END ---
 
+
+
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
@@ -18,9 +18,10 @@ use Firebase\JWT\Key;
 
 
 
-
 Flight::register('authService', 'AuthService');
-Flight::register('productService', 'ProductService'); // Use a DIFFERENT key for ProductService
+Flight::register('productService', 'ProductService');
+
+Flight::set('flight.base_url', '/Backend');
 
 require_once __DIR__ . '/Routes/ProductRoutes.php';
 require_once __DIR__ . '/Routes/AdminRoutes.php';
