@@ -52,21 +52,7 @@ use Firebase\JWT\Key;
  * )
  */
 Flight::route("POST /auth/register", function () {
-
-    echo "Registering user...\n";
-
-
     $data = Flight::request()->data->getData();
-
-    foreach ($data as $key => $value) {
-
-        echo "$data[$key]" . "\n";
-
-        if (empty($value)) {
-            Flight::halt(400, "Invalid input: {$key} cannot be empty.");
-        }
-    }
-
     $response = Flight::authService()->register($data);
     if ($response['success']) {
         Flight::json([
@@ -113,6 +99,9 @@ Flight::route("POST /auth/register", function () {
  */
 Flight::route("POST /auth/login", function () {
     $data = Flight::request()->data->getData();
+
+
+
     $response = Flight::authService()->login($data);
     if ($response['success']) {
         Flight::json([

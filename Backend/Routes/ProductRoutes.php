@@ -23,15 +23,16 @@ Flight::route('GET /shop', function () {
 
 
 
-Flight::route('GET /shop/@category_name/@id', function ($category_name, $id) {
-   $service = new ProductService();
-   Flight::json($service->getBy($category_name, $id));
-});
-
 
 // Get by Category //
 
 Flight::route('GET /shop/@category_name', function ($category_name) {
    $service = new ProductService();
    Flight::json($service->getByCategory($category_name));
+});
+
+
+Flight::route('GET /shop/subcategory/@subcategory_name', function ($subcategory_name) {
+   $service = new ProductService();
+   Flight::json($service->getProductsInSubcategory($subcategory_name));
 });

@@ -1,22 +1,22 @@
 <?php
 
 
-require_once __DIR__ . '/../Dao/Factory.php';
+require_once 'BaseService.php';
 
-class UserService
+class UserService extends BaseService
 {
-    private UserDao $userDao;
+
 
     public function __construct()
     {
-        $this->userDao = new UserDao();
+        $dao = new UserDao();
+        parent::__construct($dao);
     }
 
 
 
     public function getUserOrders($id)
     {
-       return $this->userDao->getUserOrders($id);
+        return $this->dao->getUserOrders($id);
     }
-
 }

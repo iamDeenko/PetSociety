@@ -6,8 +6,8 @@
     <meta charset="utf-8">
 
     <!-- CSS styles -->
+
     <link rel="stylesheet" href="/assets/css/fonts.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <link rel="stylesheet" href="/assets/css/shop.css">
     <link rel="stylesheet" href="/assets/css/index.css">
     <link rel="stylesheet" href="/assets/css/hero.css">
@@ -17,35 +17,17 @@
     <link rel="stylesheet" href="https://cdn.fluenticon.com/icon.min.css" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../node_modules/@fortawesome/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <base href="/" />
 </head>
 
 <body>
 
-    <!-- Navigation bar -->
-    <nav id="navbar" class="navbar">
-        <div class="col-md-12 text-center d-flex justify-content-center align-items-center">
-            <div class="col-md-2 d-flex gap-5 justify-content-center align-items-center">
-                <span>
-                    <a href="/">Home</a>
-                </span>
-                <span id="menu-shop">
-                    <a href="#view_dogs" id="shop-link">Shop</a>
 
-                </span>
-            </div>
-            <div class="col-md-4 navbar-brand">
-                PetSociety
-            </div>
-            <div class="col-md-2 d-flex gap-5 justify-content-center align-items-center">
-                <span>
-                    <a href="#view_register">Register</a>
-                </span>
-                <span>
-                    <a href="#view_login">Login</a>
-                </span>
-            </div>
-        </div>
+
+
+    <nav id="navbar" class="navbar">
+
     </nav>
 
 
@@ -88,6 +70,7 @@
     </div>
 
 
+
     <!-- Main dynamic page content container -->
     <main id="spapp" role="main">
         <section id="view_login"></section>
@@ -96,29 +79,15 @@
         <section id="view_main" data-load="view_main.html"></section>
     </main>
 
-    <!-- Cart flyout -->
-    <div class="shop-container" id="shoppingcart">
-        <i class="fa-solid fa-cart-shopping"></i>
-    </div>
 
-    <div class="cartflyout" id="cart-modal">
-        <div class="spansection">
-            <span class="shoppingcartspan"></span>
-            <span class="shoppingcartspan"></span>
-        </div>
-        <div class="shoppingcart-items">
-            <div class="shoppingcart-item">
-                <p>Test test</p>
-                <p>Price: $200</p>
-            </div>
-            <!-- Sample items; will be dynamic later -->
-        </div>
-    </div>
+
+
 
     <script src="./assets/utils/Constants.js"></script>
     <script src="./assets/utils/RestClient.js"></script>
     <script src="./assets/utils/AuthService.js"></script>
-
+    <script src="./assets/utils/NavbarService.js"></script>
+    <script src="./assets/utils/ProductService.js"></script>
     <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.7.0.js"
         integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
@@ -132,7 +101,20 @@
     <script src="/assets/js/script.js"></script>
     <script src="/assets/js/custom.js"></script>
     <script src="/assets/js/jquery.spapp.js"></script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/jwt-decode@latest/build/jwt-decode.min.js"></script>
+
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+
+
 </body>
 
 </html>
+
+
+<script>
+    NavbarService.__init()
+</script>

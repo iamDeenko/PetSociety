@@ -21,25 +21,6 @@ shopFlyDownMenu.addEventListener("mouseleave", () => {
   console.log("123");
 });
 
-shoppingCartDiv.addEventListener("click", () => {
-  cartflyout.classList.remove("inactive");
-  cartflyout.classList.add("active");
-  cartflyout.style.display = "flex";
-  shoppingCartDiv.style.display = "none";
-  console.log("123");
-});
-
-closeCart.forEach((span) => {
-  span.addEventListener("click", () => {
-    cartflyout.classList.add("inactive");
-    cartflyout.classList.remove("active");
-    setTimeout(() => {
-      shoppingCartDiv.style.display = "block";
-      cartflyout.style.display = "none";
-    }, 100);
-  });
-});
-
 if ($(document).ready()) {
   const registrationForm = document.getElementById("registrationForm");
 

@@ -2,6 +2,8 @@
 
 
 require_once 'BaseService.php';
+require_once __DIR__ . '/../Dao/ProductDao.php';
+
 
 class ProductService extends BaseService
 {
@@ -95,5 +97,11 @@ class ProductService extends BaseService
         } catch (Exception $e) {
             Flight::json($e->getMessage());
         }
+    }
+
+
+    public function getProductsInSubcategory($subcategory_name)
+    {
+        return $this->dao->getProductsInSubcategory($subcategory_name);
     }
 }

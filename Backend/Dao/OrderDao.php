@@ -1,13 +1,10 @@
 <?php
 
-class OrderDao extends BaseDao{
-
-public function __construct($table = 'orders')
+class OrderDao extends BaseDao
 {
-parent::__construct($table);
-}
 
-
-
-
+    public function __construct($table = 'orders')
+    {
+        parent::__construct($table);
+    }
 }

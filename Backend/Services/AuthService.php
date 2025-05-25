@@ -23,11 +23,11 @@ class AuthService extends BaseService
 
     public function register(array $entity)
     {
-        $this->dao->register($entity);
+        return $this->dao->register($entity);
     }
 
     public function login(array $entity)
     {
-        $this->dao->login($entity);
+        return $this->dao->login($entity);
     }
 }

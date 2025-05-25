@@ -6,6 +6,8 @@ require_once '../PetSociety/Backend/Dao/AuthDao.php';
 require_once '../PetSociety/Backend/Dao/BaseDao.php';
 require_once '../PetSociety/Backend/Dao/OrderDao.php';
 require_once '../PetSociety/Backend/Dao/OrderItemDao.php';
+require_once '../PetSociety/Backend/Dao/CategoryDao.php';
+
 require_once '../PetSociety/Backend/Dao/UserDao.php';
 
 
@@ -13,6 +15,6 @@ require_once '../PetSociety/Backend/Dao/UserDao.php';
 $test = new ProductDao();
 
 
-$res = $test->getAllProducts();
+$res = $test->getByCategory('Pets');
 
 print_r($res);

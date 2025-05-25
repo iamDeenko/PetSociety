@@ -45,6 +45,7 @@ class BaseDao
 
     public function add(array $entity)
     {
+
         $query = "INSERT INTO " . $this->table_name . " (";
         foreach ($entity as $column => $value) {
             $query .= $column . ', ';
@@ -59,6 +60,8 @@ class BaseDao
 
         $stmt = $this->connection->prepare($query);
         $stmt->execute($entity);
+
+
         $entity['id'] = $this->connection->lastInsertId();
         return $entity;
     }

@@ -32,6 +32,9 @@ class AuthDao extends BaseDao
 
     public function register($entity)
     {
+
+
+
         if (empty($entity['email']) || empty($entity['password'])) {
             return ['success' => false, 'error' => 'Email and password are required.'];
         }
@@ -41,11 +44,15 @@ class AuthDao extends BaseDao
         }
 
 
+
         $email_exists = $this->getUserByEmail($entity['email']);
 
         if ($email_exists) {
+            echo "Email already exists\n";
             return ['success' => false, 'error' => 'Email already registered.'];
         }
+
+
 
         $entity['password'] = password_hash($entity['password'], PASSWORD_BCRYPT);
 
@@ -85,29 +92,24 @@ class AuthDao extends BaseDao
 
     public function login($entity)
     {
-        echo "Login method hit";
-        echo "Email: " . $entity['email'];
-        echo 'Password' . $entity['password'];
-
         if (empty($entity['email']) || empty($entity['password'])) {
             return ['success' => false, 'error' => 'Email and password are required.'];
         }
+
         $user = $this->getUserByEmail($entity['email']);
-
         if (!$user) {
-            return ['success' => false, 'error' => 'User not found.'];
-        }
-
-        if (!password_verify($entity['password'], $user['password_hash'])) {
             return ['success' => false, 'error' => 'Invalid username or password.'];
         }
 
-        unset($user['password_hash']);
+        if (!$user || !password_verify($entity['password'], $user['password']))
+            return ['success' => false, 'error' => 'Invalid username or password.'];
+
+        unset($user['password']);
 
         $jwt_payload = [
             'user' => $user,
             'iat' => time(),
-            'exp' => time() + (60 * 60 * 1)
+            'exp' => time() + (60 * 60 * 24)
         ];
 
         $token = JWT::encode(
@@ -116,6 +118,6 @@ class AuthDao extends BaseDao
             'HS256'
         );
 
-        return ['success' => true, 'data' => array_merge($user, ['token' => $token])];
+        return ['success' => true, 'data' => array_merge($user, ['user_token' => $token])];
     }
 }
