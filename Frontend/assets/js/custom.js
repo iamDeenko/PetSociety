@@ -22,5 +22,10 @@ $(document).ready(function () {
     load: "view_dogs.html",
   });
 
+  app.route({
+    view: "view_product",
+    load: "view_product.html",
+  });
+
   app.run();
 });

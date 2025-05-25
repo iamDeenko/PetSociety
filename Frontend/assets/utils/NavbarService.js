@@ -36,7 +36,7 @@ let NavbarService = {
                     <a href="/">Home</a>
                 </span>
                 <span id="menu-shop">
-                    <a onclick="NavbarService.showMore()">Shop</a>
+                    <a href="#view_dogs" onclick="NavbarService.showMore()">Shop</a>
                 </span>
             </div>
             <div class="col-md-4 navbar-brand">

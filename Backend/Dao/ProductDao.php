@@ -273,4 +273,78 @@ class ProductDao extends BaseDao
 
         return $statement->fetchAll();
     }
+
+    public function getProductInfoByID($product_id)
+    {
+        $sql = "SELECT pr.*, ps.name as subcategory_name, c.category_id, c.name as category_name FROM products pr
+        JOIN subcategories ps ON pr.subcategory_id = ps.subcategory_id
+        JOIN categories c ON c.category_id = ps.category_ID
+        WHERE pr.product_id = :product_id";
+
+        $statement = $this->connection->prepare($sql);
+
+        $statement->bindParam('product_id', $product_id);
+
+        $statement->execute();
+
+        return $statement->fetch();
+    }
+
+
+
+    public function getPetDetails($product_id)
+    {
+        $sql = 'SELECT * FROM products p JOIN pet_details pd ON p.product_id = pd.product_id WHERE p.product_id = :product_id;';
+
+
+        $statement = $this->connection->prepare($sql);
+
+        $statement->bindParam('product_id', $product_id);
+
+        $statement->execute();
+
+        return $statement->fetch();
+    }
+
+    public function getToyDetails($product_id)
+    {
+        $sql = 'SELECT * FROM products p JOIN toys_details pd ON p.product_id = pd.product_id WHERE p.product_id = :product_id;';
+
+
+        $statement = $this->connection->prepare($sql);
+
+        $statement->bindParam('product_id', $product_id);
+
+        $statement->execute();
+
+        return $statement->fetch();
+    }
+
+    public function getAccessoryDetails($product_id)
+    {
+        $sql = 'SELECT * FROM products p JOIN accessories_details pd ON p.product_id = pd.product_id WHERE p.product_id = :product_id;';
+
+
+        $statement = $this->connection->prepare($sql);
+
+        $statement->bindParam('product_id', $product_id);
+
+        $statement->execute();
+
+        return $statement->fetch();
+    }
+
+    public function getFoodDetails($product_id)
+    {
+        $sql = 'SELECT * FROM products p JOIN food_details pd ON p.product_id = pd.product_id WHERE p.product_id = :product_id;';
+
+
+        $statement = $this->connection->prepare($sql);
+
+        $statement->bindParam('product_id', $product_id);
+
+        $statement->execute();
+
+        return $statement->fetch();
+    }
 }

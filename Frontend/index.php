@@ -31,43 +31,7 @@
     </nav>
 
 
-    <div class="shop-flydown-menu" id="shop-flydown-menu">
-        <div class="container mt-5 text-center">
-            <div class="row">
-                <div class="col-md-3 d-flex flex-column">
-                    <a href="/shop/pets" class="shop-category">Pets</a>
-                    <a href="/shop/pets/dogs" data-navigo>Dogs</a>
-                    <a href="/shop/pets/cats" data-navigo>Cats</a>
-                    <a href="/shop/pets/small-animals" data-navigo>Small Animals</a>
-                    <a href="/shop/pets/birds" data-navigo>Birds</a>
-                    <a href="/shop/pets/fish" data-navigo>Fish</a>
-                    <a href="/shop/pets/reptiles" data-navigo>Reptiles</a>
-                    <a href="/shop/pets/amphibians" data-navigo>Amphibians</a>
-                </div>
-                <div class="col-md-3 d-flex flex-column">
-                    <a class="shop-category">Accessories</a>
-                    <a href="#accessories-leashes">Leashes</a>
-                    <a href="#accessories-bowls">Bowls</a>
-                    <a href="#accessories-carriers">Carriers</a>
-                    <a href="#accessories-grooming-tools">Grooming Tools</a>
-                    <a href="#accessories-travel-accessories">Travel Accessories</a>
-                </div>
-                <div class="col-md-3 d-flex flex-column">
-                    <a class="shop-category">Food</a>
-                    <a href="#food-dry-food">Dry Food</a>
-                    <a href="#food-wet-food">Wet Food</a>
-                    <a href="#food-treats">Treats</a>
-                    <a href="#food-supplements">Supplements</a>
-                </div>
-                <div class="col-md-3 d-flex flex-column">
-                    <a class="shop-category">Toys</span>
-                        <a href="#toys-chewing">Chewing</a>
-                        <a href="#toys-interactive">Interactive</a>
-                        <a href="#toys-fetch-retrieve">Fetch & Retrieve</a>
-                </div>
-            </div>
-        </div>
-    </div>
+
 
 
 
@@ -75,6 +39,7 @@
     <main id="spapp" role="main">
         <section id="view_login"></section>
         <section id="view_register"></section>
+        <section id="view_product"></section>
         <section id="view_dogs"></section>
         <section id="view_main" data-load="view_main.html"></section>
     </main>

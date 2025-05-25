@@ -23,6 +23,38 @@ Flight::route('GET /shop', function () {
 
 
 
+Flight::route('GET /shop/product/@id', function ($product_id) {
+   $service = new ProductService();
+   Flight::json($service->getProductInfoByID($product_id));
+});
+
+
+
+
+Flight::route('GET /shop/pets/@product_id', function ($product_id) {
+   $service = new ProductService();
+   Flight::json($service->getPetDetails($product_id));
+});
+
+
+Flight::route('GET /shop/toys/@product_id', function ($product_id) {
+   $service = new ProductService();
+   Flight::json($service->getToyDetails($product_id));
+});
+
+
+
+Flight::route('GET /shop/accessories/@product_id', function ($product_id) {
+   $service = new ProductService();
+   Flight::json($service->getAccessoryDetails($product_id));
+});
+
+
+Flight::route('GET /shop/food/@product_id', function ($product_id) {
+   $service = new ProductService();
+   Flight::json($service->getFoodDetails($product_id));
+});
+
 
 // Get by Category //
 

@@ -104,4 +104,29 @@ class ProductService extends BaseService
     {
         return $this->dao->getProductsInSubcategory($subcategory_name);
     }
+
+    public function getProductInfoByID($product_id)
+    {
+        return $this->dao->getProductInfoByID($product_id);
+    }
+
+    public function getPetDetails($product_id)
+    {
+        return $this->dao->getPetDetails($product_id);
+    }
+
+    public function getToyDetails($product_id)
+    {
+        return $this->dao->getToyDetails($product_id);
+    }
+
+    public function getAccessoryDetails($product_id)
+    {
+        return $this->dao->getAccessoryDetails($product_id);
+    }
+
+    public function getFoodDetails($product_id)
+    {
+        return $this->dao->getFoodDetails($product_id);
+    }
 }
