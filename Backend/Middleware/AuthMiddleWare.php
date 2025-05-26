@@ -40,7 +40,7 @@ class AuthMiddleware
     {
         $user = Flight::get('user');
 
-        return $user->user_ID;
+        return $user->user_id;
     }
 
     public function authorizeRoles($roles)

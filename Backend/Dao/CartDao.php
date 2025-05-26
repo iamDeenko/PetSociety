@@ -12,7 +12,7 @@ class CartDao extends BaseDao
 
     public function getCartByUserID($user_ID)
     {
-        $sql = 'SELECT cart_ID FROM carts WHERE user_ID = :user_ID';
+        $sql = 'SELECT cart_ID FROM carts WHERE user_id = :user_ID';
 
         $statement = $this->connection->prepare($sql);
 
@@ -25,7 +25,7 @@ class CartDao extends BaseDao
 
     public function deleteCartByUserID($user_ID)
     {
-        $sql = 'DELETE FROM carts WHERE user_ID = :user_ID';
+        $sql = 'DELETE FROM carts WHERE user_id = :user_ID';
         $statement = $this->connection->prepare($sql);
 
         $statement->bindValue(':user_ID', $user_ID);
@@ -37,12 +37,12 @@ class CartDao extends BaseDao
         }
 
 
-        return ['Success: ' => "True", "Message:" => "Deleted cart successfully."];
+        return ['Success: ' => "True", "Message:" => "Deleted cart succ3essfully."];
     }
 
     public function getPriceTotal($user_ID)
     {
-        $totalPrice = "SELECT price_total FROM carts WHERE user_ID = :user_ID";
+        $totalPrice = "SELECT price_total FROM carts WHERE user_id = :user_ID";
         $statement = $this->connection->prepare($totalPrice);
         $statement->bindValue("user_ID", $user_ID);
         $statement->execute();

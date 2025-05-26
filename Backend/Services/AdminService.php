@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/../Dao/BaseDao.php';
+require_once __DIR__ . '/../Dao/AdminDao.php';
 
 require_once 'BaseService.php';
 
@@ -17,23 +17,33 @@ class AdminService extends BaseService
     }
 
 
-    public function getAllUsers()
+    public function getTotalSales()
     {
-        return $this->dao->getAllUsers();
+        return $this->dao->getTotalSales();
     }
 
-    public function getById($id)
+    public function getSalesByCategory()
     {
-        return $this->dao->getById($id);
+        return $this->dao->getSalesByCategory();
     }
 
-    public function getUserOrders($id)
+    public function getUsersByName($name)
     {
-        return $this->dao->getUserOrders($id);
+        return $this->dao->getUsersByName($name);
     }
 
-    public function deleteUser($id)
+    public function getUserByID($id)
     {
-        return $this->dao->deleteUser($id);
+        return $this->dao->getUserByID($id);
+    }
+
+    public function getUserOrderHistory($user_ID)
+    {
+        return $this->dao->getUserOrderHistory($user_ID);
+    }
+
+    public function getUserCart($user_ID)
+    {
+        return $this->dao->getUserCart($user_ID);
     }
 }

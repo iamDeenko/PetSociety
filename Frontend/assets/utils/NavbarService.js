@@ -47,7 +47,7 @@ let NavbarService = {
                     <a href="#view_cart">Cart</a>
                 </span>
                 <span>
-                    <a href="#view_dashboard">Dashboard</a>
+                    <a href="#view_admin">Dashboard</a>
                 </span>
                 <span>
                     <a onclick = "AuthService.logOut()">Logout</a>

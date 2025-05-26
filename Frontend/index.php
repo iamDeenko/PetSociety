@@ -41,18 +41,24 @@
         <section id="view_register"></section>
         <section id="view_product"></section>
         <section id="view_dogs"></section>
+        <section id="view_admin"></section>
+        <section id="view_cart"></section>
         <section id="view_main" data-load="view_main.html"></section>
     </main>
 
 
 
 
-
+    <script src="./assets/utils/AdminService.js"></script>
     <script src="./assets/utils/Constants.js"></script>
     <script src="./assets/utils/RestClient.js"></script>
+    <script src="./assets/utils/CartService.js"></script>
     <script src="./assets/utils/AuthService.js"></script>
     <script src="./assets/utils/NavbarService.js"></script>
     <script src="./assets/utils/ProductService.js"></script>
+    <script src="./assets/utils/UserService.js"></script>
+    <script src="./assets/utils/OrderService.js"></script>
+
     <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.7.0.js"
         integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>

@@ -13,11 +13,10 @@ require_once '../PetSociety/Backend/Dao/UserDao.php';
 
 
 
-$test = new CartDao();
+$test = new UserDao();
 
 
-$res = $test->getAll();
-
+$res = $test->getUserOrders(4);
 
 
 print_r($res);

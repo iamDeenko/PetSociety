@@ -221,7 +221,7 @@ let ProductService = {
         </div>
         
       </div>
-      <button>Adopt</button>
+      <button onclick="CartService.adoptPet(${data.product_id})">Adopt</button>
     </div>
   </div>
         
@@ -254,7 +254,7 @@ let ProductService = {
             <div class="product-info mt-5"><p class="product-info-header">Size</p><p>${data.size}</p></div>
             <div class="product-info mt-5"><p class="product-info-header">Pet Type</p><p>${data.pet_type}</p></div>
           </div>
-          <button>Add to Cart</button>
+              <button onclick="CartService.addToCart(${data.product_id})">Add to Cart</button>
         </div>
       </div>
     `;
@@ -307,7 +307,9 @@ let ProductService = {
             data.storage_instructions
           }</p></div>
         </div>
-        <button>Add to Cart</button>
+    <button onclick="CartService.addToCart(${
+      data.product_id
+    })">Add to Cart</button>
       </div>
     </div>
   `;
@@ -339,7 +341,7 @@ let ProductService = {
           <div class="product-info mt-5"><p class="product-info-header">Durability</p><p>${data.durability_rating}</p></div>
           <div class="product-info mt-5"><p class="product-info-header">Chew Resistance</p><p>${data.chew_resistance}</p></div>
         </div>
-        <button>Add to Cart</button>
+         <button onclick="CartService.addToCart(${data.product_id})">Add to Cart</button>
       </div>
     </div>
   `;

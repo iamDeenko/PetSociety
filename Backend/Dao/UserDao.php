@@ -37,7 +37,7 @@ class UserDao extends BaseDao
 
                  FROM carts c
 
-                 JOIN ajna_baza.cart_items ci ON c.cart_ID = ci.cart_ID
+                 JOIN cart_items ci ON c.cart_ID = ci.cart_ID
 
                  WHERE c.user_ID = :user_ID 
 
@@ -57,14 +57,13 @@ class UserDao extends BaseDao
 
     public function getUserOrders($user_ID)
     {
-        $sql = "SELECT 
-     
-        ";
+        $sql = "SELECT * FROM cart_items ci JOIN petsociety.carts c ON ci.cart_ID = c.cart_ID join products p on ci.product_ID = p.product_id WHERE user_id = :user_id";
+
 
 
         $statement = $this->connection->prepare($sql);
 
-        $statement->bindValue("user_ID", $user_ID);
+        $statement->bindValue("user_id", $user_ID);
 
         $statement->execute();
 
@@ -92,5 +91,29 @@ class UserDao extends BaseDao
 
 
         return ['success' => false, 'Message ' => 'Invalid User ID!'];
+    }
+
+
+
+
+    public function checkOut($user_ID)
+    {
+        $validUser = $this->getById($user_ID);
+
+        if (!$validUser) return ['Success' => 'False', 'Message ' => 'User is NOT valid!'];
+
+        try {
+
+            $statement = "UPDATE carts c SET c.status = 'ordered' WHERE user_id = :user_ID";
+            $statement = $this->connection->prepare($statement);
+            $statement->bindValue(":user_ID", $user_ID);
+            $statement->execute();
+
+            if ($statement) {
+                return ["Success: " => 'True', "Message: " => "Ordered item successfully!"];
+            }
+        } catch (PDOException $e) {
+            return ['Success' => 'False', 'Message: ' => $e->getMessage()];
+        }
     }
 }

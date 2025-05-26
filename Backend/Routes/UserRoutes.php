@@ -33,7 +33,7 @@ Flight::route("GET /user/cart/@user_ID", function ($user_ID) {
 
     $USER_TOKEN = Flight::get('user');
 
-    if ($USER_TOKEN->user_ID != $user_ID) {
+    if ($USER_TOKEN->user_id != $user_ID) {
         Flight::json(['Status' => 'Error', 'Message' => 'You are not that user :) ']);
     };
 
@@ -76,11 +76,18 @@ Flight::route("GET /user/cart/@user_ID", function ($user_ID) {
 Flight::route('POST /user/create-cart/@user_ID', function ($user_ID) {
 
 
+
     $USER_TOKEN = Flight::get('user');
 
-    if ($USER_TOKEN->user_ID != $user_ID) {
+    $e =  $USER_TOKEN->user_id;
+
+    echo $e;
+
+
+    if ($USER_TOKEN->user_id != $user_ID) {
         Flight::json(['Status' => 'Error', 'Message' => 'You are not that user :) ']);
     };
+
 
 
     Flight::json(Flight::userService()->createCart($user_ID));
@@ -114,7 +121,7 @@ Flight::route('POST /user/create-cart/@user_ID', function ($user_ID) {
 Flight::route('GET /user/@user_ID/orders', function ($user_ID) {
     $USER_TOKEN = Flight::get('user');
 
-    if ($USER_TOKEN->user_ID != $user_ID) {
+    if ($USER_TOKEN->user_id != $user_ID) {
         Flight::json(['Status' => 'Error', 'Message' => 'You are not that user :) ']);
     };
 
@@ -155,7 +162,8 @@ Flight::route('GET /user/@user_ID/orders', function ($user_ID) {
 Flight::route('DELETE /user/cart/deletecart/@user_ID', function ($user_ID) {
     $USER_TOKEN = Flight::get('user');
 
-    if ($USER_TOKEN->user_ID != $user_ID) {
+    
+    if ($USER_TOKEN->user_id != $user_ID) {
         Flight::json(['Status' => 'Error', 'Message' => 'You are not that user :) ']);
     };
 

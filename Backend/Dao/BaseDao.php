@@ -7,12 +7,13 @@ class BaseDao
     protected $connection;
     protected $table_name;
 
+    protected $idColumn;
+
     public function __construct($table_name)
     {
         $this->connection = Database::connect();
         $this->table_name = $table_name;
     }
-
 
 
     protected function query($query, $params)
@@ -125,5 +126,36 @@ class BaseDao
     public function getTableName()
     {
         $name = $this->table_name;
+
+
+        if ($this->table_name == "users") return 'user_id';
+        if ($this->table_name == "carts") return 'cart_id';
+        if ($this->table_name == "cart_items") return 'cart_item_id';
+        if ($this->table_name == "order_details") return 'orderdetail_id';
+        if ($this->table_name == "books") return 'book_id';
+        if ($this->table_name == "users") return 'user_id';
+        if ($this->table_name == "categories") return 'category_id';
+
+
+        return "ERROR::Error - Invalid Table Name!";
     }
+
+
+    public function getByIDD($id)
+    {
+
+        if (!$id) throw new Exception("ERROR::No_Data");
+
+        try {
+            $stmt = $this->connection->prepare("SELECT * FROM " . $this->table_name . " WHERE " . $this->idColumn . " = :id");
+            $stmt->bindParam(':id', $id);
+            $stmt->execute();
+
+            return $stmt->fetch();
+        } catch (PDOException $exception) {
+            echo $exception->getMessage();
+        }
+    }
+
+
 }

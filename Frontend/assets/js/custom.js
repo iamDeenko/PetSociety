@@ -18,6 +18,16 @@ $(document).ready(function () {
   });
 
   app.route({
+    view: "view_admin",
+    load: "view_admin.html",
+  });
+
+  app.route({
+    view: "view_cart",
+    load: "view_cart.html",
+  });
+
+  app.route({
     view: "view_dogs",
     load: "view_dogs.html",
   });
