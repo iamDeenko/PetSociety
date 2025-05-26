@@ -7,29 +7,31 @@
 
   
 
-    <div class="col-md-2">
+    <div class="col-md-3" style="border-left: 1px black solid ">
 
   
 
-
-      <div id= "category-search" class="mt-5">
-        <form action="/api/shop/">
+      <div id="category-search" class="mt-5">
+        <form class="d-flex flex-column" action="/api/shop/">
           <h4>Category</h4>
-          <select id="category-select" onchange="ProductService.getByCategory()" class="form-select mt-3 text-center">
-            <option value="Pets" >Pets</option>
+          <select id="category-select" onchange="ProductService.getByCategory()" class="border-bottom mt-3 mb-5 text-start w-50 form-control shadow-lg">
+            <option value="Pets">Pets</option>
             <option value="Accessories">Accessories</option>
             <option value="Toys">Toys</option>
             <option value="Food">Food</option>
           </select>
         </form>
-
-      
-      </form>
+        <div class="d-flex flex-wrap mt-3 gap-4">
+          <div class="subcategory-card text-center card shadow-lg m-0" style="width: 100px; height: 50px; display: flex; justify-content: center; align-items: center; border: 1px solid whitesmoke;">TEST</div>
+          <div class="subcategory-card text-center card shadow-lg m-0" style="width: 100px; height: 50px; display: flex; justify-content: center; align-items: center; border: 1px solid whitesmoke;">TEST</div>
+          <div class="subcategory-card text-center card shadow-lg m-0" style="width: 100px; height: 50px; display: flex; justify-content: center; align-items: center; border: 1px solid whitesmoke;">TEST</div>
+          <div class="subcategory-card text-center card shadow-lg m-0" style="width: 100px; height: 50px; display: flex; justify-content: center; align-items: center; border: 1px solid whitesmoke;">Test</div>
+        </div>
       </div>
 
       
       </div>
-      <div id="product-items-div" class="col-md-10 products-items d-flex pt-1 flex-wrap">
+      <div id="product-items-div" class="col-md-9 products-items d-flex pt-1 flex-wrap">
         <div class="product-item">
           <div class="product-item-image">
             <img src="assets/images/leash.png" />
