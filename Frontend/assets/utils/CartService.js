@@ -32,7 +32,7 @@ let CartService = {
     return new Promise((resolve, reject) => {
       const userToken = localStorage.getItem("user_token");
       if (!userToken) {
-        console.error("CartService::getCartID() => User token not found.");
+        toastr.error("You must be logged in to add to cart!");
         reject("User token not found");
         return;
       }

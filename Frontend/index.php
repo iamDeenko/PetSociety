@@ -40,7 +40,7 @@
         <section id="view_login"></section>
         <section id="view_register"></section>
         <section id="view_product"></section>
-        <section id="view_dogs"></section>
+        <section id="view_shop"></section>
         <section id="view_admin"></section>
         <section id="view_cart"></section>
         <section id="view_main" data-load="view_main.html"></section>
