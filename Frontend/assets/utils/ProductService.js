@@ -6,6 +6,15 @@ let ProductService = {
       "/shop/pets",
       function (data) {
         console.log(data);
+
+        console.log("VIBE CODE ", data[0].category_id);
+
+        const subcategories = CategoryService.getAllSubcategories(
+          data[0].category_id
+        );
+
+        console.log(subcategories);
+
         productItemsDiv.innerHTML = "";
         for (pet of data) {
           console.log(pet);
@@ -35,27 +44,25 @@ let ProductService = {
     );
   },
 
-  getByCategory: function () {
-    console.log("123 test");
-
-    const categoryField = document.getElementById("category-select");
+  getByCategory: function (category) {
     const whichCategory = document.getElementById("whichcategory");
     const productItemsDiv = document.getElementById("product-items-div");
-
-    const selected = categoryField.value;
-
-    console.log(selected);
-
+    const whichSubcategory = document.getElementById("subcategory");
+    whichSubcategory.innerHTML = "";
     RestClient.get(
-      "/shop/" + selected,
+      "/shop/" + category,
       function (data) {
         whichCategory.innerHTML = "";
-        whichCategory.innerHTML = `${selected}`;
-        console.log(data);
+        whichCategory.innerHTML = `<h1> ${category} </h1>`;
+
+        console.log("VIBE CODE ", data[0].category_id);
+
+        const subcategories = CategoryService.getAllSubcategories(
+          data[0].category_id
+        );
+
         productItemsDiv.innerHTML = "";
         for (pet of data) {
-          console.log(pet);
-
           productItemsDiv.innerHTML += `
 
           <a href = "#view_product" style="text-decoration: none; color:black; outline: none;" onclick = "ProductService.getProductById(${pet.product_id})">
@@ -183,7 +190,7 @@ let ProductService = {
       <h1>${data.name}</h1>
       <span>The ${data.breed}</span>
       <p class="mt-3 mb-5"> ${data.description} </p>
-      <h6
+      <h4
         style="
           border-bottom: 1px solid !important;
           width: 100%;
@@ -192,8 +199,8 @@ let ProductService = {
           padding-bottom: 1rem;
         "
       >
-        ${data.price}
-      </h6>
+        $${data.price}
+      </h4>
       <div class="row row-cols-3 text-center d-flex justify-content-between align-items-center">
         <div class="product-info col mt-5">
           <p class="product-info-header">Age</p>

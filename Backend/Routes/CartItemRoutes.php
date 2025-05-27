@@ -7,7 +7,7 @@
  *     path="/cart/item/new-item",
  *     tags={"cart"},
  *     summary="Add a new item to the cart",
- *     description="Add a book to a user's cart by providing cart_ID, book_ID, and quantity.",
+ *     description="Add a product to a user's cart by providing cart_ID, product_ID, and quantity.",
  *     @OA\RequestBody(
  *         required=true,
  *         description="Cart item data",

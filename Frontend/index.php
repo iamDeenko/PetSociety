@@ -26,7 +26,7 @@
 
 
 
-    <nav id="navbar" class="navbar">
+    <nav id="navbar">
 
     </nav>
 
@@ -53,6 +53,7 @@
     <script src="./assets/utils/Constants.js"></script>
     <script src="./assets/utils/RestClient.js"></script>
     <script src="./assets/utils/CartService.js"></script>
+    <script src="./assets/utils/CategoryService.js"></script>
     <script src="./assets/utils/AuthService.js"></script>
     <script src="./assets/utils/NavbarService.js"></script>
     <script src="./assets/utils/ProductService.js"></script>

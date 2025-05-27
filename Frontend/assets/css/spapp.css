@@ -5,18 +5,18 @@ main#spapp > section:last-child {
   display: block;
 }
 @keyframes appear {
-  from {
+  0% {
     width: 0;
     opacity: 0;
   }
-  to {
+  100% {
     width: 100%;
-    opacity: 1;
+    opacity: 0;
   }
 }
 main#spapp > section:target {
   display: block;
-  animation: appear 0.1s linear 1;
+  animation: appear 0.37s ease-in-out;
 }
 main#spapp > section:target ~ * {
   display: none;

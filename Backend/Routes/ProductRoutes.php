@@ -63,8 +63,3 @@ Flight::route('GET /shop/@category_name', function ($category_name) {
    Flight::json($service->getByCategory($category_name));
 });
 
-
-Flight::route('GET /shop/subcategory/@subcategory_name', function ($subcategory_name) {
-   $service = new ProductService();
-   Flight::json($service->getProductsInSubcategory($subcategory_name));
-});

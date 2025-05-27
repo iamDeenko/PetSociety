@@ -147,9 +147,9 @@ let CartService = {
 
       if (data.cart === false || !data.cart) {
         cartDiv.innerHTML = `
-            <div class="text-center mt-5">
-            <h1>Your Cart is Empty</h1>
-            <p>Browse our store and add some items to your cart!</p>
+          <div class="container text-start mt-5">
+            <h1 style="font-size: 64px;">Your cart's empty!</h1>
+            <p style="color: #1d1d1f !important">Browse our store and add some items to your cart.</p>
           </div>
           `;
         return;
@@ -172,7 +172,7 @@ let CartService = {
               <h4><strong> Items: </strong> ${NumbersInCart}</h4>
             </div>
             <div class= "col-md-4 mt-1">
-              <button class= "card p-2 mt-5 mb-5 shadow-lg" style=" background-color:#0072bb; color:white; outline:none; border:none; "  id="purchaseNowButton" onclick = "OrderService.purchaseItems()">Purchase Now</button>
+              <button class= "card p-2 mt-5 mb-5 shadow-lg" style=" background-color:#0077ed; color:white; outline:none; border:none; "  id="purchaseNowButton" onclick = "OrderService.purchaseItems()">Purchase Now</button>
             </div>
           </div>
           <div id="cart-items" class="row text-center justify-content-center g-3">

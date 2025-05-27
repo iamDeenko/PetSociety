@@ -13,6 +13,14 @@
   margin-top: 3rem;
 }
 
+.activesubcategory {
+  border: 1px solid #86868b !important;
+}
+
+.subcategory-item {
+  color: #1d1d1f;
+}
+
 .product-info .product-info-header {
   color: black;
   font-size: 1.5rem;
