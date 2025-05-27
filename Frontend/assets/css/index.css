@@ -28,6 +28,13 @@ p {
   font-family: "SF-Pro-Text-Regular;
 }
 
+
+.in-active {
+  display: none !important;
+}
+
+
+
 #navbar a {
   font-family: "SF Pro Display";
   font-size: 16px;

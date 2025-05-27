@@ -4,9 +4,10 @@ let AdminService = {
   },
 
   getUsersByName: function (name) {
-    console.log(name);
+    console.log("CURRENT NAME:: ", name);
 
     if (!name) {
+      console.log("CURRENT NAME:: ", name);
       const cardBody = document.getElementById("user-card-body");
       cardBody.innerHTML = "";
       cardBody.innerHTML =
@@ -14,54 +15,51 @@ let AdminService = {
       return;
     }
 
-    RestClient.get(`admin/user/name/${name}`, function (data) {
-      const cardBody = document.getElementById("user-card-body");
+    const cardBody = document.getElementById("user-card-body");
 
-      if (data.length === 0) {
-        console.log("No users found.");
-        cardBody.innerHTML = '<h4 class="text-center">No users found.</h4>';
-        return;
-      }
+    cardBody.innerHTML = "";
+    RestClient.get(`/admin/user/name/${name}`, function (data) {
+      console.log(data);
 
-      cardBody.innerHTML = "";
-
-      for (user of data) {
-        cardBody.innerHTML += `
-            <div class="d-flex flex-column justify-content-between align-items-center  p-1">
-              <div class="d-flex flex-row justify-content-between align-items-center w-100">
-                <h4 class="mb-0">${user.name}</h4>
-                <div onclick="AdminService.toggleOnOff(${user.user_ID})" title="Show Details">
-                  <img src="images/icons/down-icon.png" id="down-icon${user.user_ID}" style="width: 22px; height: 22px;" alt="Show Details">
-                </div>
-              </div>
-  
-              <div class="px-1 mt-3 in-active w-100" id="user-card-body-${user.user_ID}">
-                <div class="d-flex flex-row justify-content-around align-items-center w-100">
-                  <div class="mt-1 p-1 text-center">
-                    <div onclick="AdminService.getUserOrderHistory(${user.user_ID})" class="text-center">
-                      <img class="align-self-center" src="images/icons/historyIcon.png" style="width: 28px; height: 28px;" alt="View Order History">
-                      <p class="border-bottom">Order History</p>
-                    </div>
-                  </div>
-  
-                  <div class="mb-0 p-1 d-flex justify-content-center align-items-center flex-column" onclick="AdminService.getUserCart(${user.user_ID})">
-                    <img class="align-self-center" src="images/icons/cartIcon.png" style="width: 28px; height: 28px; " alt="View Carts">
-                    <p  class = "border-bottom text-end">Active Carts</p>
-                  </div>
-  
-  
-                  <div  class="mb-0 p-1 d-flex justify-content-center align-items-center flex-column" onclick="AdminService.showMoreUserInfo(${user.user_ID})">
-                    
-                  <img class="align-self-center" src="images/icons/infoIcon.png" style="width: 28px; height: 28px; " alt="View More Info">
-                  <p  class = "border-bottom">More Info</p>
-                    </div>
-  
-  
-                </div>
+      data.forEach((user) => {
+        cardBody.innerHTML += ` 
+        <div class="d-flex flex-column justify-content-between align-items-center  p-1">
+            <div class="d-flex flex-row justify-content-between align-items-center w-100">
+              <h5 class="mb-0">${user.first_name} ${user.last_name}</h5>
+              <div onclick="AdminService.toggleOnOff(${user.user_id})" title="Show Details">
+                <img src="/assets/images/icons/down-icon.png" id="down-icon${user.user_id}" style="width: 22px; height: 22px;" alt="Show Details">
               </div>
             </div>
-          `;
-      }
+
+            <div class="px-1 mt-3 in-active w-100" id="user-card-body-${user.user_id}">
+              <div class="d-flex flex-row justify-content-around align-items-center w-100">
+                <div class="mt-1 p-1 text-center">
+                  <div onclick="AdminService.getUserOrderHistory(${user.user_id})" class="text-center">
+                    <img class="align-self-center" src="/assets/images/icons/historyIcon.png" style="width: 28px; height: 28px;" alt="View Order History">
+                    <p class="border-bottom">Order History</p>
+                  </div>
+                </div>
+
+                <div class="mb-0 p-1 d-flex justify-content-center align-items-center flex-column" onclick="AdminService.getUserCart(${user.user_id})">
+                  <img class="align-self-center" src="/assets/images/icons/cart.png" style="width: 28px; height: 28px; " alt="View Carts">
+                  <p  class = "border-bottom text-end">Active Carts</p>
+                </div>
+
+
+                <div  class="mb-0 p-1 d-flex justify-content-center align-items-center flex-column" onclick="AdminService.showMoreUserInfo(${user.user_id})">
+                  
+                <img class="align-self-center" src="/assets/images/icons/infoIcon.png" style="width: 28px; height: 28px; " alt="View More Info">
+                <p  class = "border-bottom">More Info</p>
+                  </div>
+
+
+              </div>
+            </div>
+          </div>
+        
+        
+        `;
+      });
     });
   },
 
@@ -72,12 +70,12 @@ let AdminService = {
     const downIcon = document.getElementById(`down-icon${data}`);
 
     if (cardBody.classList.contains("in-active")) {
-      downIcon.src = "images/icons/up-icon.png";
+      downIcon.src = "/assets/images/icons/up-icon.png";
 
       cardBody.classList.remove("in-active");
       cardBody.classList.add("is-active");
     } else {
-      downIcon.src = "images/icons/down-icon.png";
+      downIcon.src = "/assets/images/icons/down-icon.png";
       cardBody.classList.remove("is-active");
       cardBody.classList.add("in-active");
     }
@@ -107,10 +105,10 @@ let AdminService = {
     });
   },
 
-  showMoreUserInfo: function (user_ID) {
-    console.log("Fetching user info for ID:", user_ID);
+  showMoreUserInfo: function (user_id) {
+    console.log("Fetching user info for ID:", user_id);
 
-    RestClient.get(`admin/user/id/${user_ID}`, function (user) {
+    RestClient.get(`/admin/user/id/${user_id}`, function (user) {
       const existingModal = document.getElementById("moreUserInfo");
       if (existingModal) existingModal.innerHTML = "";
 
@@ -126,11 +124,11 @@ let AdminService = {
                   <div class="row">
                     <dvv class="col-md-4 d-flex justify-content-center align-items-center text-center">
                       <img src="${
-                        user.user_image_url || "images/default.png"
-                      }" alt="User Image" class="img-fluid rounded-circle mb-3" style="max-width:150px;" />
+                        user.user_image_url || "/assets/images/default.png"
+                      }" alt="User Image" class="img-fluid rounded-circle mb-3" style="object-fit:cover; max-width:150px; max-height=150px; height=150px; width=150px;" />
                     </dvv>
                     <div class="col-md-8">
-                      <p><strong>ID:</strong> ${user.user_ID || ""}</p>
+                      <p><strong>ID:</strong> ${user.user_id || ""}</p>
                       <p><strong>Full Name:</strong> ${user.name || ""}</p>
                       <p><strong>Email:</strong> ${user.email || ""}</p>
                       <p><strong>Address:</strong> ${user.address || ""}</p>
@@ -152,8 +150,10 @@ let AdminService = {
     });
   },
 
-  getUserCart: function (user_ID) {
-    RestClient.get(`admin/user/cart/${user_ID}`, function (cart) {
+  getUserCart: function (user_id) {
+    RestClient.get(`/user/cart/${user_id}`, function (cart) {
+      console.log(cart);
+
       const existingModal = document.getElementById("userCartModal");
       if (existingModal) existingModal.innerHTML = "";
 
@@ -170,27 +170,17 @@ let AdminService = {
                     <table class="table table-striped">
                       <thead>
                         <tr>
-                          <th>product</th>
-                          <th>Quantity</th>
-                          <th>Price</th>
+                          <th>Cart ID</th>
+                          <th>Status</th>
+                          <th>Total</th>
                         </tr>
                       </thead>
                       <tbody>
-                        ${
-                          cart && cart.length > 0
-                            ? cart
-                                .map(
-                                  (item) => `
-                          <tr>
-                            <td>${item.title || ""}</td>
-                            <td>${item.quantity || ""}</td>
-                            <td>$${item.price || ""}</td>
-                          </tr>
-                        `
-                                )
-                                .join("")
-                            : '<tr><td colspan="3" class="text-center">No items in cart.</td></tr>'
-                        }
+                        <tr>
+                          <td>${cart.cart_ID}</td>
+                          <td>${cart.status}</td>
+                          <td>${cart.price_total}</td>
+                        </tr>
                       </tbody>
                     </table>
                   </div>
@@ -219,7 +209,7 @@ let AdminService = {
 
     // Category options
     const categories = [
-      { id: 2, name: "Science Fiction" },
+      { id: 2, name: "Pets" },
       { id: 3, name: "Romance" },
       { id: 4, name: "Business" },
       { id: 6, name: "Adventure" },
@@ -337,8 +327,8 @@ let AdminService = {
     modal.show();
   },
 
-  getUserOrderHistory: function (user_ID) {
-    RestClient.get(`admin/user/orders/${user_ID}`, function (orders) {
+  getUserOrderHistory: function (user_id) {
+    RestClient.get(`admin/user/orders/${user_id}`, function (orders) {
       const existingModal = document.getElementById("userOrderHistory");
       if (existingModal) existingModal.innerHTML = "";
 
@@ -394,92 +384,6 @@ let AdminService = {
         document.getElementById("userOrderHistoryModal")
       );
       modal.show();
-    });
-  },
-
-  renderAdminDiv: function () {
-    const adminDiv = document.getElementById("admin-div");
-
-    const userToken = localStorage.getItem("user_token");
-    const decodedToken = jwt_decode(userToken);
-    const data = decodedToken.user;
-
-    adminDiv.innerHTML = `
-      <div class="d-flex  justify-content-center align-items-center">
-        <div class="d-flex flex-column justify-content-center align-items-center">
-          <img src = ${data.user_image_url} class="img-fluid rounded-circle mb-3 mt-3" style="width: 100px; height: 100px;">
-          <p> ${data.name}</p>
-        </div>
-  
-        <div class = "flex-row"> 
-  
-        </div>
-  
-  
-      </div>
-    
-      `;
-  },
-
-  getProductByTitle: function (name) {
-    const cardBody = document.getElementById("product-card-body");
-    if (!name) {
-      cardBody.innerHTML = `
-          <div class="d-flex flex-row justify-content-center align-items-center">
-            <div class="d-flex p-2 flex-column justify-content-center align-items-center">
-              <img src="images/icons/addIcon.png" class="img-fluid rounded-circle mb-3 mt-3">
-              <p class="border-bottom">Add a Product</p>
-            </div>
-          </div>
-        `;
-      return;
-    }
-
-    RestClient.get(`admin/product/${name}`, function (data) {
-      if (data.length === 0) {
-        cardBody.innerHTML = `
-            <div class="d-flex flex-row justify-content-center align-items-center">
-              <div class="d-flex p-2 flex-column justify-content-center align-items-center" onclick="AdminService.addProductModal()">
-                <img src="images/icons/addIcon.png" class="img-fluid rounded-circle mb-3 mt-3">
-                <p class="border-bottom">Add a Product!</p>
-              </div>
-            </div>
-          `;
-        return;
-      }
-
-      cardBody.innerHTML = "";
-
-      for (const product of data) {
-        cardBody.innerHTML += `
-            <div class="d-flex flex-column justify-content-between align-items-center p-1">
-              <div class="d-flex flex-row justify-content-between align-items-center w-100">
-                <h4 class="mb-0">${product.title}</h4>
-                <div onclick="AdminService.toggleOnOffproduct(${product.product_ID})" title="Show Details">
-                  <img src="images/icons/down-icon.png" id="down-icon-product-${product.product_ID}" style="width: 22px; height: 22px;" alt="Show Details">
-                </div>
-              </div>
-              <div class="px-1 mt-3 in-active w-100" id="product-card-body-${product.product_ID}">
-                <div class="d-flex flex-row justify-content-around align-items-center w-100">
-                  <div class="mt-1 p-1 text-center">
-                    <div onclick="AdminService.editProduct(${product.product_id})" class="text-center">
-                      <img class="align-self-center" src="images/icons/editIcon.png" style="width: 28px; height: 28px;" onclick="ProductService.editProductById(${product.product_ID})" alt="Edit product">
-                      <p class="border-bottom">Edit</p>
-                    </div>
-                  </div>
-                  <div class="mb-0 p-1 d-flex justify-content-center align-items-center flex-column" onclick="ProductService.Peleteproduct(${product.product_ID})">
-                    <img class="align-self-center" src="images/icons/removeIcon.png" style="width: 28px; height: 28px;" alt="Remove product">
-                    <p class="border-bottom text-end">Removeee</p>
-                  </div>
-                  <div class="mb-0 p-1 d-flex justify-content-center align-items-center flex-column" onclick="productService.getOneByID(${product.product_ID})">
-                    <img class="align-self-center" src="images/icons/infoIcon.png" style="width: 28px; height: 28px;" alt="Add product">
-                    <p class="border-bottom" data-target="#exampleModalCenter" data-toggle="modal">More Info</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          `;
-      }
     });
   },
 };
