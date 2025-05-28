@@ -19,4 +19,17 @@ class CategoryDao extends BaseDao
 
         return $result;
     }
+
+
+
+    public function getSubcategoriesFromCategoryID($category_id)
+    {
+        $sql = "SELECT sc.name FROM subcategories sc JOIN categories c ON sc.category_id = c.category_id WHERE c.category_id = :category_id;";
+
+        $statement = $this->connection->prepare($sql);
+        $statement->bindParam('category_id', $category_id);
+        $statement->execute();
+
+        return $statement->fetchAll();
+    }
 }

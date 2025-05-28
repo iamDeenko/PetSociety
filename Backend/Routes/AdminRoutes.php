@@ -37,6 +37,10 @@ Flight::group("/admin", function () {
      * )
      */
     Flight::route("GET /user/name/@user_name", function ($name) {
+
+
+
+
         Flight::json(Flight::adminService()->getUsersByName($name));
     });
 

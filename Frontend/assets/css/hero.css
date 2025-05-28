@@ -133,6 +133,10 @@
   opacity: 1;
 }
 
+#res {
+  resize: both;
+}
+
 .hero-categories {
   width: 75% !important;
   font-size: 64px;

@@ -1,35 +1,45 @@
 <div class="container mt-5">
   <div class="row">
     <p>Shop /</p>
-    <h1 id = "whichcategory">Pets</h1>
+    <div class="d-flex flex-row border-bottom pb-3 align-items-center">
+      <h1  id="whichcategory" >Pets  </h1>
+      <h1 id = "subcategory" style="display: hidden;"> 
+
+      </h1>
+      
+    </div>
   </div>
   <div class="row mt-3">
 
   
 
-    <div class="col-md-2">
+    <div class="col-md-3">
 
   
 
+      <div id="category-search" class="mt-5">
+       
+          <h3>Category</h3>
+          <div id="product-category-div" class="d-flex flex-column mt-4 gap-2">
+            <div onclick="ProductService.getByCategory(this.getAttribute('data-value'))" data-value="Food">Food</div>
+            <div onclick="ProductService.getByCategory(this.getAttribute('data-value'))" data-value="Pets">Pets</div>
+            <div onclick="ProductService.getByCategory(this.getAttribute('data-value'))" data-value="Toys">Toys</div>
+            <div onclick="ProductService.getByCategory(this.getAttribute('data-value'))" data-value="Accessories">Accessories</div>
+          </div>
 
-      <div id= "category-search" class="mt-5">
-        <form action="/api/shop/">
-          <h4>Category</h4>
-          <select id="category-select" onchange="ProductService.getByCategory()" class="form-select mt-3 text-center">
-            <option value="Pets" >Pets</option>
-            <option value="Accessories">Accessories</option>
-            <option value="Toys">Toys</option>
-            <option value="Food">Food</option>
-          </select>
-        </form>
 
-      
-      </form>
+        <h3 class="mt-5">Type</h3>
+        <div id ="product-subcategory-div" class="d-flex flex-column mt-4 gap-2">
+          <div class="subcategory-card text-center card shadow-lg m-0" style="width: 100px; height: 50px; display: flex; justify-content: center; align-items: center; border: 1px solid whitesmoke;">TEST</div>
+          <div class="subcategory-card text-center card shadow-lg m-0" style="width: 100px; height: 50px; display: flex; justify-content: center; align-items: center; border: 1px solid whitesmoke;">TEST</div>
+          <div class="subcategory-card text-center card shadow-lg m-0" style="width: 100px; height: 50px; display: flex; justify-content: center; align-items: center; border: 1px solid whitesmoke;">TEST</div>
+          <div class="subcategory-card text-center card shadow-lg m-0" style="width: 100px; height: 50px; display: flex; justify-content: center; align-items: center; border: 1px solid whitesmoke;">Test</div>
+        </div>
       </div>
 
       
       </div>
-      <div id="product-items-div" class="col-md-10 products-items d-flex pt-1 flex-wrap">
+      <div id="product-items-div" class="col-md-9 products-items d-flex pt-1 flex-wrap">
         <div class="product-item">
           <div class="product-item-image">
             <img src="assets/images/leash.png" />

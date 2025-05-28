@@ -73,9 +73,10 @@ class AdminDao extends BaseDao
 
     public function getUsersByName($name)
     {
-        $sql = "SELECT CONCAT(first_name, ' ', last_name) AS name 
-                FROM users 
-                WHERE CONCAT(first_name, ' ', last_name) LIKE :name;";
+        $sql = "SELECT *
+                FROM users
+                WHERE first_name LIKE :name
+                ORDER BY first_name";
 
         $likeName = '%' . $name . '%';
 
@@ -87,6 +88,19 @@ class AdminDao extends BaseDao
         return $res;
     }
 
+
+    public function getUserByID($user_ID)
+    {
+        $sql = "SELECT * FROM users WHERE user_ID = :user_ID";
+        $statement = $this->connection->prepare($sql);
+        $statement->bindParam(":user_ID", $user_ID);
+
+        $statement->execute();
+
+        $res = $statement->fetch();
+
+        return $res;
+    }
 
     public function getUserOrderHistory($user_ID)
     {

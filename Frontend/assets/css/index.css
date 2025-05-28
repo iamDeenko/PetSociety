@@ -1,104 +1,118 @@
-*{
+h1 {
   font-family: "SF Pro Rounded";
 }
-.navbar {
-  z-index:3;
-  display:flex;
-  justify-content:center;
-  align-items: center;
-  color: #333;
+
+#navbar {
+  z-index: 3;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   border-bottom: 1px solid #eee;
   text-decoration: none;
-  background-color: rgba(250,250,250,0.8) !important;
+  background-color: rgba(250, 250, 250, 0.8) !important;
 }
 
-.navbar a {
-  font-family: 'SF Pro Rounded';
-  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
-  color: #333;
-  font-size: 18px;
+#logo-container {
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  letter-spacing: -.009em;
+  line-height: 1.0625;
+  color: #1d1d1f !important;
+}
+
+p {
+  font-family: "SF-Pro-Text-Regular;
+}
+
+
+.in-active {
+  display: none !important;
+}
+
+
+
+#navbar a {
+  font-family: "SF Pro Display";
+  font-size: 16px;
   font-weight: 400;
-  transition: 0.25532s ease-in-out;
+  transition: 0.251532s ease-in-out;
   text-decoration: none;
   border-bottom: 1px solid transparent;
 }
 
-body{
-  background-color: rgba(250,250,250,0.8) !important;
-  overflow-x:hidden !important;
+.button-line{
+
+    background-color: transparent;
+    outline: none;
+    border: none !important;
+    border-bottom: 1px solid black !important;
+    font-weight: 600;
+
 }
 
 
-nav a:hover{
+.button-confirm{
+  outline: none;
+  border: none;
+  border-radius: 9px;
+  background-color: #0077ed;
+}
+
+#navbar span {
+  font-family: "SF Pro Display";
+  font-size: 16px;
+  font-weight: 400;
+  transition: 0.251532s ease-in-out;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+}
+
+
+
+body {
+  background-color: #ffffff !important;
+  overflow-x: hidden !important;
+}
+
+#navbar a:hover {
   border-bottom: 1px solid black;
 }
 
-nav a:first-child:hover{
-  border-botton: 1px solid transparent !important;
-}
 
-.navbar-brand{
-  font-weight:700;
+
+.navbar-brand {
+  font-weight: 700;
   color: #333 !important;
-  font-size:26px !important;
+  font-size: 26px !important;
 }
 
-.shop-container{
-    position: fixed;
-    bottom: 150px;   
-    right: 50px;    
-    background-color: white;
-    border: 1px solid #333;
-    color: #333333;
-    padding: 23px;
-    border-radius: 50%; 
-    cursor: pointer;    
-    z-index: 4;      
-    transition: 0.25s ease-in-out;
-
+.shop-container {
+  position: fixed;
+  bottom: 150px;
+  right: 50px;
+  background-color: white;
+  border: 1px solid #333;
+  color: #333333;
+  padding: 23px;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 4;
+  transition: 0.25s ease-in-out;
 }
 
-.shop-container:hover{
+.shop-container:hover {
   transform: scale(110%);
 }
 
-
-
-.is-visible{
+.is-visible {
   display: block;
 }
 
 
-
-
-.cartflyout {
-  position: fixed;
-  top: 8%;
-  right: -15%;
-  width: 15%;
-  height: 90%;
-  border-top-left-radius: 16px;
-  border-bottom-left-radius: 16px;
-  z-index: 300;
-  background-color:white;
-  animation-fill-mode: forwards;
-  animation: slide-left 0.1s ease-in-out;
-  display: none;
-  flex-direction:column;
-  border: 1px solid #eeeeee;
- }
-
-.cartflyout.active {
-  display: block;
-  right: 0%;
-}
-
-.cartflyout.inactive {
-  animation: slide-right 0.1s ease-in-out;
-  right: -15%;
-  animation-fill-mode: forwards;
-}
 
 @keyframes slide-left {
   from {
@@ -118,16 +132,15 @@ nav a:first-child:hover{
   }
 }
 
-
 .cartflyout span {
   background-color: #333;
   margin-top: 3rem;
   position: absolute;
-  right:10px;
-  top:-10px;
+  right: 10px;
+  top: -10px;
   width: 30px;
   height: 2.5px;
-  border-radius:16px;
+  border-radius: 16px;
   z-index: 301;
   transform: rotate(45deg);
   animation-duration: 0.5s;
@@ -135,68 +148,64 @@ nav a:first-child:hover{
   animation-timing-function: ease-in-out;
 }
 
-.cartflyout span:nth-of-type(1){
-
- transform: rotate(-45deg);
+.cartflyout span:nth-of-type(1) {
+  transform: rotate(-45deg);
 }
 
-.spansection{
-  z-index:3001;
-  position:absolute;
-  height:80px;
-  width:100%;
+.spansection {
+  z-index: 3001;
+  position: absolute;
+  height: 80px;
+  width: 100%;
 }
-
 
 .shoppingcartspan:hover {
   cursor: pointer;
 }
 
-
-.shoppingcart-items{
-  display:flex;
-  flex-direction:column;
-  height:80%;
-  gap:1.2rem;
-  width:90%;
-  margin-top:30%;
-  align-self:center;
-  position:absolute;
-  z-index:300;
-  overflow-y:auto;
+.shoppingcart-items {
+  display: flex;
+  flex-direction: column;
+  height: 80%;
+  gap: 1.2rem;
+  width: 90%;
+  margin-top: 30%;
+  align-self: center;
+  position: absolute;
+  z-index: 300;
+  overflow-y: auto;
 }
 
-.shoppingcart-item{
+.shoppingcart-item {
   font-family: "SF Pro Rounded";
-  font-weight:700;
-  padding:1rem;
-  height:100px;
+  font-weight: 700;
+  padding: 1rem;
+  height: 100px;
   border-bottom: 1px solid #eee;
 }
 
-
-.shop-flydown-menu{
-  width:100%;
-  position:relative;
-  height:fit-content;
+.shop-flydown-menu {
+  width: 100%;
+  position: relative;
+  height: fit-content;
   top: -250px;
-  background-color: rgba(250,250,250,0.8) !important;
-  z-index:1;
-  display:none;
-  padding-bottom: 3rem; 
+  background-color: rgba(250, 250, 250, 0.8) !important;
+  z-index: 1;
+  display: none;
+  padding-bottom: 3rem;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   border-bottom: 1px solid #eee;
   transition: 0.2s ease-in-out;
 }
 
-.shop-flydown-menu a{
-  color:grey;
+.shop-flydown-menu a {
+  color: grey;
   font-family: "SF Pro Rounded";
-  padding-bottom:5px;
-  text-decoration:none;
+  padding-bottom: 5px;
+  text-decoration: none;
 }
 
-.shop-flydown-menu a:first-child{
+.shop-flydown-menu a:first-child {
   font-family: "SF Pro Rounded";
   color: #333 !important;
   font-weight: bold;
@@ -204,12 +213,12 @@ nav a:first-child:hover{
   padding-bottom: 10px;
 }
 
-.shop-flydown-menu a:first-child:hover{
-  font-weight:bold !important;
+.shop-flydown-menu a:first-child:hover {
+  font-weight: bold !important;
 }
 
-.shop-flydown-menu a:hover{
-  cursor:pointer;
+.shop-flydown-menu a:hover {
+  cursor: pointer;
   color: #333;
   font-weight: 500;
 }
@@ -218,4 +227,3 @@ nav a:first-child:hover{
   display: flex;
   transform: translateY(250px);
 }
-

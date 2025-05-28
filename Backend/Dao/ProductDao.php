@@ -28,25 +28,7 @@ class ProductDao extends BaseDao
     }
 
 
-    public function getBySubcategory($category_name, $subcategory_name)
-    {
-        $sql = "SELECT * FROM products pr
-                  JOIN subcategories ps ON pr.subcategory_id = ps.subcategory_id
-                  JOIN categories c ON ps.category_id = c.category_id where c.name = :category_name AND ps.name = :subcategory_name";
-
-        $statement = $this->connection->prepare($sql);
-
-        $statement->bindParam(':category_name', $category_name);
-        $statement->bindParam(':subcategory_name', $subcategory_name);
-
-        $statement->execute();
-
-        return $statement->fetchAll();
-    }
-
-
-
-
+ 
     public function createProduct($data)
     {
         try {
@@ -100,7 +82,7 @@ class ProductDao extends BaseDao
 
     public function getByCategory($category_name)
     {
-        $sql = "SELECT pr.name AS product_name, pr.product_id, pr.subcategory_id, pr.description, pr.price, pr.image_url, c.name AS category_name, ps.name AS subcategory_name FROM products pr
+        $sql = "SELECT c.category_id, pr.name AS product_name, pr.product_id, pr.subcategory_id, pr.description, pr.price, pr.image_url, c.name AS category_name, ps.name AS subcategory_name FROM products pr
                 JOIN subcategories ps ON pr.subcategory_id = ps.subcategory_id
                 JOIN categories c ON ps.category_id = c.category_id
                 WHERE c.name = :category_name

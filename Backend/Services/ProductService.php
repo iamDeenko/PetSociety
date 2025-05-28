@@ -36,15 +36,17 @@ class ProductService extends BaseService
         }
     }
 
-    public function getBySubcategory($category_name, $subcategory_name)
+    public function getBySubcategory($category_name)
     {
         try {
-            return $this->dao->getBySubcategory($category_name, $subcategory_name);
+            return $this->dao->getBySubcategory($category_name);
         } catch (Exception $e) {
             echo $e->getMessage();
         }
     }
 
+
+  
 
     public function delete($id)
     {
