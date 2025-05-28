@@ -44,6 +44,35 @@ p {
   border-bottom: 1px solid transparent;
 }
 
+.button-line{
+
+    background-color: transparent;
+    outline: none;
+    border: none !important;
+    border-bottom: 1px solid black !important;
+    font-weight: 600;
+
+}
+
+
+.button-confirm{
+  outline: none;
+  border: none;
+  border-radius: 9px;
+  background-color: #0077ed;
+}
+
+#navbar span {
+  font-family: "SF Pro Display";
+  font-size: 16px;
+  font-weight: 400;
+  transition: 0.251532s ease-in-out;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+}
+
+
+
 body {
   background-color: #ffffff !important;
   overflow-x: hidden !important;

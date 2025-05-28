@@ -31,9 +31,7 @@ class UserDao extends BaseDao
 
 
 
-        $sql = "SELECT c.cart_ID,
-                       c.user_ID,
-                       c.price_total 
+        $sql = "SELECT c.*
 
                  FROM carts c
 

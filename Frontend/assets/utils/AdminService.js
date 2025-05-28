@@ -158,35 +158,54 @@ let AdminService = {
       if (existingModal) existingModal.innerHTML = "";
 
       let modalHTML = `
-          <div class="modal fade" id="userCartModalInner" tabindex="-1" aria-labelledby="userCartModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg modal-dialog-centered">
+          <div class="modal fade " id="userCartModalInner" tabindex="-1" aria-labelledby="userCartModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg text-center modal-dialog-centered">
               <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="userCartModalLabel">User Active Cart</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="text-center">
+                  <h3 class="modal-title p-2 text-center" id="userCartModalLabel">User's Active Cart</h3>
                 </div>
-                <div class="modal-body">
-                  <div class="table-responsive">
-                    <table class="table table-striped">
-                      <thead>
-                        <tr>
+
+                <table class="mt-3 text-center gap-5">
+                  <thead>
+                      <tr>
                           <th>Cart ID</th>
-                          <th>Status</th>
-                          <th>Total</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td>${cart.cart_ID}</td>
-                          <td>${cart.status}</td>
-                          <td>${cart.price_total}</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
+                          <th>Cart Status</th>
+                          <th>Created At</th>
+                          <th>Updated At</th>
+                          <th>Cart Total</th>
+                      </tr>
+                  </thead>
+
+                  <tbody class="mb-5 pb-5 "> 
+                      <tr>
+                        <td>
+                        ${cart.cart.cart_ID}
+                        </td>
+
+                        <td>
+                        ${cart.cart.status}
+                        </td>
+
+                         <td>
+                        ${cart.cart.created_at}
+                        </td>
+
+                         <td>
+                        ${cart.cart.updated_at}
+                        </td>
+
+                          <td>
+                          $${cart.cart.price_total}
+                        </td>
+                      </tr>
+                  </tbody>
+                </table>
+
+
+                
+         
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button type="button" class="button-line" data-bs-dismiss="modal">Close</button>
                 </div>
               </div>
             </div>
@@ -209,11 +228,10 @@ let AdminService = {
 
     // Category options
     const categories = [
-      { id: 2, name: "Pets" },
-      { id: 3, name: "Romance" },
-      { id: 4, name: "Business" },
-      { id: 6, name: "Adventure" },
-      { id: 7, name: "Fictional" },
+      { id: 1, name: "Pets" },
+      { id: 2, name: "Accessories" },
+      { id: 3, name: "Food" },
+      { id: 4, name: "Toys" },
     ];
 
     const categoryOptions = categories
