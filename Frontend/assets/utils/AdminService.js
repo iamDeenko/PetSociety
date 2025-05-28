@@ -151,14 +151,18 @@ let AdminService = {
   },
 
   getUserCart: function (user_id) {
-    RestClient.get(`/user/cart/${user_id}`, function (cart) {
+    console.log("CLICKED");
+    
+    RestClient.get(`/admin/user/cart/${user_id}`, function (cart) {
       console.log(cart);
 
       const existingModal = document.getElementById("userCartModal");
       if (existingModal) existingModal.innerHTML = "";
 
       let modalHTML = `
-          <div class="modal fade " id="userCartModalInner" tabindex="-1" aria-labelledby="userCartModalLabel" aria-hidden="true">
+
+      <div class = "col-md-12">
+          <div class="modal fade" id="userCartModalInner" tabindex="-1" aria-labelledby="userCartModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg text-center modal-dialog-centered">
               <div class="modal-content">
                 <div class="text-center">
@@ -209,6 +213,8 @@ let AdminService = {
                 </div>
               </div>
             </div>
+          </div>
+
           </div>
         `;
       document.getElementById("userCartModal").innerHTML = modalHTML;
@@ -345,8 +351,18 @@ let AdminService = {
     modal.show();
   },
 
+  getProductByName : function (name){
+    RestClient.get('/admin/products/' + title, function(result){
+      console.log(result);
+      
+    }, function (error){
+      console.log(error);
+      
+    })
+  }
+
   getUserOrderHistory: function (user_id) {
-    RestClient.get(`admin/user/orders/${user_id}`, function (orders) {
+    RestClient.get(`/admin/user/orders/${user_id}`, function (orders) {
       const existingModal = document.getElementById("userOrderHistory");
       if (existingModal) existingModal.innerHTML = "";
 

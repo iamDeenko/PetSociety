@@ -4,6 +4,9 @@
 -- ------------------------------------------------------
 -- Server version	9.1.0
 
+
+
+
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
@@ -18,6 +21,8 @@
 --
 -- Table structure for table `accessories_details`
 --
+
+use petsociety;
 
 DROP TABLE IF EXISTS `accessories_details`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;

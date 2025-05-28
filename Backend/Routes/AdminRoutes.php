@@ -95,6 +95,15 @@ Flight::group("/admin", function () {
      * )
      */
     Flight::route("GET /user/cart/@user_ID", function ($user_ID) {
-        Flight::json(Flight::adminService()->getUserCart($user_ID));
+       
+
+    $cart = Flight::userService()->getUserCart($user_ID);
+    $orders = Flight::userService()->getUserOrders($user_ID);
+
+    Flight::json([
+        'cart' => $cart,
+        'orders' => $orders,
+    ]);
     });
 });
+
