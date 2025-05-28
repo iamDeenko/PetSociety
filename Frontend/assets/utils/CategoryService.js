@@ -72,4 +72,22 @@ let CategoryService = {
       });
     });
   },
+
+  loadSubcategoriesInMainView: function () {
+    RestClient.get("/subcategories/all", function (data) {
+      const allSubcats = document.getElementById("all");
+
+      data.forEach((element) => {
+        allSubcats.innerHTML += `<div class="class d-flex text-center m-1">
+        <div class="subcategory-image">
+        
+          <img src="/assets/images/subcategories/${element.name}-image.png">
+        </div>
+        <div class="subcategory-name">
+          ${element.name}
+        </div>
+        <div>`;
+      });
+    });
+  },
 };

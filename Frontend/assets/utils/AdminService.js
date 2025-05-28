@@ -3,6 +3,8 @@ let AdminService = {
     AdminService.renderAdminDiv();
   },
 
+  
+
   getUsersByName: function (name) {
     console.log("CURRENT NAME:: ", name);
 

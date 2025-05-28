@@ -21,6 +21,19 @@ class CategoryDao extends BaseDao
     }
 
 
+    public function loadAllSubcategories()
+    {
+        $sql = "select * from subcategories";
+
+        $statement = $this->connection->prepare($sql);
+        $statement->execute();
+
+        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        return $result;
+    }
+
+
 
     public function getSubcategoriesFromCategoryID($category_id)
     {

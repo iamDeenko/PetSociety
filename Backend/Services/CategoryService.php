@@ -14,7 +14,10 @@ class CategoryService extends BaseService
         parent::__construct($dao);
     }
 
-
+    public function loadAllSubcategories()
+    {
+        return $this->dao->loadAllSubcategories();
+    }
 
     public function getSubcategoriesFromCategoryID($category_id)
     {

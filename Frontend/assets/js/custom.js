@@ -34,6 +34,12 @@ $(document).ready(function () {
       view: "view_product",
       load: "view_product.html",
     });
+
+    app.route({
+      view: "view_cart",
+      load: "view_cart.html",
+      onCreate: function () {},
+    });
   }
 
   if (userToken) {

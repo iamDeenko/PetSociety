@@ -3,11 +3,10 @@ h1 {
 }
 
 #navbar {
+  margin-top: 1rem;
   z-index: 3;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  border-bottom: 1px solid #eee;
   text-decoration: none;
-  background-color: rgba(250, 250, 250, 0.8) !important;
+  background-color: #FFFFFFFF;
 }
 
 #logo-container {
@@ -28,6 +27,20 @@ p {
   font-family: "SF-Pro-Text-Regular;
 }
 
+.subcategory{
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  min-height: 142px;
+  min-width: 142px;
+}
+
+
+
+.subcategory img{
+  aspect-ratio: auto 200/130;
+  max-width: 130px;
+}
 
 .in-active {
   display: none !important;

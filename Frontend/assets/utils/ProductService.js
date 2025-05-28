@@ -314,7 +314,7 @@ let ProductService = {
             data.storage_instructions
           }</p></div>
         </div>
-    <button onclick="CartService.addToCart(${
+    <button class="w-50" onclick="CartService.addToCart(${
       data.product_id
     })">Add to Cart</button>
       </div>

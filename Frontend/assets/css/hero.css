@@ -1,13 +1,12 @@
 .test {
   display: flex;
   justify-content: space-between;
-  padding: 5.5rem;
 }
 
 .puppy-container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
   height: 25rem;
   width: 100%;
@@ -30,7 +29,6 @@
 }
 
 .test h1 {
-  color: #333;
   font-weight: 400;
   padding-bottom: 1rem;
   display: inline-block;

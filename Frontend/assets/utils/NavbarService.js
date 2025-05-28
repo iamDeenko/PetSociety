@@ -32,8 +32,7 @@ let NavbarService = {
    <div class="container d-flex justify-content-between align-items-center px-4" style="height: 64px;">
   <!-- Left: Logo -->
   <div class="d-flex align-items-center flex-column gap-2" id = "logo-container">
-    <img src="/assets/images/icons/logo.png" alt="logo" width="24" height="24">
-    <span>PetSociety.com</span>
+    <img src="/assets/images/icons/logo.png" alt="logo" width="30" height="30">
   </div>
 
   <!-- Center: Navigation Links -->
@@ -41,17 +40,17 @@ let NavbarService = {
  
     
     <a href="#view_shop" onclick="NavbarService.showMore()" class="d-flex flex-column align-items-center text-decoration-none text-dark">
-      <img src="/assets/images/icons/shop.png" alt="shop icon" width="24" height="24">
+      <img src="/assets/images/icons/shop.png" alt="shop icon" width="30" height="30">
       <span>Shop</span>
     </a>
 
     <a href="/" class="d-flex flex-column align-items-center text-decoration-none text-dark">
-      <img src="/assets/images/icons/home.png" alt="home icon" width="24" height="24">
+      <img src="/assets/images/icons/home.png" alt="home icon" width="32" height="32">
       <span>Home</span>
     </a>
 
     <a href="#view_cart" class="d-flex flex-column align-items-center text-decoration-none text-dark">
-      <img src="/assets/images/icons/cart.png" alt="cart icon" width="24" height="24">
+      <img src="/assets/images/icons/cart.png" alt="cart icon" width="30" height="30">
       <span>Cart</span>
     </a>
   </div>
@@ -59,12 +58,12 @@ let NavbarService = {
   <!-- Right: Admin + Logout -->
   <div class="d-flex align-items-center ml-5 gap-4">
     <a href="#view_admin" class="d-flex flex-column align-items-center text-decoration-none text-dark">
-      <img src="/assets/images/icons/dashboard.png" alt="admin icon" width="24" height="24">
+      <img src="/assets/images/icons/dashboard.png" alt="admin icon" width="30" height="30">
       <span>Admin</span>
     </a>
 
     <a onclick="AuthService.logOut()" class="d-flex flex-column align-items-center text-decoration-none text-dark" style="cursor:pointer;">
-      <img src="/assets/images/icons/logout.png" alt="logout icon" width="24" height="24">
+      <img src="/assets/images/icons/logout.png" alt="logout icon" width="30" height="30">
       <span>Log out</span>
     </a>
   </div>
@@ -82,10 +81,7 @@ let NavbarService = {
   <div class="container d-flex justify-content-between align-items-center px-4" style="height: 64px;">
   <!-- Left: Logo -->
   <div class="d-flex align-items-center flex-column gap-2" id = "logo-container">
-    <img src="/assets/images/icons/logo.png" alt="logo" width="24" height="24">
-    <a>
-    <span>PetSociety</span>
-    </a>
+    <img src="/assets/images/icons/logo.png" alt="logo" width="30" height="30">
   </div>
 
   <!-- Center: Navigation Links -->
@@ -93,17 +89,17 @@ let NavbarService = {
  
     
     <a href="#view_shop" onclick="NavbarService.showMore()" class="d-flex flex-column align-items-center text-decoration-none text-dark">
-      <img src="/assets/images/icons/shop.png" alt="shop icon" width="24" height="24">
+      <img src="/assets/images/icons/shop.png" alt="shop icon" width="30" height="30">
       <span>Shop</span>
     </a>
 
     <a href="/" class="d-flex flex-column align-items-center text-decoration-none text-dark">
-      <img src="/assets/images/icons/home.png" alt="home icon" width="24" height="24">
+      <img src="/assets/images/icons/home.png" alt="home icon" width="32" height="32">
       <span>Home</span>
     </a>
 
     <a href="#view_cart" class="d-flex flex-column align-items-center text-decoration-none text-dark">
-      <img src="/assets/images/icons/cart.png" alt="cart icon" width="24" height="24">
+      <img src="/assets/images/icons/cart.png" alt="cart icon" width="30" height="30">
       <span>Cart</span>
     </a>
   </div>
@@ -111,7 +107,7 @@ let NavbarService = {
   <!-- Right:  Logout -->
   <div class="d-flex align-items-center ml-5 gap-4">
     <a onclick="AuthService.logOut()" class="d-flex flex-column align-items-center text-decoration-none text-dark" style="cursor:pointer;">
-      <img src="/assets/images/icons/logout.png" alt="logout icon" width="24" height="24">
+      <img src="/assets/images/icons/logout.png" alt="logout icon" width="30" height="30">
       <span>Log out</span>
     </a>
   </div>
@@ -127,8 +123,8 @@ let NavbarService = {
   <div class="container d-flex justify-content-between align-items-center px-4" style="height: 64px;">
   <!-- Left: Logo -->
   <div class="d-flex align-items-center flex-column gap-2" id = "logo-container">
-    <img src="/assets/images/icons/logo.png" alt="logo" width="24" height="24">
-    <span>PetSociety</span>
+    <img src="/assets/images/icons/logo.png" alt="logo" width="30" height="30">
+
   </div>
 
   <!-- Center: Navigation Links -->
@@ -136,17 +132,17 @@ let NavbarService = {
  
     
     <a href="#view_shop" onclick="NavbarService.showMore()" class="d-flex flex-column align-items-center text-decoration-none text-dark">
-      <img src="/assets/images/icons/shop.png" alt="shop icon" width="24" height="24">
+      <img src="/assets/images/icons/shop.png" alt="shop icon" width="30" height="30">
       <span>Shop</span>
     </a>
 
     <a href="/" class="d-flex flex-column align-items-center text-decoration-none text-dark">
-      <img src="/assets/images/icons/home.png" alt="home icon" width="24" height="24">
+      <img src="/assets/images/icons/home.png" alt="home icon" width="32" height="30">
       <span>Home</span>
     </a>
 
     <a href="#view_cart" class="d-flex flex-column align-items-center text-decoration-none text-dark">
-      <img src="/assets/images/icons/cart.png" alt="cart icon" width="24" height="24">
+      <img src="/assets/images/icons/cart.png" alt="cart icon" width="30" height="30">
       <span>Cart</span>
     </a>
   </div>
@@ -155,7 +151,7 @@ let NavbarService = {
   <div class="d-flex align-items-center ml-5 gap-4">
 
     <a href="#view_login" class="d-flex flex-column align-items-center text-decoration-none text-dark" style="cursor:pointer;">
-      <img src="/assets/images/icons/login.png" alt="logout icon" width="24" height="24">
+      <img src="/assets/images/icons/login.png" alt="logout icon" width="30" height="30">
       <span>Log in</span>
     </a>
   </div>

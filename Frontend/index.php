@@ -21,7 +21,7 @@
     <base href="/" />
 </head>
 
-<body>
+<body class="container">
 
 
 
@@ -45,8 +45,6 @@
         <section id="view_cart"></section>
         <section id="view_main" data-load="view_main.html"></section>
     </main>
-
-
 
 
     <script src="./assets/utils/AdminService.js"></script>
