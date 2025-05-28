@@ -11,7 +11,7 @@ let AdminService = {
       const cardBody = document.getElementById("user-card-body");
       cardBody.innerHTML = "";
       cardBody.innerHTML =
-        '<h4 class="text-center">Please enter a name to search for users.</h4>';
+        '<h5 class="text-center mt-5">Please enter a name to search for users.</h5>';
       return;
     }
 
@@ -152,7 +152,7 @@ let AdminService = {
 
   getUserCart: function (user_id) {
     console.log("CLICKED");
-    
+
     RestClient.get(`/admin/user/cart/${user_id}`, function (cart) {
       console.log(cart);
 
@@ -351,15 +351,17 @@ let AdminService = {
     modal.show();
   },
 
-  getProductByName : function (name){
-    RestClient.get('/admin/products/' + title, function(result){
-      console.log(result);
-      
-    }, function (error){
-      console.log(error);
-      
-    })
-  }
+  getProductByName: function (name) {
+    RestClient.get(
+      "/admin/products/" + title,
+      function (result) {
+        console.log(result);
+      },
+      function (error) {
+        console.log(error);
+      }
+    );
+  },
 
   getUserOrderHistory: function (user_id) {
     RestClient.get(`/admin/user/orders/${user_id}`, function (orders) {

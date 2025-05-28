@@ -21,7 +21,7 @@ let CartService = {
         console.log("Cart Initalized.");
       },
       function (error) {
-        console.error("Response: " + error);
+        console.error("Response: " + error.responseText);
 
         console.log("Cart Initialized ( DO NOT WORRY ABOUT THE ERROR )");
       }
