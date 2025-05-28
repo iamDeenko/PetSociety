@@ -1,16 +1,22 @@
 <?php
 
-require_once "Dao/Factory.php";
 
-require_once "Dao/AdminDao.php";
+require_once '../PetSociety/Backend/Dao/ProductDao.php';
+require_once '../PetSociety/Backend/Dao/AuthDao.php';
+require_once '../PetSociety/Backend/Dao/BaseDao.php';
+require_once '../PetSociety/Backend/Dao/CartDao.php';
+require_once '../PetSociety/Backend/Dao/OrderDao.php';
+require_once '../PetSociety/Backend/Dao/OrderItemDao.php';
+require_once '../PetSociety/Backend/Dao/CategoryDao.php';
+
+require_once '../PetSociety/Backend/Dao/UserDao.php';
 
 
-$object = new AdminDao();
+
+$test = new UserDao();
 
 
+$res = $test->getUserOrders(4);
 
-$res = $object->getAllUsers();
 
 print_r($res);
-
-?>

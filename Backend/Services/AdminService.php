@@ -7,33 +7,43 @@ require_once 'BaseService.php';
 class AdminService extends BaseService
 {
 
-    private AdminDao $adminDao;
+
 
     public function __construct()
     {
-        $this->adminDao = new AdminDao();
+        $dao = new AdminDao();
+
+        parent::__construct($dao);
     }
 
 
-    public function getAllUsers()
+    public function getTotalSales()
     {
-        return $this->adminDao->getAllUsers();
+        return $this->dao->getTotalSales();
     }
 
-    public function getById($id)
+    public function getSalesByCategory()
     {
-        return $this->adminDao->getById($id);
+        return $this->dao->getSalesByCategory();
     }
 
-    public function getUserOrders($id)
+    public function getUsersByName($name)
     {
-        return $this->adminDao->getUserOrders($id);
+        return $this->dao->getUsersByName($name);
     }
 
-    public function deleteUser($id)
+    public function getUserByID($id)
     {
-        return $this->adminDao->deleteUser($id);
+        return $this->dao->getUserByID($id);
     }
 
+    public function getUserOrderHistory($user_ID)
+    {
+        return $this->dao->getUserOrderHistory($user_ID);
+    }
 
+    public function getUserCart($user_ID)
+    {
+        return $this->dao->getUserCart($user_ID);
+    }
 }

@@ -1,139 +1,96 @@
-'<?php
-
-require_once __DIR__ . '/../Services/AdminService.php';
+<?php
 
 
+Flight::group("/admin", function () {
 
 
+    /**
+     * @OA\Get(
+     *     path="/admin/user/id/{user_ID}",
+     *     tags={"admin"},
+     *     summary="Get user by ID (admin)",
+     *     description="Returns user details for the given user ID.",
+     *     security={{"ApiKey": {}}},
+     *     @OA\Parameter(name="user_ID", in="path", required=true, description="ID of the user", @OA\Schema(type="integer", example=1)),
+     *     @OA\Response(response=200, description="User details returned successfully."),
+     *     @OA\Response(response=404, description="User not found."),
+     *     @OA\Response(response=401, description="Unauthorized. Missing or invalid token."),
+     *     @OA\Response(response=500, description="Internal server error.")
+     * )
+     */
+    Flight::route("GET /user/id/@user_ID", function ($user_ID) {
+        Flight::json(Flight::adminService()->getUserByID($user_ID));
+    });
 
+    /**
+     * @OA\Get(
+     *     path="/admin/user/name/{user_name}",
+     *     tags={"admin"},
+     *     summary="Get users by name (admin)",
+     *     description="Returns a list of users matching the given name.",
+     *     security={{"ApiKey": {}}},
+     *     @OA\Parameter(name="user_name", in="path", required=true, description="Name of the user to search for", @OA\Schema(type="string", example="John Doe")),
+     *     @OA\Response(response=200, description="Users returned successfully."),
+     *     @OA\Response(response=404, description="No users found."),
+     *     @OA\Response(response=401, description="Unauthorized. Missing or invalid token."),
+     *     @OA\Response(response=500, description="Internal server error.")
+     * )
+     */
+    Flight::route("GET /user/name/@user_name", function ($name) {
+        Flight::json(Flight::adminService()->getUsersByName($name));
+    });
 
-// GET //
+    /**
+     * @OA\Get(
+     *     path="/admin/product/{product_name}",
+     *     tags={"admin"},
+     *     summary="Get products by name (admin)",
+     *     description="Returns a list of products matching the given title.",
+     *     security={{"ApiKey": {}}},
+     *     @OA\Parameter(name="product_title", in="path", required=true, description="Title of the product to search for", @OA\Schema(type="string", example="Harry Potter")),
+     *     @OA\Response(response=200, description="products returned successfully."),
+     *     @OA\Response(response=404, description="No products found."),
+     *     @OA\Response(response=401, description="Unauthorized. Missing or invalid token."),
+     *     @OA\Response(response=500, description="Internal server error.")
+     * )
+     */
+    Flight::route("GET /product/@product_title", function ($product_title) {
+        Flight::json(Flight::productService()->getByTitle($product_title));
+    });
 
-Flight::route('GET /admin/product/@id', function ($id){
-    $service = new ProductService();
-    Flight::json($service->getById($id));
-});
+    /**
+     * @OA\Get(
+     *     path="/admin/user/orders/{user_ID}",
+     *     tags={"admin"},
+     *     summary="Get order history for a user (admin)",
+     *     description="Returns the order history for the specified user.",
+     *     security={{"ApiKey": {}}},
+     *     @OA\Parameter(name="user_ID", in="path", required=true, description="ID of the user", @OA\Schema(type="integer", example=1)),
+     *     @OA\Response(response=200, description="Order history returned successfully."),
+     *     @OA\Response(response=404, description="User or orders not found."),
+     *     @OA\Response(response=401, description="Unauthorized. Missing or invalid token."),
+     *     @OA\Response(response=500, description="Internal server error.")
+     * )
+     */
+    Flight::route("GET /user/orders/@user_ID", function ($user_ID) {
+        Flight::json(Flight::adminService()->getUserOrderHistory($user_ID));
+    });
 
-
-Flight::route('GET /admin/@category', function ($category_name){
-    $service = new ProductService();
-    Flight::json($service->getByCategory($category_name));
-});
-
-
-
-Flight::route('GET /admin/user/@id', function ($id) {
-    $service = new AdminService();
-    
-    if($service->getById($id)){
-        Flight::json($service->getById($id));
-    } else{
-        echo "NOT FOUND";
-    }
-});
-
-Flight::route('GET /admin/user/@id/orders', function ($id){
-    $service = new AdminService();
-    Flight::json(print_r($service->getUserOrders($id)));
-});
-
-Flight::route('GET /admin/users', function () {
-   
-    $service = new AdminService();
-    $users = $service->getAllUsers();
-
-    Flight::json($users);
-});
-
-
-// POST //
-
-Flight::route('POST /admin/product/new', function ($data = [], ){
-    $service = new ProductService();
-
-    $request = Flight::request();
-
-    $productData = $request->data->getData();
-
-    if (empty($productData)) {
-        Flight::halt(400, Flight::json(['error' => 'Bad Request: No product data received or invalid format.']));
-        return; // Stop execution
-    }
-
-    try {
-        $newProduct = $service->createProduct($productData); 
-
-        Flight::json($newProduct, 201); 
-        
-
-    } catch (InvalidArgumentException $e) { 
-        Flight::halt(400, Flight::json(['error' => 'Bad Request: ' . $e->getMessage()]));
-    } catch (Exception $e) { 
-
-        Flight::halt(500, Flight::json(['error' => 'Internal Server Error: Could not create product.']));
-    }
-});
-
-
-
-// PUT //
-
-
-Flight::route('PUT /admin/product/@id', function ($id){
-    $service = new ProductService();
-    $request = Flight::request();
-
-
-    $updateData = $request->data->getData();
-
-    // 2. Validate Input Data
-    if (empty($updateData)) {
-        Flight::halt(400, Flight::json(['success' => false, 'message' => 'Bad Request: No update data provided in the request body.']));
-        return; 
-    }
-
-
-    if (empty($id) || !ctype_digit((string)$id)) { 
-         Flight::halt(400, Flight::json(['success' => false, 'message' => 'Bad Request: Invalid or missing product ID.']));
-        return;
-    }
-    $productId = (int)$id;
-
-
-    $existingProduct = $service->getById($productId);
-    if (empty($existingProduct)) { 
-        Flight::halt(404, Flight::json(['success' => false, 'message' => 'Product not found.']));
-        return;
-    }
-
-
-    try {
-        $success = $service->update($productId, $updateData); 
-
-    } catch (Exception $e) {
-
-        error_log($e->getMessage());
-   
-    }
-});
-
-
-
-// DELETE //
-
-Flight::route('DELETE /admin/product/@id', function($id){
-    $service = new ProductService();
-
-    if($service->getById($id)){
-        if($service->delete($id)){
-            Flight::json(["status" => "success", "message" => "Product deleted successfully."]);
-        }
-    }
-});
-
-Flight::route('DELETE /admin/user/@id', function ($id){
-   $service = new AdminService();
-   if($service->getById($id)){
-       $service->deleteUser($id);
-   }
+    /**
+     * @OA\Get(
+     *     path="/admin/user/cart/{user_ID}",
+     *     tags={"admin"},
+     *     summary="Get cart for a user (admin)",
+     *     description="Returns the cart for the specified user.",
+     *     security={{"ApiKey": {}}},
+     *     @OA\Parameter(name="user_ID", in="path", required=true, description="ID of the user", @OA\Schema(type="integer", example=1)),
+     *     @OA\Response(response=200, description="Cart returned successfully."),
+     *     @OA\Response(response=404, description="User or cart not found."),
+     *     @OA\Response(response=401, description="Unauthorized. Missing or invalid token."),
+     *     @OA\Response(response=500, description="Internal server error.")
+     * )
+     */
+    Flight::route("GET /user/cart/@user_ID", function ($user_ID) {
+        Flight::json(Flight::adminService()->getUserCart($user_ID));
+    });
 });
