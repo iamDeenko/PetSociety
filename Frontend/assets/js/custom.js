@@ -38,7 +38,6 @@ $(document).ready(function () {
     app.route({
       view: "view_cart",
       load: "view_cart.html",
-      onCreate: function () {},
     });
   }
 

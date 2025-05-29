@@ -77,6 +77,14 @@ let CategoryService = {
     RestClient.get("/subcategories/all", function (data) {
       const allSubcats = document.getElementById("all");
 
+
+      allSubcats.innerHTML = `
+      <button id="back" class="buttons-products me-2">&#8592;</button>
+      <div id="subcat-scroll" style="display: flex; overflow-x: auto; scroll-behavior: smooth; gap: 1rem; width: 80%; align-items: center;"></div>
+      <button id="forward" class="buttons-products ms-2">&#8594;</button>
+    `;
+
+    
       data.forEach((element) => {
         console.log(element);
 
@@ -84,8 +92,8 @@ let CategoryService = {
 
   <div  style="display:inline-flex;padding-bottom:40px;padding-top:16px;width: 100%;">
     <div  style="display:block;scroll-snap-align:start;">
-        <div style="height:148px;margin-inline-end:10px;display:flex;margin-inline-start:0px;">
-            <div data-trigger-click="click [data-relatedlink=':r8:_link']" style="vertical-align:top;cursor:pointer;">
+        <div >
+            <div >
                 <div style="border-radius:18px;box-sizing:border-box;min-width:136px;padding:18px 8px 16px;">
                     <div style="padding-bottom:16px;"><img loading="lazy" width="200" height="130" alt="" src="/assets/images/subcategories/${element.name}-image.png" style="display:block;margin: 0px auto;max-height:78px;width: auto;" /></div>
                     <div class="rf-productnav-card-info">
