@@ -28,18 +28,12 @@
   font-weight: 600;
 }
 
-.test h1 {
-  font-weight: 400;
-  padding-bottom: 1rem;
-  display: inline-block;
-}
-
 #categories-div {
   margin-top: 6rem !important;
 }
 
-.aboutus h1 {
-  border-bottom: 1px solid black;
+.aboutus {
+  font-family: "SF Pro Rounded";
 }
 
 .aboutus a {
@@ -51,13 +45,6 @@
 }
 
 /* Collections Section */
-.test2 h1 {
-  margin-top: 5rem;
-  font-size: 3.7rem;
-  font-stretch: extra-expanded;
-  font-family: "SF Pro Rounded", monospace;
-  text-align: center;
-}
 
 .shop-items {
   display: grid;

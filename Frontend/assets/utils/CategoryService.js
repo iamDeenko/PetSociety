@@ -77,18 +77,23 @@ let CategoryService = {
     RestClient.get("/subcategories/all", function (data) {
       const allSubcats = document.getElementById("all");
 
-      data.forEach((element) => {
-        allSubcats.innerHTML += `<div class="subcategory d-flex text-center m-1">
-        <div class="subcategory-content">
+      allSubcats.innerHTML = "";
 
-        <div class="subcategory-image">
-          <img loading="lazy" width="200" height="130" src="/assets/images/subcategories/${element.name}-image.png">
+      data.forEach((element) => {
+        allSubcats.innerHTML += `
+  <div data-core-scroller-platter="" role="list" aria-label="Product" style="display:inline-flex;padding-bottom:40px;padding-top:16px;vertical-align:top;width: 100%;">
+    <div data-core-scroller-item="" role="listitem" style="display:block;scroll-snap-align:start;">
+        <div style="transform:matrix(1, 0, 0, 1, 140, 0);height:148px;margin-inline-end:10px;display:flex;margin-inline-start:0px;">
+            <div data-trigger-click="click [data-relatedlink=':r8:_link']" style="vertical-align:top;cursor:pointer;">
+                <div style="border-radius:18px;box-sizing:border-box;min-width:136px;overflow:hidden;padding:18px 8px 16px;">
+                    <div style="padding-bottom:16px;"><img loading="lazy" width="200" height="130" alt="" src="/assets/images/subcategories/${element.name}-image.png" style="display:block;margin: 0px auto;max-height:78px;width: auto;" /></div>
+                    <div class="rf-productnav-card-info">
+                        <div><a href="#view_shop" onclick="CategoryService.getProductsBySubcategoryName(${element.name})" data-relatedlink=":r8:_link" data-slot-name="Shelf-0" data-display-name="AOS: home/shop_mac" data-autom="AOS: home/shop_mac" data-index="1" data-trigger-stoppropagation="true" style="color:rgb(29, 29, 31);display:block;font-family:'SF Pro Text', 'SF Pro Icons', 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:14px;font-weight:600;letter-spacing:-0.224px;line-height:20.0003px;text-align:center;text-decoration:none solid rgb(29, 29, 31);white-space:nowrap;">${element.name}</a></div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="subcategory-name">
-          ${element.name}
-        </div>
-        <div>
-        </div>
+    </div>
         `;
       });
     });
