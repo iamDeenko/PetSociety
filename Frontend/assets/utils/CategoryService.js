@@ -78,15 +78,18 @@ let CategoryService = {
       const allSubcats = document.getElementById("all");
 
       data.forEach((element) => {
-        allSubcats.innerHTML += `<div class="class d-flex text-center m-1">
+        allSubcats.innerHTML += `<div class="subcategory d-flex text-center m-1">
+        <div class="subcategory-content">
+
         <div class="subcategory-image">
-        
-          <img src="/assets/images/subcategories/${element.name}-image.png">
+          <img loading="lazy" width="200" height="130" src="/assets/images/subcategories/${element.name}-image.png">
         </div>
         <div class="subcategory-name">
           ${element.name}
         </div>
-        <div>`;
+        <div>
+        </div>
+        `;
       });
     });
   },
