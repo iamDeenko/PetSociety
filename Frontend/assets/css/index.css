@@ -3,10 +3,9 @@ h1 {
 }
 
 #navbar {
-  margin-top: 1rem;
+  font-size: 12px !important;
   z-index: 3;
   text-decoration: none;
-  background-color: #ffffffff;
 }
 
 .heading {
@@ -55,7 +54,7 @@ h1 {
   font-weight: 600;
   letter-spacing: -0.144px;
   line-height: 52.0077px;
-  color: rgb(110, 110, 115);
+  color: #1d1d1f;
   margin-top: 38.4px;
 }
 
@@ -80,6 +79,19 @@ h1 {
   font-weight: 600;
 }
 
+#all {
+  scroll-snap-type: x mandatory;
+}
+
+.buttons-products:nth-of-type(1) {
+  right: 0;
+  top: -50;
+  position: absolute;
+  z-index: 15;
+  display: inline;
+  background-color: pink;
+}
+
 .button-confirm {
   outline: none;
   border: none;
@@ -89,7 +101,7 @@ h1 {
 
 #navbar span {
   font-family: "SF Pro Display";
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 400;
   transition: 0.251532s ease-in-out;
   text-decoration: none;
