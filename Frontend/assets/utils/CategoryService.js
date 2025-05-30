@@ -98,13 +98,14 @@ let CategoryService = {
         `;
       });
 
+      const scrollAmount = 200;
       const backwards = document.getElementById("backwards");
 
       backwards.addEventListener("click", function () {
         console.log("123");
 
-        allSubcats.scrollTo({
-          left: allSubcats.scrollLeft - 180,
+        allSubcats.scrollBy({
+          left: -scrollAmount,
           behavior: "smooth",
         });
       });
@@ -115,7 +116,7 @@ let CategoryService = {
         console.log("123");
 
         allSubcats.scrollBy({
-          left: allSubcats.scrollLeft + 180,
+          left: scrollAmount,
           behavior: "smooth",
         });
       });

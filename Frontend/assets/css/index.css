@@ -90,7 +90,39 @@ html {
 
 #forwards,
 #backwards {
+  z-index: 15;
+  position: absolute;
+  top: 42%;
   cursor: pointer;
+}
+
+#backwards {
+  left: 9%;
+}
+
+#forwards {
+  right: 18%;
+}
+
+.shelf-secondaryheader h2 {
+  display: inline;
+  font-family: SF Pro Display, SF Pro Icons, Helvetica Neue, Helvetica, Arial,
+    sans-serif;
+  font-size: 28px;
+  font-weight: 600;
+  letter-spacing: 0.007em;
+  line-height: 1.1428571429;
+}
+
+.secondary-h2 {
+  display: inline;
+  color: #6e6e73;
+  font-family: SF Pro Display, SF Pro Icons, Helvetica Neue, Helvetica, Arial,
+    sans-serif;
+  font-size: 28px;
+  font-weight: 600;
+  letter-spacing: 0.007em;
+  line-height: 1.1428571429;
 }
 
 .button-confirm {
