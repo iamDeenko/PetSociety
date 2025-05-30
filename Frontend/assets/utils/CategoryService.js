@@ -77,24 +77,16 @@ let CategoryService = {
     RestClient.get("/subcategories/all", function (data) {
       const allSubcats = document.getElementById("all");
 
-
-      allSubcats.innerHTML = `
-      <button id="back" class="buttons-products me-2">&#8592;</button>
-      <div id="subcat-scroll" style="display: flex; overflow-x: auto; scroll-behavior: smooth; gap: 1rem; width: 80%; align-items: center;"></div>
-      <button id="forward" class="buttons-products ms-2">&#8594;</button>
-    `;
-
-    
       data.forEach((element) => {
         console.log(element);
 
         allSubcats.innerHTML += `
 
-  <div  style="display:inline-flex;padding-bottom:40px;padding-top:16px;width: 100%;">
+  <div style="padding-bottom:40px;padding-top:16px;">
     <div  style="display:block;scroll-snap-align:start;">
         <div >
             <div >
-                <div style="border-radius:18px;box-sizing:border-box;min-width:136px;padding:18px 8px 16px;">
+                <div style="border-radius:18px;box-sizing:border-box;min-width:193px;padding:18px 8px 16px;">
                     <div style="padding-bottom:16px;"><img loading="lazy" width="200" height="130" alt="" src="/assets/images/subcategories/${element.name}-image.png" style="display:block;margin: 0px auto;max-height:78px;width: auto;" /></div>
                     <div class="rf-productnav-card-info">
                         <div><a href="#view_shop" onclick="CategoryService.getProductsBySubcategoryName(${element.name})" data-relatedlink=":r8:_link" data-slot-name="Shelf-0" data-display-name="AOS: home/shop_mac" data-autom="AOS: home/shop_mac" data-index="1" data-trigger-stoppropagation="true" style="color:rgb(29, 29, 31);display:block;font-family:'SF Pro Text', 'SF Pro Icons', 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:14px;font-weight:600;letter-spacing:-0.224px;line-height:20.0003px;text-align:center;text-decoration:none solid rgb(29, 29, 31);white-space:nowrap;">${element.name}</a></div>
@@ -104,6 +96,28 @@ let CategoryService = {
         </div>
     </div>
         `;
+      });
+
+      const backwards = document.getElementById("backwards");
+
+      backwards.addEventListener("click", function () {
+        console.log("123");
+
+        allSubcats.scrollTo({
+          left: allSubcats.scrollLeft - 180,
+          behavior: "smooth",
+        });
+      });
+
+      const forwards = document.getElementById("forwards");
+
+      forwards.addEventListener("click", function () {
+        console.log("123");
+
+        allSubcats.scrollBy({
+          left: allSubcats.scrollLeft + 180,
+          behavior: "smooth",
+        });
       });
     });
   },
