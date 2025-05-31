@@ -39,7 +39,12 @@ Flight::route('/*', function () {
     if (
         strpos(Flight::request()->url, '/auth/login') === 0 ||
         strpos(Flight::request()->url, '/auth/register') === 0 ||
-        strpos(Flight::request()->url, '/shop') === 0
+        strpos(Flight::request()->url, '/shop') === 0 ||
+        strpos(Flight::request()->url, '/subcategory/1') === 0 ||
+        strpos(Flight::request()->url, '/subcategory/2') === 0 ||
+        strpos(Flight::request()->url, '/subcategory/3') === 0 ||
+        strpos(Flight::request()->url, '/subcategory/4') === 0 ||
+        strpos(Flight::request()->url, '/subcategories/all') === 0
     ) {
         return TRUE;
     }

@@ -113,13 +113,51 @@ let CategoryService = {
       const forwards = document.getElementById("forwards");
 
       forwards.addEventListener("click", function () {
-        console.log("123");
+        console.log("Scrolling forwards");
 
         allSubcats.scrollBy({
           left: scrollAmount,
           behavior: "smooth",
         });
       });
+    });
+
+    allSubcats.addEventListener("scroll", function () {
+      console.log("Scroll ended. Checking position...");
+
+      // Check if scrolled to the very left
+      if (allSubcats.scrollLeft === 0) {
+        console.log("MAX SCROLL REACHED: At the very beginning (left).");
+      }
+
+      // Check if scrolled to the very right
+      // We use Math.ceil on scrollLeft and add clientWidth.
+      // Compare with scrollWidth. Sometimes, due to subpixel rendering,
+      // scrollLeft + clientWidth might be a fraction less than scrollWidth.
+      // A small tolerance (e.g., >= scrollWidth - 1) or Math.ceil can help.
+      const atRightEnd =
+        Math.ceil(allSubcats.scrollLeft) + allSubcats.clientWidth >=
+        allSubcats.scrollWidth;
+
+      if (atRightEnd) {
+        // It's possible for content to be smaller than the container,
+        // in which case it might be "at the right end" and also at scrollLeft 0.
+        // You might want to add a check if scrollWidth > clientWidth if that's an issue.
+        if (
+          allSubcats.scrollWidth > allSubcats.clientWidth &&
+          allSubcats.scrollLeft > 0
+        ) {
+          console.log("MAX SCROLL REACHED: At the very end (right).");
+        } else if (allSubcats.scrollWidth <= allSubcats.clientWidth) {
+          console.log(
+            "Content fits or is smaller than container. No scrolling needed or at right end by default."
+          );
+        }
+      }
+
+      console.log(
+        `Current scrollLeft: ${allSubcats.scrollLeft}, clientWidth: ${allSubcats.clientWidth}, scrollWidth: ${allSubcats.scrollWidth}`
+      );
     });
   },
 };
