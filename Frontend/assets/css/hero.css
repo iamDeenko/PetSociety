@@ -46,7 +46,7 @@
 /*LATEST ARRIVALS*/
 
 #secondary-header {
-  min-height: 800px;
+  min-height: 200px;
 }
 
 .latest-arrivals {
@@ -105,7 +105,7 @@
 
 .latest-arrivals-image img {
   object-fit: cover;
-  height: 90%;
+  height: 100%;
   width: 100%;
 }
 

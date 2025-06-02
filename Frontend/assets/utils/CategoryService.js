@@ -76,6 +76,7 @@ let CategoryService = {
   loadSubcategoriesInMainView: function () {
     RestClient.get("/subcategories/all", function (data) {
       const allSubcats = document.getElementById("all");
+      const allProducts = document.getElementById("all-products");
 
       data.forEach((element) => {
         console.log(element);
@@ -89,7 +90,7 @@ let CategoryService = {
                 <div style="border-radius:18px;box-sizing:border-box;min-width:193px;padding:18px 8px 16px;">
                     <div style="padding-bottom:16px;"><img loading="lazy" width="200" height="130" alt="" src="/assets/images/subcategories/${element.name}-image.png" style="display:block;margin: 0px auto;max-height:78px;width: auto;" /></div>
                     <div class="rf-productnav-card-info">
-                        <div><a href="#view_shop" onclick="CategoryService.getProductsBySubcategoryName(${element.name})" data-relatedlink=":r8:_link" data-slot-name="Shelf-0" data-display-name="AOS: home/shop_mac" data-autom="AOS: home/shop_mac" data-index="1" data-trigger-stoppropagation="true" style="color:rgb(29, 29, 31);display:block;font-family:'SF Pro Text', 'SF Pro Icons', 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:14px;font-weight:600;letter-spacing:-0.224px;line-height:20.0003px;text-align:center;text-decoration:none solid rgb(29, 29, 31);white-space:nowrap;">${element.name}</a></div>
+                        <div><a href="#" onclick="CategoryService.getProductsBySubcategoryName(${element.name})" data-relatedlink=":r8:_link" data-slot-name="Shelf-0" data-display-name="AOS: home/shop_mac" data-autom="AOS: home/shop_mac" data-index="1" data-trigger-stoppropagation="true" style="color:rgb(29, 29, 31);display:block;font-family:'SF Pro Text', 'SF Pro Icons', 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:14px;font-weight:600;letter-spacing:-0.224px;line-height:20.0003px;text-align:center;text-decoration:none solid rgb(29, 29, 31);white-space:nowrap;">${element.name}</a></div>
                     </div>
                 </div>
             </div>
@@ -98,7 +99,8 @@ let CategoryService = {
         `;
       });
 
-      const scrollAmount = 200;
+      const scrollAmount = 10;
+      let isDragging = false;
       const backwards = document.getElementById("backwards");
 
       backwards.addEventListener("click", function () {
@@ -120,44 +122,50 @@ let CategoryService = {
           behavior: "smooth",
         });
       });
-    });
 
-    allSubcats.addEventListener("scroll", function () {
-      console.log("Scroll ended. Checking position...");
+      allProducts.addEventListener("mouseenter", function () {
+        forwards.classList.remove("fade-out");
+        backwards.classList.remove("fade-out");
 
-      // Check if scrolled to the very left
-      if (allSubcats.scrollLeft === 0) {
-        console.log("MAX SCROLL REACHED: At the very beginning (left).");
-      }
+        forwards.style.display = "block";
+        backwards.style.display = "block";
 
-      // Check if scrolled to the very right
-      // We use Math.ceil on scrollLeft and add clientWidth.
-      // Compare with scrollWidth. Sometimes, due to subpixel rendering,
-      // scrollLeft + clientWidth might be a fraction less than scrollWidth.
-      // A small tolerance (e.g., >= scrollWidth - 1) or Math.ceil can help.
-      const atRightEnd =
-        Math.ceil(allSubcats.scrollLeft) + allSubcats.clientWidth >=
-        allSubcats.scrollWidth;
+        forwards.classList.add("fade-in");
+        backwards.classList.add("fade-in");
+      });
 
-      if (atRightEnd) {
-        // It's possible for content to be smaller than the container,
-        // in which case it might be "at the right end" and also at scrollLeft 0.
-        // You might want to add a check if scrollWidth > clientWidth if that's an issue.
-        if (
-          allSubcats.scrollWidth > allSubcats.clientWidth &&
-          allSubcats.scrollLeft > 0
-        ) {
-          console.log("MAX SCROLL REACHED: At the very end (right).");
-        } else if (allSubcats.scrollWidth <= allSubcats.clientWidth) {
-          console.log(
-            "Content fits or is smaller than container. No scrolling needed or at right end by default."
-          );
-        }
-      }
+      allProducts.addEventListener("mouseleave", function () {
+        forwards.classList.remove("fade-in");
+        backwards.classList.remove("fade-in");
 
-      console.log(
-        `Current scrollLeft: ${allSubcats.scrollLeft}, clientWidth: ${allSubcats.clientWidth}, scrollWidth: ${allSubcats.scrollWidth}`
-      );
+        forwards.classList.add("fade-out");
+        backwards.classList.add("fade-out");
+
+        setTimeout(() => {
+          backwards.style.display = "none";
+          forwards.style.display = "none";
+        }, 500);
+      });
+
+      allSubcats.addEventListener("mouseup", () => {
+        isDragging = false;
+        allSubcats.classList.remove("dragging");
+      });
+
+      allProducts.addEventListener("mousedown", function (e) {
+        isDragging = true;
+        allSubcats.classList.add("dragging");
+        startX = e.pageX - allSubcats.offsetLeft;
+        scrollLeft = allSubcats.scrollLeft;
+      });
+
+      allSubcats.addEventListener("mousemove", (e) => {
+        if (!isDragging) return;
+        e.preventDefault();
+        const x = e.pageX - allSubcats.offsetLeft;
+        const walk = (x - startX) * 1.0004;
+        allSubcats.scrollLeft = scrollLeft - walk;
+      });
     });
   },
 };

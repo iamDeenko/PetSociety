@@ -6,7 +6,7 @@
     <meta charset="utf-8">
 
     <!-- CSS styles -->
-
+    <link rel="stylesheet" href="/assets/css/animations.css">
     <link rel="stylesheet" href="/assets/css/fonts.css">
     <link rel="stylesheet" href="/assets/css/shop.css">
     <link rel="stylesheet" href="/assets/css/index.css">

@@ -84,28 +84,37 @@ html {
 }
 
 #all {
+  scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
-  transition: all 0.3s ease-in;
+  white-space: nowrap;
+  cursor: grab;
+}
+
+#all.dragging {
+  cursor: grabbing;
+  cursor: -webkit-grabbing;
 }
 
 #forwards,
 #backwards {
+  width: 32px;
+  height: 32px;
+  background-color: rgba(255, 255, 255, 0.73);
+  border-radius: 50%;
   z-index: 15;
   position: absolute;
   top: 42%;
   cursor: pointer;
+  display: none;
 }
 
 #backwards {
-  left: 9%;
+  left: 8%;
 }
 
 #forwards {
-  right: 18%;
+  right: 16%;
 }
-
-
-
 
 .shelf-secondaryheader h2 {
   display: inline;
