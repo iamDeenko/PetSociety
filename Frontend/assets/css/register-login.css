@@ -8,6 +8,12 @@
   align-self: center;
 }
 
+.register-form input {
+  font-family: "SF Pro Text";
+  background-color: transparent;
+  background: none;
+}
+
 .register-form {
   display: flex;
   justify-content: center;
