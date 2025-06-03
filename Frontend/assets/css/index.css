@@ -84,6 +84,7 @@ html {
 }
 
 #all {
+  user-select: none;
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
   white-space: nowrap;

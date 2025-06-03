@@ -6,11 +6,15 @@
   border-bottom: 1px solid #333;
 }
 
+#category-search * {
+  letter-spacing: -0.144px !important;
+}
+
 #category-search .d-flex.flex-wrap {
   gap: 0.5rem 0.5rem;
 }
 #category-search .subcategory-card {
-  flex: 0 0 50%; /* 2 per row */
+  flex: 0 0 50%;
   max-width: 100px;
 }
 
@@ -84,6 +88,16 @@
 .product-item-info {
   padding-top: 10px;
   gap: 10px;
+}
+
+#whichcategory {
+  font-size: 48px;
+  font-weight: 600;
+  letter-spacing: -0.144px;
+  line-height: 52.0077px;
+  color: rgb(29, 29, 31);
+  margin: 0px;
+  padding: 0px;
 }
 
 .buttondiv {
