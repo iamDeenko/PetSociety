@@ -20,6 +20,22 @@
   align-items: center;
   flex-direction: column;
 }
+
+.register-form h3 {
+  font-family: SF Pro Display, SF Pro Icons, Helvetica Neue, Helvetica, Arial,
+    sans-serif;
+  letter-spacing: 0;
+  line-height: 1.1;
+  padding-bottom: 2px;
+}
+
+.register-form p {
+  font-family: SF Pro Display, SF Pro Icons, Helvetica Neue, Helvetica, Arial,
+    sans-serif;
+  letter-spacing: 0;
+  padding-bottom: 2px;
+}
+
 .register-form button {
   padding: 5px 10px;
   width: 25%;

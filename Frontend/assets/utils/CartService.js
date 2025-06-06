@@ -113,8 +113,6 @@ let CartService = {
       quantity: 1,
     };
 
-    console.log("endofthis");
-
     console.log(data);
     RestClient.post(
       "/cart/item/new-item",
@@ -136,18 +134,14 @@ let CartService = {
     const decodedToken = jwt_decode(userToken);
     const userID = decodedToken.user.user_id;
 
-    console.log(userID);
-    console.log("denko medenko init");
-
     RestClient.get(`/user/cart/${userID}`, function (data) {
       const cartDiv = document.getElementById("cart-div");
 
       console.log(cartDiv);
-      console.log("denko ::: ", data);
 
       if (data.cart === false || !data.cart) {
         cartDiv.innerHTML = `
-          <div class="container text-start mt-5">
+          <div class="container text-center d-flex flex-column align-items-center  mt-5">
             <h1 style="font-size: 64px;">Your cart's empty!</h1>
             <p style="color: #1d1d1f !important">Browse our store and add some items to your cart.</p>
           </div>
@@ -160,59 +154,115 @@ let CartService = {
       const NumbersInCart = CartService.countItems(data.orders);
 
       cartDiv.innerHTML = `
-           <div class="container mt-5">
-          <div class="col mb-4 justify-content-between align-items-center">
-            <div class="col-md-4">
-              <h1>Home > Cart</h1>
+        <div class="container mt-5" id="cart-header">
+          <div class="row d-flex justify-content-between align-items-center">
+            <!-- Cart Items Section -->
+            <div class="col-md-8" id="cart-items-section">
+              <div class="mb-4">
+                <h1>Review your bag.</h1>
+                <span class="order-text mt-2">
+                  Free delivery and free returns on all orders.
+                </span>
+              </div>
+              <div id="cart-items" class="row text-center mt-5 justify-content-center g-3">
+              </div>
             </div>
-            <div class="col-md-4 mt-5">
-              <h4><strong> Total: </strong> $${data.cart.price_total}</h4>
+
+            <!-- Cart Total Section -->
+            <div class="col-md-3" id="cart-total-section">
+              <div class="p-3 d-flex flex-column align-items-center justify-content-between">
+              <div class="d-flex flex-row w-100 justify-content-between">
+              <p>Subtotal</p> 
+              <p> $${data.cart.price_total}</p>
+              </div>
+
+              <div class="d-flex flex-row w-100 justify-content-between">
+              <p>Shipping</p> 
+              <p>$${CartService.calculateShipping(data.cart.price_total)}</p>
+              </div>
+
+              <div class="d-flex flex-row w-100 justify-content-between align-items-center" style="border-top: 1px solid black">
+
+              <span class="mt-5 summary" >
+                Total 
+              </span>
+
+              <span class="mt-5 summary">
+                $${CartService.calculateTotalPrice(data.cart.price_total)}
+              </span>
+
+              </div>
+               
+                <button id="purchaseNowButton" onclick="OrderService.purchaseItems()">Purchase Now</button>
+              </div>
             </div>
-            <div class="col-md-4 mt-1">
-              <h4><strong> Items: </strong> ${NumbersInCart}</h4>
-            </div>
-            <div class= "col-md-4 mt-1">
-              <button class= "card p-2 mt-5 mb-5 shadow-lg" style=" background-color:#0077ed; color:white; outline:none; border:none; "  id="purchaseNowButton" onclick = "OrderService.purchaseItems()">Purchase Now</button>
-            </div>
-          </div>
-          <div id="cart-items" class="row text-center justify-content-center g-3">
           </div>
         </div>
-      
-        `;
+      `;
 
       const itemsDiv = document.getElementById("cart-items");
       let itemsHTML = "";
 
       for (const order of data.orders) {
         itemsHTML += `
-            <div class="col-md-6">
-            <div class="card p-2 shadow-lg" style="border:none !important">
-              <div class="row align-items-center">
-                <div class="col-md-5 text-center">
-                  <img src="assets/${order.image_url}" class="img-fluid rounded" style="max-height: 250px; object-fit: contain;">
-                </div>
-                <div class="col-md-7">
-                  <div class="card-body text-start">
-                    <h3 class="card-title text-start mb-5 ">"${order.product_name}"</h3>
+          <div class="cart-item w-100 border-bottom pb-3 mb-3">
+      <div class="row align-items-center">
+        <!-- Product Image -->
+        <div class="col-md-3 d-flex justify-content-start">
+          <img src="assets/${
+            order.image_url
+          }" class="img-fluid" style="max-height: 150px; max-width: 150px; object-fit: contain;">
+        </div>
 
-                    <div class = "text-start">
-                    <p class="card-text mb-1"><strong>Quantity:</strong> ${order.quantity}</p>
-                    <p class="card-text mb-1"><strong>Price:</strong> $${order.price}</p>
-                    </div>
+        <!-- Product Details -->
+        <div class="col-md-3 d-flex flex-column text-start more-info">
+          <h3 class="product-title mb-2">${order.product_name}</h3>
+          <a style="text-decoration: none; color:#0070d1;" >Show product details</a>
+        </div>
 
-
-                    <button class= "card p-2 mt-5 shadow-lg" style=" background-color:#c0231f; color:white; outline:none; border:none; " class="shadow" onclick="CartService.deleteOrder(${order.cart_item_ID})">Remove from Cart</button>
-                    </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          `;
+        <!-- Actions and Price -->
+        <div class="product-price col-md-6 p-5 text-end">
+          <p class=" mb-2">$${order.price} or <br> $ ${CartService.calculateApr(
+          order.price
+        )}/month for <br> 12 months  at 0% apr</p>
+          <button class="btn btn-link text-danger p-0" onclick="CartService.deleteOrder(${
+            order.cart_item_ID
+          })">Remove</button>
+        </div>
+      </div>
+    </div>
+  `;
       }
 
       itemsDiv.innerHTML = itemsHTML;
     });
+  },
+
+  calculateTotalPrice: function (price) {
+    console.log(price);
+
+    const num = parseFloat(price);
+
+    // Use `this` to call the calculateShipping method
+    let totalPrice = num + parseFloat(this.calculateShipping(price));
+
+    return totalPrice.toFixed(2); // Return the total price rounded to 2 decimal places
+  },
+
+  calculateShipping: function (price) {
+    if (price > 500) {
+      return 0;
+    }
+
+    const tax = price * 0.071322;
+
+    return tax.toFixed(2);
+  },
+
+  calculateApr: function (price) {
+    const num = parseFloat(price);
+    const apr = num / 12;
+    return apr.toFixed(2);
   },
 
   countItems: function (iterable) {

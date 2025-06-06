@@ -37,6 +37,7 @@
 
     <!-- Main dynamic page content container -->
     <main id="spapp" role="main">
+        <section id="view_error"></section>
         <section id="view_login"></section>
         <section id="view_register"></section>
         <section id="view_product"></section>

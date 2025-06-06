@@ -4,7 +4,7 @@ $(document).ready(function () {
   var app = $.spapp({
     defaultView: "#view_main",
     templateDir: "./tpl/",
-    pageNotFound: "error_404",
+    pageNotFound: "view_error.html",
   });
 
   const userToken = localStorage.getItem("user_token");

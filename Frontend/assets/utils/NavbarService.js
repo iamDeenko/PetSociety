@@ -31,8 +31,8 @@ let NavbarService = {
   
    <div class="container d-flex justify-content-between align-items-center px-4" style="height: 64px;">
   <!-- Left: Logo -->
-  <div class="d-flex align-items-center flex-column gap-2" id = "logo-container">
-    <img src="/assets/images/icons/logo.png" alt="logo" width="30" height="30">
+  <div class="align-items-center flex-column gap-2" id = "logo-container">
+    <span class="navbar-brand"> PetSociety </span>
   </div>
 
   <!-- Center: Navigation Links -->

@@ -58,6 +58,7 @@
 }
 
 .latest-arrivals-product {
+  transition: all 0.23111s ease-in-out;
   position: relative;
   padding: 18px;
   box-shadow: 2px 4px 12px #00000014;
@@ -72,6 +73,10 @@
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
+}
+
+.latest-arrivals-product:hover {
+  scale: 1.031102;
 }
 
 .latest-arrivals-header {
