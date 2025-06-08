@@ -342,7 +342,6 @@ let AdminService = {
       modal.show();
     });
   },
-
   addProductModal: function () {
     console.log("Adding product modal");
 
@@ -364,49 +363,72 @@ let AdminService = {
 
     const modalHTML = `
         <div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModalLabel" aria-hidden="true">
-          <div class="modal-dialog modal-lg modal-dialog-centered">
-            <div class="modal-content">
-              <form id="addProductForm" enctype="multipart/form-data">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="addProductModalLabel">Add New product</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <div class="modal-dialog modal-xl modal-dialog-centered">
+            <div class="modal-content notion-modal">
+              <div class="notion-modal-header">
+                <div class="notion-modal-title">
+        
+                  Add New Product
                 </div>
-                <div class="modal-body">
+                <div class="notion-modal-subtitle">Create a new product in your inventory</div>
+              </div>
+              <form id="addProductForm" enctype="multipart/form-data">
+                <div class="notion-modal-body">
                   <div class="row">
-                    <div class="col-md-5 text-center">
-                      <img id="add-product-image-preview" src="images/default.png" alt="product Cover Preview" class="img-fluid rounded mb-3" style="max-height:200px;" />
-                      <input type="file" class="form-control mt-2" id="add-product-image" name="image" accept="image/*" required />
+                    <!-- Image Upload Section -->
+                    <div class="col-md-4">
+                      <div class="notion-form-group">
+                        <label class="notion-form-label">Product Image</label>
+                        <div class="notion-image-upload-container" style="border: 2px dashed #e5e7eb; border-radius: 12px; padding: 24px; text-align: center; background: rgba(249, 250, 251, 0.5);">
+                          <img id="add-product-image-preview" src="/assets/images/default.png" alt="Product Preview" 
+                               style="max-height: 200px; max-width: 100%; border-radius: 8px; margin-bottom: 16px; object-fit: cover;" />
+                          <div style="margin-bottom: 12px; color: #6b7280; font-size: 14px;">
+                            📷 Upload Product Image
+                          </div>
+                          <input type="file" class="notion-form-input" id="add-product-image" name="image" accept="image/*" required />
+                        </div>
+                      </div>
                     </div>
-                    <div class="col-md-7">
-                      <div class="mb-3">
-                        <label for="add-product-title" class="form-label">Title</label>
-                        <input type="text" class="form-control" id="add-product-title" name="title" required>
+                    
+                    <!-- Product Details Section -->
+                    <div class="col-md-8">
+                      <div class="notion-customer-grid" style="grid-template-columns: 1fr 1fr;">
+                        <div class="notion-form-group">
+                          <label for="add-product-name" class="notion-form-label">Product Name</label>
+                          <input type="text" class="notion-form-input" id="add-product-name" name="name" placeholder="Enter product name" required>
+                        </div>
+                        <div class="notion-form-group">
+                          <label for="add-product-brand" class="notion-form-label">Brand</label>
+                          <input type="text" class="notion-form-input" id="add-product-brand" name="brand" placeholder="Enter brand name" required>
+                        </div>
+                        <div class="notion-form-group">
+                          <label for="add-product-price" class="notion-form-label">Price ($)</label>
+                          <input type="number" class="notion-form-input" id="add-product-price" name="price" min="0" step="0.01" placeholder="0.00" required>
+                        </div>
+                        <div class="notion-form-group">
+                          <label for="add-product-category" class="notion-form-label">Category</label>
+                          <select class="notion-form-input" id="add-product-category" name="category_id" required>
+                            <option value="" disabled selected>Select a category</option>
+                            ${categoryOptions}
+                          </select>
+                        </div>
                       </div>
-                      <div class="mb-3">
-                        <label for="add-product-author" class="form-label">Author</label>
-                        <input type="text" class="form-control" id="add-product-author" name="author" required>
+                      
+                      <div class="notion-form-group">
+                        <label for="add-product-description" class="notion-form-label">Description</label>
+                        <textarea class="notion-form-input notion-form-textarea" id="add-product-description" name="description" rows="4" placeholder="Enter detailed product description..." required></textarea>
                       </div>
-                      <div class="mb-3">
-                        <label for="add-product-price" class="form-label">Price</label>
-                        <input type="number" class="form-control" id="add-product-price" name="price" min="0" step="0.01" required>
-                      </div>
-                      <div class="mb-3">
-                        <label for="add-product-description" class="form-label">Description</label>
-                        <textarea class="form-control" id="add-product-description" name="description" rows="4" required></textarea>
-                      </div>
-                      <div class="mb-3">
-                        <label for="add-product-category" class="form-label">Category</label>
-                        <select class="form-select" id="add-product-category" name="category_id" required>
-                          <option value="" disabled selected>Select a category</option>
-                          ${categoryOptions}
-                        </select>
-                      </div>
+                      
+                      <!-- Category-specific fields will be added here dynamically -->
+                      <div id="category-specific-fields"></div>
                     </div>
                   </div>
                 </div>
-                <div class="modal-footer">
-                  <button type="submit" class="btn btn-primary">Add product</button>
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <div class="notion-modal-footer">
+                  <button type="button" class="notion-btn notion-btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                  <button type="submit" class="notion-btn notion-btn-primary">
+                    ✅ Add Product
+                  </button>
                 </div>
               </form>
             </div>
@@ -416,7 +438,7 @@ let AdminService = {
 
     document.body.insertAdjacentHTML("beforeend", modalHTML);
 
-    // Image preview
+    // Image preview functionality
     document
       .getElementById("add-product-image")
       .addEventListener("change", function (e) {
@@ -431,6 +453,16 @@ let AdminService = {
         }
       });
 
+    // Category change handler for dynamic fields
+    document
+      .getElementById("add-product-category")
+      .addEventListener("change", function (e) {
+        const categoryId = e.target.value;
+        const categoryName = e.target.options[e.target.selectedIndex].text;
+        AdminService.addCategorySpecificFields(categoryId, categoryName);
+      });
+
+    // Form submission handler
     document
       .getElementById("addProductForm")
       .addEventListener("submit", function (e) {
@@ -438,8 +470,16 @@ let AdminService = {
         const formData = new FormData(this);
         const userToken = localStorage.getItem("user_token");
 
+        // Show loading state
+        const submitBtn = document.querySelector(
+          "#addProductForm .notion-btn-primary"
+        );
+        const originalText = submitBtn.innerHTML;
+        submitBtn.innerHTML = "⏳ Adding Product...";
+        submitBtn.disabled = true;
+
         $.ajax({
-          url: "http://web-project-ajna.local/api/admin/product/addproduct",
+          url: "http://petsociety.local/api/admin/product/addproduct",
           type: "POST",
           headers: {
             Authentication: userToken,
@@ -448,18 +488,27 @@ let AdminService = {
           processData: false,
           contentType: false,
           success: function (response) {
-            toastr.success("product added successfully!");
+            if (typeof toastr !== "undefined") {
+              toastr.success("Product added successfully!");
+            }
+            const modal = bootstrap.Modal.getInstance(
+              document.getElementById("addProductModal")
+            );
+            modal.hide();
+            document.getElementById("addProductModal").remove();
+
+            // Refresh products if we're on the products section
+            // AdminService.loadProductData(); // Uncomment when product loading function exists
           },
           error: function (xhr) {
-            toastr.error("Failed to add product.");
+            if (typeof toastr !== "undefined") {
+              toastr.error("Failed to add product. Please try again.");
+            }
+            // Reset button state
+            submitBtn.innerHTML = originalText;
+            submitBtn.disabled = false;
           },
         });
-
-        const modal = bootstrap.Modal.getInstance(
-          document.getElementById("addProductModal")
-        );
-        modal.hide();
-        document.getElementById("addProductModal").remove();
       });
 
     // Show modal
@@ -467,6 +516,103 @@ let AdminService = {
       document.getElementById("addProductModal")
     );
     modal.show();
+  },
+
+  // Helper function to add category-specific fields
+  addCategorySpecificFields: function (categoryId, categoryName) {
+    const container = document.getElementById("category-specific-fields");
+
+    // Clear existing fields
+    container.innerHTML = "";
+
+    // Add fields based on category
+    if (categoryName === "Pets") {
+      container.innerHTML = `
+        <div class="notion-customer-grid" style="grid-template-columns: 1fr 1fr; margin-top: 20px;">
+          <div class="notion-form-group">
+            <label for="pet-breed" class="notion-form-label">Breed</label>
+            <input type="text" class="notion-form-input" id="pet-breed" name="breed" placeholder="Enter breed">
+          </div>
+          <div class="notion-form-group">
+            <label for="pet-age" class="notion-form-label">Age</label>
+            <input type="text" class="notion-form-input" id="pet-age" name="age" placeholder="e.g., 2 years">
+          </div>
+          <div class="notion-form-group">
+            <label for="pet-gender" class="notion-form-label">Gender</label>
+            <select class="notion-form-input" id="pet-gender" name="gender">
+              <option value="">Select gender</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+            </select>
+          </div>
+          <div class="notion-form-group">
+            <label for="pet-color" class="notion-form-label">Color</label>
+            <input type="text" class="notion-form-input" id="pet-color" name="color" placeholder="Enter color">
+          </div>
+        </div>
+      `;
+    } else if (categoryName === "Accessories" || categoryName === "Toys") {
+      container.innerHTML = `
+        <div class="notion-customer-grid" style="grid-template-columns: 1fr 1fr; margin-top: 20px;">
+          <div class="notion-form-group">
+            <label for="material" class="notion-form-label">Material</label>
+            <input type="text" class="notion-form-input" id="material" name="material" placeholder="Enter material">
+          </div>
+          <div class="notion-form-group">
+            <label for="size" class="notion-form-label">Size</label>
+            <select class="notion-form-input" id="size" name="size">
+              <option value="">Select size</option>
+              <option value="Small">Small</option>
+              <option value="Medium">Medium</option>
+              <option value="Large">Large</option>
+              <option value="Extra Large">Extra Large</option>
+            </select>
+          </div>
+          <div class="notion-form-group">
+            <label for="pet-type" class="notion-form-label">Pet Type</label>
+            <select class="notion-form-input" id="pet-type" name="pet_type">
+              <option value="">Select pet type</option>
+              <option value="Dog">Dog</option>
+              <option value="Cat">Cat</option>
+              <option value="Bird">Bird</option>
+              <option value="Fish">Fish</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <div class="notion-form-group">
+            <label for="color" class="notion-form-label">Color</label>
+            <input type="text" class="notion-form-input" id="color" name="color" placeholder="Enter color">
+          </div>
+        </div>
+      `;
+    } else if (categoryName === "Food") {
+      container.innerHTML = `
+        <div class="notion-customer-grid" style="grid-template-columns: 1fr 1fr; margin-top: 20px;">
+          <div class="notion-form-group">
+            <label for="weight" class="notion-form-label">Weight</label>
+            <input type="text" class="notion-form-input" id="weight" name="weight" placeholder="e.g., 5kg">
+          </div>
+          <div class="notion-form-group">
+            <label for="flavor" class="notion-form-label">Flavor</label>
+            <input type="text" class="notion-form-input" id="flavor" name="flavor" placeholder="Enter flavor">
+          </div>
+          <div class="notion-form-group">
+            <label for="age-recommendation" class="notion-form-label">Age Recommendation</label>
+            <select class="notion-form-input" id="age-recommendation" name="age_recommendation">
+              <option value="">Select age group</option>
+              <option value="Puppy/Kitten">Puppy/Kitten</option>
+              <option value="Adult">Adult</option>
+              <option value="Senior">Senior</option>
+              <option value="All Ages">All Ages</option>
+            </select>
+          </div>
+          <div class="notion-form-group">
+            <label for="ingredients" class="notion-form-label">Main Ingredients</label>
+            <input type="text" class="notion-form-input" id="ingredients" name="ingredients" placeholder="Enter main ingredients">
+          </div>
+        </div>
+      `;
+    }
   },
 
   getProductByName: function (name) {
@@ -600,6 +746,8 @@ let AdminService = {
 
   viewCustomerOrderHistory: function (customerId) {
     RestClient.get(`/admin/user/orders/${customerId}`, function (orders) {
+      console.log(orders);
+
       const modalContainer = document.getElementById(
         "customerOrderHistoryModal"
       );
@@ -625,8 +773,7 @@ let AdminService = {
                         <th>Order Date</th>
                         <th>Status</th>
                         <th>Total Amount</th>
-                        <th>Items</th>
-                        <th>Actions</th>
+              
                       </tr>
                     </thead>
                     <tbody>
@@ -659,14 +806,6 @@ let AdminService = {
                           <td>$${parseFloat(order.total_amount || 0).toFixed(
                             2
                           )}</td>
-                          <td>${order.item_count || "N/A"} items</td>
-                          <td>
-                            <button class="notion-btn notion-btn-secondary" onclick="AdminService.viewOrderDetails(${
-                              order.order_ID
-                            })">
-                              View Details
-                            </button>
-                          </td>
                         </tr>
                       `
                         )
@@ -847,12 +986,410 @@ let AdminService = {
     );
     modal.show();
   },
-
   viewOrderDetails: function (orderId) {
     // This function can be implemented later to show detailed order information
     console.log(`Viewing details for order ID: ${orderId}`);
     if (typeof toastr !== "undefined") {
       toastr.info(`Order details for #${orderId} - Feature coming soon!`);
+    }
+  },
+
+  // Product Management Functions
+  editProductModal: function () {
+    console.log("Opening edit product modal");
+
+    const existingModal = document.getElementById("editProductModal");
+    if (existingModal) existingModal.innerHTML = "";
+
+    const modalHTML = `
+      <div class="modal fade" id="editProductModalInner" tabindex="-1" aria-labelledby="editProductModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+          <div class="modal-content notion-modal">
+            <div class="notion-modal-header">
+              <div class="notion-modal-title">
+                <div class="notion-modal-icon notion-modal-icon-edit">🔍</div>
+                Search & Edit Product
+              </div>
+              <div class="notion-modal-subtitle">Search for a product to edit</div>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="notion-modal-body">
+              <div class="notion-form-group">
+                <label class="notion-form-label">Search Products</label>
+                <input type="text" class="notion-form-input" id="edit-product-search" placeholder="Enter product name or description..." />
+              </div>
+              <div id="edit-product-results" class="mt-3"></div>
+            </div>
+            <div class="notion-modal-footer">
+              <button type="button" class="notion-btn notion-btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+
+    document.getElementById("editProductModal").innerHTML = modalHTML;
+
+    // Add search functionality
+    document
+      .getElementById("edit-product-search")
+      .addEventListener("input", function (e) {
+        const query = e.target.value.trim();
+        if (query.length >= 2) {
+          AdminService.searchProducts(query, "edit");
+        } else {
+          document.getElementById("edit-product-results").innerHTML = "";
+        }
+      });
+
+    const modal = new bootstrap.Modal(
+      document.getElementById("editProductModalInner")
+    );
+    modal.show();
+  },
+
+  removeProductModal: function () {
+    console.log("Opening remove product modal");
+
+    const existingModal = document.getElementById("removeProductModal");
+    if (existingModal) existingModal.innerHTML = "";
+
+    const modalHTML = `
+      <div class="modal fade" id="removeProductModalInner" tabindex="-1" aria-labelledby="removeProductModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+          <div class="modal-content notion-modal">
+            <div class="notion-modal-header">
+              <div class="notion-modal-title">
+                <div class="notion-modal-icon notion-modal-icon-delete">🗑️</div>
+                Search & Remove Product
+              </div>
+              <div class="notion-modal-subtitle">Search for a product to remove</div>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="notion-modal-body">
+              <div class="notion-form-group">
+                <label class="notion-form-label">Search Products</label>
+                <input type="text" class="notion-form-input" id="remove-product-search" placeholder="Enter product name or description..." />
+              </div>
+              <div id="remove-product-results" class="mt-3"></div>
+            </div>
+            <div class="notion-modal-footer">
+              <button type="button" class="notion-btn notion-btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+
+    document.getElementById("removeProductModal").innerHTML = modalHTML;
+
+    // Add search functionality
+    document
+      .getElementById("remove-product-search")
+      .addEventListener("input", function (e) {
+        const query = e.target.value.trim();
+        if (query.length >= 2) {
+          AdminService.searchProducts(query, "remove");
+        } else {
+          document.getElementById("remove-product-results").innerHTML = "";
+        }
+      });
+
+    const modal = new bootstrap.Modal(
+      document.getElementById("removeProductModalInner")
+    );
+    modal.show();
+  },
+
+  searchProducts: function (query, action) {
+    const userToken = localStorage.getItem("user_token");
+
+    $.ajax({
+      url: `http://petsociety.local/api/admin/products/search/${encodeURIComponent(
+        query
+      )}`,
+      type: "GET",
+      headers: {
+        Authentication: userToken,
+      },
+      success: function (products) {
+        const resultsContainer = document.getElementById(
+          `${action}-product-results`
+        );
+
+        if (products && products.length > 0) {
+          let resultsHTML = '<div class="product-search-results">';
+
+          products.forEach((product) => {
+            resultsHTML += `
+              <div class="product-search-item" style="border: 1px solid #e5e7eb; border-radius: 8px; padding: 16px; margin-bottom: 12px; display: flex; align-items: center; gap: 16px;">
+                <img src="/assets/${product.image_url}" alt="${
+              product.name
+            }" style="width: 60px; height: 60px; object-fit: cover; border-radius: 8px;" />
+                <div style="flex: 1;">
+                  <h6 style="margin: 0; font-weight: 600;">${product.name}</h6>
+                  <p style="margin: 4px 0; color: #6b7280; font-size: 14px;">${
+                    product.category_name
+                  } > ${product.subcategory_name}</p>
+                  <p style="margin: 0; font-weight: 600; color: #059669;">$${parseFloat(
+                    product.price
+                  ).toFixed(2)}</p>
+                </div>
+                <button class="notion-btn ${
+                  action === "edit" ? "notion-btn-primary" : "notion-btn-danger"
+                }" 
+                        onclick="AdminService.${action}Product(${
+              product.product_id
+            })">
+                  ${action === "edit" ? "✏️ Edit" : "🗑️ Remove"}
+                </button>
+              </div>
+            `;
+          });
+
+          resultsHTML += "</div>";
+          resultsContainer.innerHTML = resultsHTML;
+        } else {
+          resultsContainer.innerHTML = `
+            <div class="notion-empty-state">
+              <div class="notion-empty-state-icon">🔍</div>
+              <div class="notion-empty-state-title">No Products Found</div>
+              <div class="notion-empty-state-text">Try adjusting your search terms.</div>
+            </div>
+          `;
+        }
+      },
+      error: function (xhr) {
+        console.error("Error searching products:", xhr);
+        if (typeof toastr !== "undefined") {
+          toastr.error("Failed to search products. Please try again.");
+        }
+      },
+    });
+  },
+
+  editProduct: function (productId) {
+    const userToken = localStorage.getItem("user_token");
+
+    // First, get the product details
+    $.ajax({
+      url: `http://petsociety.local/api/admin/product/${productId}`,
+      type: "GET",
+      headers: {
+        Authentication: userToken,
+      },
+      success: function (product) {
+        AdminService.showEditProductForm(product);
+      },
+      error: function (xhr) {
+        console.error("Error fetching product:", xhr);
+        if (typeof toastr !== "undefined") {
+          toastr.error("Failed to load product details.");
+        }
+      },
+    });
+  },
+
+  showEditProductForm: function (product) {
+    const modalHTML = `
+      <div class="modal fade" id="editProductFormModal" tabindex="-1" aria-labelledby="editProductFormModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered">
+          <div class="modal-content notion-modal">
+            <div class="notion-modal-header">
+              <div class="notion-modal-title">
+                <div class="notion-modal-icon notion-modal-icon-edit">✏️</div>
+                Edit Product
+              </div>
+              <div class="notion-modal-subtitle">Update product information</div>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="editProductForm" enctype="multipart/form-data">
+              <div class="notion-modal-body">
+                <div class="row">
+                  <!-- Image Upload Section -->
+                  <div class="col-md-4">
+                    <div class="notion-form-group">
+                      <label class="notion-form-label">Product Image</label>
+                      <div class="notion-image-upload-container" style="border: 2px dashed #e5e7eb; border-radius: 12px; padding: 24px; text-align: center; background: rgba(249, 250, 251, 0.5);">
+                        <img id="edit-product-image-preview" src="/assets/${
+                          product.image_url
+                        }" alt="Product Preview" 
+                             style="max-height: 200px; max-width: 100%; border-radius: 8px; margin-bottom: 16px; object-fit: cover;" />
+                        <div style="margin-bottom: 12px; color: #6b7280; font-size: 14px;">
+                          📷 Change Product Image
+                        </div>
+                        <input type="file" class="notion-form-input" id="edit-product-image" name="image" accept="image/*" />
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <!-- Product Details Section -->
+                  <div class="col-md-8">
+                    <div class="notion-customer-grid" style="grid-template-columns: 1fr 1fr;">
+                      <div class="notion-form-group">
+                        <label for="edit-product-name" class="notion-form-label">Product Name</label>
+                        <input type="text" class="notion-form-input" id="edit-product-name" name="name" value="${
+                          product.name
+                        }" required>
+                      </div>
+                      <div class="notion-form-group">
+                        <label for="edit-product-price" class="notion-form-label">Price ($)</label>
+                        <input type="number" class="notion-form-input" id="edit-product-price" name="price" value="${
+                          product.price
+                        }" min="0" step="0.01" required>
+                      </div>
+                      <div class="notion-form-group">
+                        <label for="edit-product-stock" class="notion-form-label">Stock Quantity</label>
+                        <input type="number" class="notion-form-input" id="edit-product-stock" name="stock_quantity" value="${
+                          product.stock_quantity || 0
+                        }" min="0" required>
+                      </div>
+                      <div class="notion-form-group">
+                        <label class="notion-form-label">Category</label>
+                        <input type="text" class="notion-form-input" value="${
+                          product.category_name
+                        } > ${
+      product.subcategory_name
+    }" readonly style="background: #f9fafb;">
+                      </div>
+                    </div>
+                    
+                    <div class="notion-form-group">
+                      <label for="edit-product-description" class="notion-form-label">Description</label>
+                      <textarea class="notion-form-input notion-form-textarea" id="edit-product-description" name="description" rows="4" required>${
+                        product.description
+                      }</textarea>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="notion-modal-footer">
+                <button type="button" class="notion-btn notion-btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="submit" class="notion-btn notion-btn-primary">
+                  ✅ Update Product
+                </button>
+              </div>
+              <input type="hidden" name="product_id" value="${
+                product.product_id
+              }">
+            </form>
+          </div>
+        </div>
+      </div>
+    `;
+
+    // Close the search modal and show the edit form
+    const searchModal = bootstrap.Modal.getInstance(
+      document.getElementById("editProductModalInner")
+    );
+    if (searchModal) searchModal.hide();
+
+    document.body.insertAdjacentHTML("beforeend", modalHTML);
+
+    // Image preview functionality
+    document
+      .getElementById("edit-product-image")
+      .addEventListener("change", function (e) {
+        const file = e.target.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = function (evt) {
+            document.getElementById("edit-product-image-preview").src =
+              evt.target.result;
+          };
+          reader.readAsDataURL(file);
+        }
+      });
+
+    // Form submission handler
+    document
+      .getElementById("editProductForm")
+      .addEventListener("submit", function (e) {
+        e.preventDefault();
+        const formData = new FormData(this);
+        const userToken = localStorage.getItem("user_token");
+        const productId = formData.get("product_id");
+
+        // Show loading state
+        const submitBtn = document.querySelector(
+          "#editProductForm .notion-btn-primary"
+        );
+        const originalText = submitBtn.innerHTML;
+        submitBtn.innerHTML = "⏳ Updating Product...";
+        submitBtn.disabled = true;
+
+        $.ajax({
+          url: `http://petsociety.local/api/admin/product/${productId}`,
+          type: "PUT",
+          headers: {
+            Authentication: userToken,
+          },
+          data: formData,
+          processData: false,
+          contentType: false,
+          success: function (response) {
+            if (typeof toastr !== "undefined") {
+              toastr.success("Product updated successfully!");
+            }
+            const modal = bootstrap.Modal.getInstance(
+              document.getElementById("editProductFormModal")
+            );
+            modal.hide();
+            document.getElementById("editProductFormModal").remove();
+          },
+          error: function (xhr) {
+            if (typeof toastr !== "undefined") {
+              toastr.error("Failed to update product. Please try again.");
+            }
+            submitBtn.innerHTML = originalText;
+            submitBtn.disabled = false;
+          },
+        });
+      });
+
+    const modal = new bootstrap.Modal(
+      document.getElementById("editProductFormModal")
+    );
+    modal.show();
+  },
+
+  removeProduct: function (productId) {
+    // Show confirmation dialog
+    if (
+      confirm(
+        "Are you sure you want to delete this product? This action cannot be undone."
+      )
+    ) {
+      const userToken = localStorage.getItem("user_token");
+
+      $.ajax({
+        url: `http://petsociety.local/api/admin/product/${productId}`,
+        type: "DELETE",
+        headers: {
+          Authentication: userToken,
+        },
+        success: function (response) {
+          if (typeof toastr !== "undefined") {
+            toastr.success("Product deleted successfully!");
+          }
+
+          // Close the modal and refresh the search results
+          const modal = bootstrap.Modal.getInstance(
+            document.getElementById("removeProductModalInner")
+          );
+          if (modal) modal.hide();
+
+          // Clear search results
+          document.getElementById("remove-product-results").innerHTML = "";
+          document.getElementById("remove-product-search").value = "";
+        },
+        error: function (xhr) {
+          console.error("Error deleting product:", xhr);
+          if (typeof toastr !== "undefined") {
+            toastr.error("Failed to delete product. Please try again.");
+          }
+        },
+      });
     }
   },
 };

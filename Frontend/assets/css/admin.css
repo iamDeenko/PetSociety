@@ -6,6 +6,16 @@
   padding: 24px 0;
 }
 
+.admin-card:hover {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+  transition: all 0.2s ease-in-out;
+}
+
+.admin-card button:hover {
+  scale: 1.05;
+}
+
 .admin-panel-title {
   padding: 0 24px;
   margin-bottom: 32px;
@@ -508,4 +518,29 @@
 
 .notion-empty-state-text {
   font-size: 14px;
+}
+
+/* Add Product Modal Specific Styles */
+.notion-image-upload-container {
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.notion-image-upload-container:hover {
+  border-color: #3b82f6 !important;
+  background: rgba(59, 130, 246, 0.05) !important;
+}
+
+.notion-image-upload-container input[type="file"] {
+  position: relative;
+  z-index: 2;
+  cursor: pointer;
+}
+
+.notion-image-upload-container img {
+  transition: all 0.3s ease;
+}
+
+.notion-image-upload-container:hover img {
+  transform: scale(1.02);
 }

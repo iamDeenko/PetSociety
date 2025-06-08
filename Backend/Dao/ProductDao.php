@@ -28,7 +28,7 @@ class ProductDao extends BaseDao
     }
 
 
- 
+
     public function createProduct($data)
     {
         try {
@@ -71,6 +71,7 @@ class ProductDao extends BaseDao
             }
 
             $this->connection->commit();
+            return $product_id; // Return the created product ID
         } catch (PDOException $e) {
             $this->connection->rollBack();
             error_log("Error in createProduct: " . $e->getMessage());

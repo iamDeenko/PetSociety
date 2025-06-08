@@ -69,7 +69,12 @@
                 Add a new product to your inventory. Ensure all details are
                 accurate and complete.
               </p>
-              <button class="btn-primary-gradient">Add a Product</button>
+              <button
+                class="btn-primary-gradient"
+                onclick="AdminService.addProductModal()"
+              >
+                Add a Product
+              </button>
             </div>
             <div class="admin-card">
               <h3 class="admin-card-title">Remove a Product</h3>
@@ -77,7 +82,12 @@
                 Remove a product from your inventory. This action cannot be
                 undone.
               </p>
-              <button class="btn-primary-gradient">Remove a Product</button>
+              <button
+                class="btn-primary-gradient"
+                onclick="AdminService.removeProductModal()"
+              >
+                Remove a Product
+              </button>
             </div>
             <div class="admin-card">
               <h3 class="admin-card-title">Edit a Product</h3>
@@ -85,7 +95,12 @@
                 Edit a product's details, including name, description, price,
                 and images.
               </p>
-              <button class="btn-primary-gradient">Edit a Product</button>
+              <button
+                class="btn-primary-gradient"
+                onclick="AdminService.editProductModal()"
+              >
+                Edit a Product
+              </button>
             </div>
           </div>
         </div>
@@ -139,6 +154,9 @@
 <!-- Modal Containers -->
 <div id="editCustomerModal"></div>
 <div id="customerOrderHistoryModal"></div>
+<div id="addProductModal"></div>
+<div id="editProductModal"></div>
+<div id="removeProductModal"></div>
 
 <script>
   AdminService.init();
