@@ -39,7 +39,7 @@ let AuthService = {
         toastr.error("Invalid Email!");
       } else {
         $.ajax({
-          url: "http://petsociety.local/api/auth/register",
+          url: "/api/auth/register",
           type: "POST",
           data: JSON.stringify(data),
           contentType: "application/json",
@@ -86,7 +86,7 @@ let AuthService = {
       };
 
       $.ajax({
-        url: "http://petsociety.local/api/auth/login",
+        url: "/api/auth/login",
         type: "POST",
         data: JSON.stringify(loginData),
         contentType: "application/json",

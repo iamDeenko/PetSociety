@@ -5,7 +5,7 @@ let OrderService = {
     console.log(userID);
 
     $.ajax({
-      url: `http://petsociety.local/api/user/cart/deletecart/${userID}`,
+      url: `/api/user/cart/deletecart/${userID}`,
       type: "DELETE",
       headers: {
         Authentication: userToken,

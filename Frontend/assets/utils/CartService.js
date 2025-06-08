@@ -293,7 +293,7 @@ let CartService = {
     const userID = UserService.getUserId();
 
     $.ajax({
-      url: `http://petsociety.local/api/cart/item/${data}/${userID}`,
+      url: `/api/cart/item/${data}/${userID}`,
       type: "DELETE",
       headers: {
         Authentication: `${userToken}`,

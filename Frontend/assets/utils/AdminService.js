@@ -1198,7 +1198,7 @@ let AdminService = {
     const userToken = localStorage.getItem("user_token");
 
     $.ajax({
-      url: `http://petsociety.local/api/admin/products/search/${encodeURIComponent(
+      url: `/api/admin/products/search/${encodeURIComponent(
         query
       )}`,
       type: "GET",
@@ -1266,7 +1266,7 @@ let AdminService = {
 
     // First, get the product details
     $.ajax({
-      url: `http://petsociety.local/api/admin/product/${productId}`,
+      url: `/api/admin/product/${productId}`,
       type: "GET",
       headers: {
         Authentication: userToken,
@@ -1412,7 +1412,7 @@ let AdminService = {
         submitBtn.disabled = true;
 
         $.ajax({
-          url: `http://petsociety.local/api/admin/product/${productId}`,
+          url: `/api/admin/product/${productId}`,
           type: "PUT",
           headers: {
             Authentication: userToken,
@@ -1456,7 +1456,7 @@ let AdminService = {
       const userToken = localStorage.getItem("user_token");
 
       $.ajax({
-        url: `http://petsociety.local/api/admin/product/${productId}`,
+        url: `/api/admin/product/${productId}`,
         type: "DELETE",
         headers: {
           Authentication: userToken,
