@@ -102,125 +102,228 @@ let AdminService = {
       return data;
     });
   },
-
   getTotalSales: function () {
-    RestClient.get("/orders/total-sales", function (data) {
-      console.log("Total Sales Data:", data);
+    RestClient.get(
+      "/orders/total-sales",
+      function (data) {
+        console.log("Total Sales Data:", data);
 
-      const salesChartContainer = document.getElementById("salesChart");
+        const salesChartContainer = document.getElementById("salesChart");
+        const chartParent = salesChartContainer.parentElement;
 
-      if (!data || data.length === 0) {
-        console.warn("No sales data available.");
-        salesChartContainer.innerHTML = `
-          <div class="text-center mt-5">
-            <h5 class="text-danger">No Sales Data Available</h5>
-            <p class="text-muted">You have not made any sales yet. Encourage customers to make purchases to see data here.</p>
+        if (!data || data.length === 0) {
+          console.warn("No sales data available.");
+
+          // Replace the entire chart container with a no-data message
+          chartParent.innerHTML = `
+          <div class="text-center mt-5 p-5">
+            <div style="font-size: 3rem; margin-bottom: 1rem;">📊</div>
+            <h5 class="text-muted mb-3">No Sales Data Available</h5>
+            <p class="text-muted">You have not made any sales yet. Encourage customers to make purchases to see analytics here.</p>
           </div>
         `;
-        return;
+          return;
+        }
+
+        // Ensure we have a fresh canvas element
+        if (!salesChartContainer || salesChartContainer.tagName !== "CANVAS") {
+          chartParent.innerHTML =
+            '<canvas id="salesChart" width="400" height="200"></canvas>';
+        }
+
+        const canvas = document.getElementById("salesChart");
+
+        // Check if Chart.js is available
+        if (typeof Chart === "undefined") {
+          console.error("Chart.js library not loaded");
+          chartParent.innerHTML = `
+          <div class="text-center mt-5 p-5">
+            <h5 class="text-danger">Chart library not available</h5>
+            <p class="text-muted">Please refresh the page to load the chart library.</p>
+          </div>
+        `;
+          return;
+        }
+
+        const ctx = canvas.getContext("2d");
+
+        // Extract order_date and total_amount from the JSON data
+        const orderDates = data.map((item) => item.order_date);
+        const totalAmounts = data.map((item) => parseFloat(item.total_amount));
+
+        console.log("Total Amounts:", totalAmounts);
+        console.log("Order Dates:", orderDates);
+
+        // Format the order_date to a more readable format
+        const formattedDates = orderDates.map((date) => {
+          const options = { month: "short", day: "numeric" };
+          return new Date(date).toLocaleDateString("en-US", options);
+        });
+
+        // Destroy existing chart if it exists
+        if (
+          window.salesChart &&
+          typeof window.salesChart.destroy === "function"
+        ) {
+          window.salesChart.destroy();
+        } // Create the chart and store reference globally
+        window.salesChart = new Chart(ctx, {
+          type: "line",
+          data: {
+            labels: formattedDates,
+            datasets: [
+              {
+                label: "Daily Sales ($)",
+                data: totalAmounts,
+                borderColor: "#4CAF50",
+                backgroundColor: "rgba(76, 175, 80, 0.2)",
+                pointBackgroundColor: "#4CAF50",
+                pointBorderColor: "#4CAF50",
+                pointHoverBackgroundColor: "#81C784",
+                pointHoverBorderColor: "#388E3C",
+                fill: true,
+                tension: 0.4,
+                borderWidth: 3,
+                pointRadius: 5,
+                pointHoverRadius: 7,
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                position: "top",
+                labels: {
+                  font: {
+                    size: 14,
+                    family: "Arial, sans-serif",
+                    weight: "600",
+                  },
+                  color: "#333",
+                  padding: 20,
+                },
+              },
+              tooltip: {
+                backgroundColor: "#4CAF50",
+                titleFont: {
+                  size: 14,
+                  weight: "bold",
+                },
+                bodyFont: {
+                  size: 12,
+                },
+                footerFont: {
+                  size: 10,
+                },
+                cornerRadius: 8,
+                displayColors: false,
+                callbacks: {
+                  label: function (context) {
+                    return "Sales: $" + context.parsed.y.toFixed(2);
+                  },
+                },
+              },
+            },
+            scales: {
+              x: {
+                title: {
+                  display: true,
+                  text: "Date",
+                  font: {
+                    size: 14,
+                    weight: "bold",
+                  },
+                  color: "#333",
+                },
+                ticks: {
+                  font: {
+                    size: 12,
+                  },
+                  color: "#666",
+                },
+                grid: {
+                  color: "rgba(0, 0, 0, 0.1)",
+                },
+              },
+              y: {
+                title: {
+                  display: true,
+                  text: "Sales Amount ($)",
+                  font: {
+                    size: 14,
+                    weight: "bold",
+                  },
+                  color: "#333",
+                },
+                ticks: {
+                  font: {
+                    size: 12,
+                  },
+                  color: "#666",
+                  callback: function (value) {
+                    return "$" + value.toFixed(0);
+                  },
+                },
+                grid: {
+                  color: "rgba(0, 0, 0, 0.1)",
+                },
+                beginAtZero: true,
+              },
+            },
+          },
+        });
+
+        // Calculate and display sales summary
+        AdminService.updateSalesSummary(data);
+      },
+      function (error) {
+        console.error("Error fetching sales data:", error);
+        const salesChartContainer = document.getElementById("salesChart");
+        const chartParent = salesChartContainer.parentElement;
+
+        chartParent.innerHTML = `
+        <div class="text-center mt-5 p-5">
+          <div style="font-size: 3rem; margin-bottom: 1rem;">⚠️</div>
+          <h5 class="text-danger mb-3">Error Loading Sales Data</h5>
+          <p class="text-muted">Unable to fetch sales analytics. Please try again later.</p>
+          <button class="btn btn-primary mt-3" onclick="AdminService.getTotalSales()">Retry</button>
+        </div>
+      `;
       }
+    );
+  },
 
-      const ctx = salesChartContainer.getContext("2d");
+  updateSalesSummary: function (salesData) {
+    if (!salesData || salesData.length === 0) {
+      document.getElementById("sales-summary").style.display = "none";
+      return;
+    }
 
-      // Extract order_date and total_amount from the JSON data
-      const orderDates = data.map((item) => item.order_date);
-      const totalAmounts = data.map((item) => parseFloat(item.total_amount));
+    // Calculate total sales
+    const totalSales = salesData.reduce(
+      (sum, item) => sum + parseFloat(item.total_amount),
+      0
+    );
 
-      console.log(totalAmounts);
-      console.log(orderDates);
+    // Calculate average order value
+    const averageOrder = totalSales / salesData.length;
 
-      // Format the order_date to a more readable format
-      const formattedDates = orderDates.map((date) => {
-        const options = { month: "short", day: "numeric" };
-        return new Date(date).toLocaleDateString("en-US", options);
-      });
+    // Total number of orders
+    const totalOrders = salesData.length;
 
-      // Create the chart
-      new Chart(ctx, {
-        type: "line",
-        data: {
-          labels: formattedDates,
-          datasets: [
-            {
-              label: "Daily Sales",
-              data: totalAmounts,
-              borderColor: "#4CAF50",
-              backgroundColor: "rgba(76, 175, 80, 0.2)",
-              pointBackgroundColor: "#4CAF50",
-              pointBorderColor: "#4CAF50",
-              pointHoverBackgroundColor: "#81C784",
-              pointHoverBorderColor: "#388E3C",
-              fill: true,
-              tension: 0.4827,
-            },
-          ],
-        },
-        options: {
-          responsive: true,
-          plugins: {
-            legend: {
-              position: "top",
-              labels: {
-                font: {
-                  size: 14,
-                  family: "Arial, sans-serif",
-                },
-                color: "#333",
-              },
-            },
-            tooltip: {
-              backgroundColor: "#4CAF50",
-              titleFont: {
-                size: 14,
-                weight: "bold",
-              },
-              bodyFont: {
-                size: 12,
-              },
-              footerFont: {
-                size: 10,
-              },
-            },
-          },
-          scales: {
-            x: {
-              title: {
-                display: true,
-                text: "Date",
-                font: {
-                  size: 14,
-                  weight: "bold",
-                },
-                color: "#333",
-              },
-              ticks: {
-                font: {
-                  size: 12,
-                },
-                color: "#666",
-              },
-            },
-            y: {
-              title: {
-                display: true,
-                font: {
-                  size: 14,
-                  weight: "bold",
-                },
-                color: "#333",
-              },
-              ticks: {
-                font: {
-                  size: 12,
-                },
-                color: "#666",
-              },
-              beginAtZero: true,
-            },
-          },
-        },
-      });
-    });
+    // Update the summary cards
+    document.getElementById(
+      "total-sales-amount"
+    ).textContent = `$${totalSales.toFixed(2)}`;
+    document.getElementById(
+      "average-order-amount"
+    ).textContent = `$${averageOrder.toFixed(2)}`;
+    document.getElementById("total-orders-count").textContent = totalOrders;
+
+    // Show the summary section
+    document.getElementById("sales-summary").style.display = "flex";
   },
 
   showMoreUserInfo: function (user_id) {
@@ -726,17 +829,7 @@ let AdminService = {
             })">
               Order History
             </button>
-            <button class="action-btn action-btn-delete" onclick="AdminService.editCustomer(${
-              customer.user_id
-            }, '${customer.first_name}', '${customer.last_name}', '${
-          customer.email
-        }', '${customer.phone || ""}', '${customer.country || ""}', '${
-          customer.city || ""
-        }', '${customer.postal_code || ""}', '${
-          customer.address_line1 || ""
-        }')">
-              Edit
-            </button>
+          
           </td>
         </tr>
         `;

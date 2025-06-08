@@ -113,8 +113,48 @@
 
         <div class="row mt-4">
           <div class="col-md-12">
-            <div class="chart-container">
+            <div
+              class="chart-container"
+              style="height: 400px; position: relative"
+            >
               <canvas id="salesChart" width="400" height="200"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sales Summary Cards -->
+        <div class="row mt-4" id="sales-summary" style="display: none">
+          <div class="col-md-4">
+            <div class="extras-card text-center">
+              <h4 class="admin-card-subtitle">Total Sales</h4>
+              <h2
+                id="total-sales-amount"
+                style="color: #4caf50; font-weight: bold"
+              >
+                $0.00
+              </h2>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="extras-card text-center">
+              <h4 class="admin-card-subtitle">Average Order</h4>
+              <h2
+                id="average-order-amount"
+                style="color: #2196f3; font-weight: bold"
+              >
+                $0.00
+              </h2>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="extras-card text-center">
+              <h4 class="admin-card-subtitle">Total Orders</h4>
+              <h2
+                id="total-orders-count"
+                style="color: #ff9800; font-weight: bold"
+              >
+                0
+              </h2>
             </div>
           </div>
         </div>

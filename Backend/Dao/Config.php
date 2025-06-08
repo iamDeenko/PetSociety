@@ -6,30 +6,48 @@ error_reporting(E_ALL ^ (E_NOTICE | E_DEPRECATED));
 
 class Config
 {
+    // This is the new function from your university's tutorial.
+    // It checks for an environment variable first, and if it doesn't find one, it uses the default value.
+    public static function get_env($name, $default)
+    {
+        return isset($_ENV[$name]) && trim($_ENV[$name]) != "" ? $_ENV[$name] : $default;
+    }
+
+    // Your original functions are now updated to use the get_env() logic.
+    // The default values are your local development settings.
 
     public static function DATABASE_NAME()
     {
-        return 'PetSociety';
+        // Environment variable: DB_NAME
+        // Default (your local): 'PetSociety'
+        return Config::get_env("DB_NAME", "PetSociety");
     }
 
-    public static function DATABASE_HOST() 
+    public static function DATABASE_HOST()
     {
-        return 'localhost';
+        // Environment variable: DB_HOST
+        // Default (your local): 'localhost'
+        return Config::get_env("DB_HOST", "localhost");
     }
 
-    public static function DATABASE_USERNAME() 
+    public static function DATABASE_USERNAME()
     {
-        return 'root';
+        // Environment variable: DB_USER
+        // Default (your local): 'root'
+        return Config::get_env("DB_USER", "root");
     }
 
     public static function DATABASE_PASSWORD()
     {
-        return '';
-    }
-    
-    public static function JWT_SECRET()
-    {
-        return 'extremelysecurekey';
+        // Environment variable: DB_PASSWORD
+        // Default (your local): '' (empty)
+        return Config::get_env("DB_PASSWORD", "");
     }
 
+    public static function JWT_SECRET()
+    {
+        // Environment variable: JWT_SECRET
+        // Default (your local): 'extremelysecurekey'
+        return Config::get_env("JWT_SECRET", "extremelysecurekey");
+    }
 }

@@ -4,9 +4,6 @@
 -- ------------------------------------------------------
 -- Server version	9.1.0
 
-
-
-
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
@@ -21,8 +18,6 @@
 --
 -- Table structure for table `accessories_details`
 --
-
-use petsociety;
 
 DROP TABLE IF EXISTS `accessories_details`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -46,7 +41,7 @@ CREATE TABLE `accessories_details` (
 
 LOCK TABLES `accessories_details` WRITE;
 /*!40000 ALTER TABLE `accessories_details` DISABLE KEYS */;
-INSERT INTO `accessories_details` VALUES (74,'PetPro','Stainless Steel','Silver','Medium','Dog'),(75,'NightSafe','Nylon','Black','Large','Dog'),(76,'TravelPet','Fabric','Blue','Small','Cat'),(77,'FurCare','Plastic','Green','One Size','Dog'),(78,'HydroPet','Plastic','Red','350ml','Dog');
+INSERT INTO `accessories_details` VALUES (74,'PetPro','Stainless Steel','Silver','Medium','Dog'),(75,'NightSafe','Nylon','Black','Large','Dog'),(77,'FurCare','Plastic','Green','One Size','Dog'),(78,'HydroPet','Plastic','Red','350ml','Dog');
 /*!40000 ALTER TABLE `accessories_details` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -69,7 +64,7 @@ CREATE TABLE `cart_items` (
   KEY `product_id` (`product_ID`),
   KEY `fk_cart` (`cart_ID`),
   CONSTRAINT `fk_cart` FOREIGN KEY (`cart_ID`) REFERENCES `carts` (`cart_ID`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -78,6 +73,7 @@ CREATE TABLE `cart_items` (
 
 LOCK TABLES `cart_items` WRITE;
 /*!40000 ALTER TABLE `cart_items` DISABLE KEYS */;
+INSERT INTO `cart_items` VALUES (32,1223,90,'Sky',1,45.00,'2025-06-06 11:43:59'),(33,1223,52,'Becky',1,349.99,'2025-06-06 11:50:26');
 /*!40000 ALTER TABLE `cart_items` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -89,7 +85,7 @@ UNLOCK TABLES;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `trg_cartitems_set_price` BEFORE INSERT ON `cart_items` FOR EACH ROW BEGIN
+/*!50003 CREATE*/  /*!50003 TRIGGER `trg_cartitems_set_price` BEFORE INSERT ON `cart_items` FOR EACH ROW BEGIN
     -- Set the unit price from the products table
     SET NEW.price = (
                         SELECT p.price FROM products p WHERE p.product_id = NEW.product_id
@@ -114,7 +110,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `trg_update_cart_total_after_insert` AFTER INSERT ON `cart_items` FOR EACH ROW BEGIN
+/*!50003 CREATE*/  /*!50003 TRIGGER `trg_update_cart_total_after_insert` AFTER INSERT ON `cart_items` FOR EACH ROW BEGIN
     UPDATE carts
     SET price_total = (
         SELECT SUM(price)
@@ -137,7 +133,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `trg_update_cart_total_after_update` AFTER UPDATE ON `cart_items` FOR EACH ROW BEGIN
+/*!50003 CREATE*/  /*!50003 TRIGGER `trg_update_cart_total_after_update` AFTER UPDATE ON `cart_items` FOR EACH ROW BEGIN
     UPDATE carts
     SET price_total = (
         SELECT SUM(price)
@@ -160,7 +156,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `trg_update_cart_total_after_delete` AFTER DELETE ON `cart_items` FOR EACH ROW BEGIN
+/*!50003 CREATE*/  /*!50003 TRIGGER `trg_update_cart_total_after_delete` AFTER DELETE ON `cart_items` FOR EACH ROW BEGIN
     UPDATE carts
     SET price_total = (
         SELECT IFNULL(SUM(price), 0)
@@ -191,7 +187,7 @@ CREATE TABLE `carts` (
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`cart_ID`),
   UNIQUE KEY `idx_user_active_cart` (`user_ID`,`status`)
-) ENGINE=InnoDB AUTO_INCREMENT=324 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1426 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -200,7 +196,7 @@ CREATE TABLE `carts` (
 
 LOCK TABLES `carts` WRITE;
 /*!40000 ALTER TABLE `carts` DISABLE KEYS */;
-INSERT INTO `carts` VALUES (7,61,'open',NULL,'2025-05-25 19:53:28','2025-05-25 19:53:28'),(13,62,'open',NULL,'2025-05-25 20:11:27','2025-05-25 20:11:27'),(318,1,'open',NULL,'2025-05-26 01:26:40','2025-05-26 01:26:40');
+INSERT INTO `carts` VALUES (13,62,'open',NULL,'2025-05-25 20:11:27','2025-05-25 20:11:27'),(1223,61,'open',394.99,'2025-06-06 11:43:52','2025-06-06 11:50:26'),(1400,1,'open',NULL,'2025-06-06 14:40:50','2025-06-06 14:40:50');
 /*!40000 ALTER TABLE `carts` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -212,26 +208,25 @@ UNLOCK TABLES;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `trg_cart_to_order_after_update` AFTER UPDATE ON `carts` FOR EACH ROW BEGIN
+/*!50003 CREATE*/  /*!50003 TRIGGER `trg_cart_to_order_before_delete` BEFORE DELETE ON `carts` FOR EACH ROW BEGIN
     DECLARE new_order_id INT;
 
-    IF NEW.status = 'ordered' THEN
-        -- 1. Create a new order record
-        INSERT INTO orders (user_id, total_amount, order_date)
-        VALUES (NEW.user_id, NEW.price_total, NOW());
+    -- 1. Create a new order record using the cart's info
+    INSERT INTO orders (user_ID, total_amount, order_date)
+    VALUES (OLD.user_ID, OLD.price_total, NOW());
 
-        SET new_order_id = LAST_INSERT_ID();
+    -- 2. Get the ID of the newly inserted order
+    SET new_order_id = LAST_INSERT_ID();
 
-        -- 2. Move cart items to order_details
-        INSERT INTO order_details (order_id, product_id, quantity, price)
-        SELECT
-            new_order_id,
-            ci.product_id,
-            ci.quantity,
-            ci.price
-        FROM cart_items ci
-        WHERE ci.cart_id = NEW.cart_id;
-    END IF;
+    -- 3. Move cart items to order_items
+    INSERT INTO order_items (order_ID, product_ID, quantity, subtotal)
+    SELECT
+        new_order_id,
+        ci.product_ID,
+        ci.quantity,
+        ci.price * ci.quantity
+    FROM cart_items ci
+    WHERE ci.cart_ID = OLD.cart_ID;
 END */;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -309,14 +304,13 @@ CREATE TABLE `order_items` (
   `order_id` int NOT NULL,
   `product_id` int NOT NULL,
   `quantity` int NOT NULL,
-  `price_per_unit` decimal(10,2) NOT NULL,
   `subtotal` decimal(10,2) NOT NULL,
   PRIMARY KEY (`order_item_id`),
   KEY `order_id` (`order_id`),
   KEY `product_id` (`product_id`),
   CONSTRAINT `order_items_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`order_id`) ON DELETE CASCADE,
   CONSTRAINT `order_items_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -325,6 +319,7 @@ CREATE TABLE `order_items` (
 
 LOCK TABLES `order_items` WRITE;
 /*!40000 ALTER TABLE `order_items` DISABLE KEYS */;
+INSERT INTO `order_items` VALUES (1,6,89,2,120.00),(2,7,52,1,349.99),(3,7,89,1,120.00),(5,8,52,1,349.99),(6,9,89,1,120.00),(7,9,91,1,15.00),(8,9,89,1,120.00);
 /*!40000 ALTER TABLE `order_items` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -340,22 +335,10 @@ CREATE TABLE `orders` (
   `user_id` int NOT NULL,
   `order_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `total_amount` decimal(10,2) NOT NULL,
-  `status` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'pending',
-  `shipping_address_line1` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `shipping_address_line2` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `shipping_city` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `shipping_state` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `shipping_postal_code` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `shipping_country` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `shipping_method` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `tracking_number` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `payment_method` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `payment_status` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT 'pending',
-  `notes` text COLLATE utf8mb4_unicode_ci,
   PRIMARY KEY (`order_id`),
   KEY `user_id` (`user_id`),
   CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -364,6 +347,7 @@ CREATE TABLE `orders` (
 
 LOCK TABLES `orders` WRITE;
 /*!40000 ALTER TABLE `orders` DISABLE KEYS */;
+INSERT INTO `orders` VALUES (6,1,'2025-05-28 17:47:13',120.00),(7,61,'2025-06-06 11:41:56',469.99),(8,1,'2025-06-06 13:04:07',349.99),(9,1,'2025-06-06 14:40:49',255.00);
 /*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -430,7 +414,7 @@ CREATE TABLE `products` (
 
 LOCK TABLES `products` WRITE;
 /*!40000 ALTER TABLE `products` DISABLE KEYS */;
-INSERT INTO `products` VALUES (1,13,'Pawsome Pets Adult Chicken & Rice Kibble','Premium dry kibble formulated for active adult dogs with real chicken.',32.50,120,'./images/food/KibblePawsome.png',1,'2025-03-31 16:58:34','2025-05-25 18:33:27',NULL),(2,14,'Healthy Bites Salmon Feast Pate (Cat)','Deliciously smooth salmon pate suitable for cats of all life stages.',1.75,90,'./images/food/CatFood.png',1,'2025-03-31 16:58:34','2025-05-25 18:36:44',NULL),(3,15,'Cheapo Chow Beefy Training Bits','Economical crunchy beef-flavored biscuits, perfect for training rewards.',8.99,210,'./images/food/Beef.png',1,'2025-03-31 16:58:34','2025-05-25 18:35:27',NULL),(37,19,'ZoomBall Launcher','Automatic ball launcher for active dogs',34.99,25,'./images/toys/BallThrow.png',1,'2025-04-01 18:03:46','2025-05-25 18:20:53',NULL),(38,18,'Laser Mouse Toy','Auto-mouse with LED light that moves randomly',18.75,40,'./images/toys/Laser.png',1,'2025-04-01 18:03:46','2025-05-25 18:24:58',NULL),(52,1,'Becky','A loyal golden retriever that loves belly rubs.',349.99,1,'./images/pets/Becky.png',1,'2025-04-01 18:38:52','2025-05-25 17:55:16',NULL),(74,9,'Stainless Steel Bowl','Non-slip stainless steel food bowl',7.99,200,'./images/accessories/SteelBowl.png',1,'2025-05-25 16:45:47','2025-05-25 18:06:04',NULL),(75,8,'Reflective Leash','Reflective leash for night walks',12.50,150,'./images/accessories/ReflectiveLeash.png',1,'2025-05-25 16:45:47','2025-05-25 18:14:30',NULL),(76,10,'Soft Carrier','Comfortable carrier for small pets',29.99,80,'./images/accessories/CatCarrier.png',1,'2025-05-25 16:45:47','2025-05-25 18:10:30',NULL),(77,11,'Grooming Brush','Gentle brush for all fur types',8.99,120,'./images/accessories/BroomBrush.png',1,'2025-05-25 16:45:47','2025-05-25 18:12:03',NULL),(78,12,'Travel Water Bottle','Portable water bottle for pets',10.99,100,'./images/accessories/TravelBottle.png',1,'2025-05-25 16:45:47','2025-05-25 18:14:44',NULL),(82,16,'Vitamin Supplements','Daily vitamins for healthy pets',14.99,90,'./images/food/PetVita.png',1,'2025-05-25 16:46:21','2025-05-25 18:34:21',NULL),(84,17,'ChewMax Bone','Durable bone for aggressive chewers',8.99,110,'./images/toys/ChewToy.png',1,'2025-05-25 16:46:34','2025-05-25 18:19:50',NULL),(85,18,'Interactive Puzzle','Puzzle toy for mental stimulation',15.99,60,'./images/toys/DogPuzzle.png',1,'2025-05-25 16:46:34','2025-05-25 18:23:58',NULL),(86,19,'Fetch Ball','Bouncy ball for fetch games',4.99,200,'./images/toys/FetchBall.png',1,'2025-05-25 16:46:34','2025-05-25 18:22:21',NULL),(88,18,'Cat Teaser Wand','Interactive wand for cats',5.99,90,'./images/toys/CatWard.png',1,'2025-05-25 16:46:34','2025-05-25 18:24:32',NULL),(89,2,'Jell','Playful Siamese cat, loves attention.',120.00,3,'./images/pets/Luna.png',1,'2025-05-25 16:48:35','2025-05-26 00:58:14',NULL),(90,4,'Sky','Colorful parakeet, very social.',45.00,10,'./images/pets/Sky.jpg',1,'2025-05-25 16:48:42','2025-05-25 17:35:09',NULL),(91,5,'Bubbles','Beautiful Betta fish, easy to care for.',15.00,20,'./images/pets/Bubbles.png',1,'2025-05-25 16:48:50','2025-05-25 17:59:40',NULL),(92,3,'Nibbles','Adorable dwarf hamster, very active.',25.00,8,'./images/pets/Nibbles.png',1,'2025-05-25 16:48:57','2025-05-25 18:01:33',NULL),(93,1,'Max','Friendly Golden Retriever, great with kids.',350.00,5,'./images/pets/Max.png',1,'2025-05-25 16:50:10','2025-05-25 17:57:23',NULL);
+INSERT INTO `products` VALUES (1,13,'Pawsome Pets Adult Chicken & Rice Kibble','Premium dry kibble formulated for active adult dogs with real chicken.',32.50,120,'./images/food/KibblePawsome.png',1,'2025-03-31 16:58:34','2025-05-25 18:33:27',NULL),(2,14,'Healthy Bites Salmon Feast Pate (Cat)','Deliciously smooth salmon pate suitable for cats of all life stages.',1.75,90,'./images/food/CatFood.png',1,'2025-03-31 16:58:34','2025-05-25 18:36:44',NULL),(3,15,'Cheapo Chow Beefy Training Bits','Economical crunchy beef-flavored biscuits, perfect for training rewards.',8.99,210,'./images/food/Beef.png',1,'2025-03-31 16:58:34','2025-05-25 18:35:27',NULL),(37,19,'ZoomBall Launcher','Automatic ball launcher for active dogs',34.99,25,'./images/toys/BallThrow.png',1,'2025-04-01 18:03:46','2025-05-25 18:20:53',NULL),(38,18,'Laser Mouse Toy','Auto-mouse with LED light that moves randomly',18.75,40,'./images/toys/Laser.png',1,'2025-04-01 18:03:46','2025-05-25 18:24:58',NULL),(52,1,'Becky','A loyal golden retriever that loves belly rubs.',349.99,1,'./images/pets/Becky.png',1,'2025-04-01 18:38:52','2025-05-25 17:55:16',NULL),(74,9,'Stainless Steel Bowl','Non-slip stainless steel food bowl',7.99,200,'./images/accessories/SteelBowl.png',1,'2025-05-25 16:45:47','2025-05-25 18:06:04',NULL),(75,8,'Reflective Leash','Reflective leash for night walks',12.50,150,'./images/accessories/ReflectiveLeash.png',1,'2025-05-25 16:45:47','2025-05-25 18:14:30',NULL),(77,11,'Grooming Brush','Gentle brush for all fur types',8.99,120,'./images/accessories/BroomBrush.png',1,'2025-05-25 16:45:47','2025-05-25 18:12:03',NULL),(78,12,'Travel Water Bottle','Portable water bottle for pets',10.99,100,'./images/accessories/TravelBottle.png',1,'2025-05-25 16:45:47','2025-05-25 18:14:44',NULL),(82,16,'Vitamin Supplements','Daily vitamins for healthy pets',14.99,90,'./images/food/PetVita.png',1,'2025-05-25 16:46:21','2025-05-25 18:34:21',NULL),(84,17,'ChewMax Bone','Durable bone for aggressive chewers',8.99,110,'./images/toys/ChewToy.png',1,'2025-05-25 16:46:34','2025-05-25 18:19:50',NULL),(85,18,'Interactive Puzzle','Puzzle toy for mental stimulation',15.99,60,'./images/toys/DogPuzzle.png',1,'2025-05-25 16:46:34','2025-05-25 18:23:58',NULL),(86,19,'Fetch Ball','Bouncy ball for fetch games',4.99,200,'./images/toys/FetchBall.png',1,'2025-05-25 16:46:34','2025-05-25 18:22:21',NULL),(88,18,'Cat Teaser Wand','Interactive wand for cats',5.99,90,'./images/toys/CatWard.png',1,'2025-05-25 16:46:34','2025-05-25 18:24:32',NULL),(89,2,'Jell','Playful Siamese cat, loves attention.',120.00,3,'./images/pets/Luna.png',1,'2025-05-25 16:48:35','2025-05-26 00:58:14',NULL),(90,4,'Sky','Colorful parakeet, very social.',45.00,10,'./images/pets/Sky.jpg',1,'2025-05-25 16:48:42','2025-05-25 17:35:09',NULL),(91,5,'Bubbles','Beautiful Betta fish, easy to care for.',15.00,20,'./images/pets/Bubbles.png',1,'2025-05-25 16:48:50','2025-05-25 17:59:40',NULL),(92,3,'Nibbles','Adorable dwarf hamster, very active.',25.00,8,'./images/pets/Nibbles.png',1,'2025-05-25 16:48:57','2025-05-25 18:01:33',NULL),(93,1,'Max','Friendly Golden Retriever, great with kids.',350.00,5,'./images/pets/Max.png',1,'2025-05-25 16:50:10','2025-05-25 17:57:23',NULL);
 /*!40000 ALTER TABLE `products` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -525,7 +509,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'deenko@gmail.com','$2y$10$yrCc7mGJakyEwNnJygvmJOQfF9ewcM7NhwvrK/QUAv//EVqC3r35G','Denis','Mahmutovic','0603512257','',NULL,NULL,'71210',NULL,1,'2025-05-24 16:03:15','2025-05-25 07:56:08'),(61,'deenko2@gmail.com','$2y$10$kqdjEo.zKXcatALv46uplul.kjboWYaHcSvrZEmUkvWpjOufUMyy.','Denis','Mahmutovic','0603512257','Zeljeznicka 22','71210','Sarajevo','71210','Bosnia & Herzegovina',0,'2025-05-25 19:45:53','2025-05-25 19:45:53'),(62,'deenko3@gmail.com','$2y$10$T6WKGquNusVHu/BxQtKgX.MWE2TA.cKDwCAxjDOyNVostSmMP25c2','Denis','Mahmutovic','0603512257','Zeljeznicka 22','71210','Sarajevo','71210','Bosnia & Herzegovina',0,'2025-05-25 19:55:18','2025-05-25 19:55:18');
+INSERT INTO `users` VALUES (1,'deenko@gmail.com','$2y$10$yrCc7mGJakyEwNnJygvmJOQfF9ewcM7NhwvrK/QUAv//EVqC3r35G','Denis','Mahmutovic','0603512257','Zeljeznicka 22',NULL,'Sarajevo','71210','Bosnia & Herzegowina',1,'2025-05-24 16:03:15','2025-06-06 22:16:16'),(61,'deenko2@gmail.com','$2y$10$kqdjEo.zKXcatALv46uplul.kjboWYaHcSvrZEmUkvWpjOufUMyy.','Denis','Mahmutovic','0603512257','Zeljeznicka 22','71210','Sarajevo','71210','Bosnia & Herzegovina',0,'2025-05-25 19:45:53','2025-05-25 19:45:53'),(62,'deenko3@gmail.com','$2y$10$T6WKGquNusVHu/BxQtKgX.MWE2TA.cKDwCAxjDOyNVostSmMP25c2','Denis','Mahmutovic','0603512257','Zeljeznicka 22','71210','Sarajevo','71210','Bosnia & Herzegovina',0,'2025-05-25 19:55:18','2025-05-25 19:55:18');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -538,4 +522,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-05-26  4:08:01
+-- Dump completed on 2025-06-09  0:19:51
