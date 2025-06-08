@@ -582,7 +582,7 @@ let AdminService = {
         submitBtn.disabled = true;
 
         $.ajax({
-          url: "http://petsociety.local/api/admin/product/addproduct",
+          url: "/api/admin/product/addproduct",
           type: "POST",
           headers: {
             Authentication: userToken,
