@@ -1,3 +1,3 @@
 let Constants = {
-  PROJECT_BASE_URL: "http://petsociety.local/api",
+  PROJECT_BASE_URL: "/api",
 };
