@@ -62,6 +62,10 @@ Flight::group("/admin", function () {
         Flight::json(Flight::productService()->getByTitle($product_title));
     });
 
+    Flight::route("GET /users", function () {
+        Flight::json(Flight::adminService()->getAllUsers());
+    });
+
     /**
      * @OA\Get(
      *     path="/admin/user/orders/{user_ID}",
@@ -95,15 +99,14 @@ Flight::group("/admin", function () {
      * )
      */
     Flight::route("GET /user/cart/@user_ID", function ($user_ID) {
-       
 
-    $cart = Flight::userService()->getUserCart($user_ID);
-    $orders = Flight::userService()->getUserOrders($user_ID);
 
-    Flight::json([
-        'cart' => $cart,
-        'orders' => $orders,
-    ]);
+        $cart = Flight::userService()->getUserCart($user_ID);
+        $orders = Flight::userService()->getUserOrders($user_ID);
+
+        Flight::json([
+            'cart' => $cart,
+            'orders' => $orders,
+        ]);
     });
 });
-

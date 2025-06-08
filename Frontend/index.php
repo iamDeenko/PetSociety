@@ -8,6 +8,7 @@
     <!-- CSS styles -->
     <link rel="stylesheet" href="/assets/css/animations.css">
     <link rel="stylesheet" href="/assets/css/fonts.css">
+    <link rel="stylesheet" href="/assets/css/admin.css">
     <link rel="stylesheet" href="/assets/css/shop.css">
     <link rel="stylesheet" href="/assets/css/index.css">
     <link rel="stylesheet" href="/assets/css/hero.css">
@@ -68,10 +69,10 @@
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://code.jquery.com/jquery-3.1.0.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://unpkg.com/navigo@8"></script>
     <script src="/assets/js/script.js"></script>
     <script src="/assets/js/custom.js"></script>
     <script src="/assets/js/jquery.spapp.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 
     <script src="https://cdn.jsdelivr.net/npm/jwt-decode@latest/build/jwt-decode.min.js"></script>

@@ -46,4 +46,9 @@ class AdminService extends BaseService
     {
         return $this->dao->getUserCart($user_ID);
     }
+
+    public function getAllUsers()
+    {
+        return $this->dao->getAllUsers();
+    }
 }

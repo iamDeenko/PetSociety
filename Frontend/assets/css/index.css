@@ -17,6 +17,43 @@ h1 {
   padding-bottom: 2px;
 }
 
+.admin-options h4 {
+  font-family: "SF Pro Rounded";
+  font-size: 28px !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.144px !important;
+  line-height: 1.2 !important;
+  color: #1d1d1f !;
+}
+
+.admin-options {
+  border-right: 1px solid black;
+}
+
+.admin-options span {
+  font-family: "SF Pro Display";
+  color: #1d1d1f;
+}
+
+.admin-options span:first-child {
+  margin-top: 2.5rem;
+}
+
+.admin-options span {
+  margin-top: 0.5rem;
+  cursor: pointer;
+  transition: color 0.3s ease-in-out;
+}
+
+.admin-content p {
+  font-family: "SF Pro Text", "SF Pro Icons", "Helvetica Neue", Helvetica, Arial,
+    sans-serif;
+  font-size: 13px;
+  font-style: normal;
+  letter-spacing: -0.022em;
+  line-height: 1.47059;
+}
+
 #cart-div p {
   font-family: "SF Pro Text", "SF Pro Icons", "Helvetica Neue", Helvetica, Arial,
     sans-serif;

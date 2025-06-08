@@ -8,6 +8,7 @@ require __DIR__ . '/Services/AuthService.php';
 require __DIR__ . '/Services/CategoryService.php';
 require __DIR__ . '/Services/ProductService.php';
 require __DIR__ . '/Services/UserService.php';
+require __DIR__ . "/Services/OrderService.php";
 require __DIR__ . "/Services/CartItemsService.php";
 //  SERVICES
 
@@ -91,9 +92,14 @@ Flight::register('userService', 'UserService');
 
 ##########################MIDDLEWARE########################################
 Flight::register('authMiddleware', 'AuthMiddleWare');
+############################################################################
+
+
 
 Flight::set('flight.base_url', '/Backend');
 
+
+####################################ROUTES##################################
 require_once __DIR__ . '/Routes/AdminRoutes.php';
 require_once __DIR__ . '/Routes/AuthRoutes.php';
 require_once __DIR__ . '/Routes/CartRoutes.php';
@@ -101,5 +107,8 @@ require_once __DIR__ . '/routes/CartItemRoutes.php';
 require_once __DIR__ . '/Routes/CategoryRoutes.php';
 require_once __DIR__ . '/Routes/ProductRoutes.php';
 require_once __DIR__ . '/Routes/UserRoutes.php';
+require_once __DIR__ . '/Routes/OrderRoutes.php';
+############################################################################
+
 
 Flight::start();

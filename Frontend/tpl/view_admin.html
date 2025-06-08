@@ -1,93 +1,144 @@
-<div class="container">
-  <h1 class="text-center mt-5">Admin Dashboard</h1>
-  <div class="row d-flex justify-content-center align-items-center gap-3">
-    <div class="col-md-3 mt-5 d-flex justify-content-start align-items-start flex-column flex-wrap gap-3">
-      <div class="card text-center p-2 ">
-        <h2>Total Sales</h2>
-        <canvas id="salesChart"></canvas>
-      </div>
-
-      <div class="card text-center p-2 ">
-        <h2>Most Sold Categories</h2>
-        <canvas id="categoriesChart">
-
-        </canvas>
+<div class="container-fluid mt-5">
+  <div class="row">
+    <!-- Sidebar Panel -->
+    <div class="admin-options col-md-2 vh-100">
+      <h4 class="admin-panel-title mt-3 text-start">Admin Panel</h4>
+      <div class="d-flex flex-column text-start">
+        <span
+          class="admin-nav-item"
+          onclick="AdminService.showSection('customers')"
+        >
+          Customers
+        </span>
+        <span
+          class="admin-nav-item"
+          onclick="AdminService.showSection('products')"
+        >
+          Products
+        </span>
+        <span
+          class="admin-nav-item"
+          onclick="AdminService.showSection('sales')"
+        >
+          Sales
+        </span>
+        <span
+          class="admin-nav-item"
+          onclick="AdminService.showSection('extras')"
+        >
+          Extras
+        </span>
       </div>
     </div>
-    <div class="col-md-6 mt-5 d-flex justify-content-start align-items-start flex-column flex-nowrap gap-3">
-      <div class="d-flex text-center card w-100 ">
-        <h2>Users</h2>
-        <div class="d-flex justify-content-center align-items-center">
-          <input type="text" name="" id="" placeholder="Search Users by name" class="text-center form-control w-75" 
-            onkeyup="AdminService.getUsersByName(this.value)">
+    <!-- Main Content Area -->
+    <div class="admin-main-content col-md-10 vh-100">
+      <div id="customers" class="admin-content p-5 mt-5 text-start">
+        <h1 class="admin-section-title">Customers</h1>
+        <p class="admin-section-subtitle">
+          Manage customer data and relationships.
+        </p>
+        <div id="customer-list">
+          <table id="customer-table" class="customer-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Country</th>
+                <th class="text-center">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="customer-table-body"></tbody>
+          </table>
         </div>
-        <div>
-      
-        </div>
-
-        <div class="card-body overflow-auto text-start px-5" id = "user-card-body">
-          <h5 class="text-center">Enter a name to search for users.</h5>
-        </div>
-     
       </div>
+      <div id="products" class="admin-content p-5 mt-5 d-none">
+        <h1 class="admin-section-title">Product Management</h1>
+        <p class="admin-section-subtitle">
+          Manage your pet store inventory and product catalog.
+        </p>
 
-      <div class="text-center card p-2 w-100 ">
-        <h2>Products</h2>
-
-        <div class="d-flex justify-content-center align-items-center">
-          <input type="text" name="" id="" placeholder="Search Products by name" class=" text-center form-control w-75" 
-            onkeyup="AdminService.getProductByName(this.value)">
-        </div>
-        <div>
-      
-        </div>
-
-        <div class="card-body overflow-auto text-start px-5" id = "product-card-body">
-          <div class="d-flex flex-row justify-content-center align-items-center">
-            
-            <div class = "d-flex p-2 flex-column justify-content-center align-items-center">
-                <img style="width: 24px; height: 24px;" src = "../assets/images/icons/addIcon.png" class="img-fluid rounded-circle mb-3 mt-3">
-                <p class= "border-bottom" onclick="AdminService.addProductModal()"> Add a Product</p>
+        <div class="row mt-4">
+          <div
+            class="d-flex justify-content-start gap-5 align-items-start flex-row"
+          >
+            <div class="admin-card">
+              <h3 class="admin-card-title">Add a product</h3>
+              <p class="admin-card-text">
+                Add a new product to your inventory. Ensure all details are
+                accurate and complete.
+              </p>
+              <button class="btn-primary-gradient">Add a Product</button>
             </div>
-
+            <div class="admin-card">
+              <h3 class="admin-card-title">Remove a Product</h3>
+              <p class="admin-card-text">
+                Remove a product from your inventory. This action cannot be
+                undone.
+              </p>
+              <button class="btn-primary-gradient">Remove a Product</button>
+            </div>
+            <div class="admin-card">
+              <h3 class="admin-card-title">Edit a Product</h3>
+              <p class="admin-card-text">
+                Edit a product's details, including name, description, price,
+                and images.
+              </p>
+              <button class="btn-primary-gradient">Edit a Product</button>
+            </div>
+          </div>
         </div>
-        </div>
+      </div>
+      <div id="sales" class="admin-content p-5 mt-5 d-none">
+        <h1 class="admin-section-title">Sales Analytics</h1>
+        <p class="admin-section-subtitle">
+          Monitor your sales performance and trends.
+        </p>
 
+        <div class="row mt-4">
+          <div class="col-md-12">
+            <div class="chart-container">
+              <canvas id="salesChart" width="400" height="200"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="extras" class="admin-content p-5 mt-5 d-none">
+        <h1 class="admin-section-title">Additional Settings</h1>
+        <p class="admin-section-subtitle">
+          Configure store settings, shipping options, and other preferences.
+        </p>
+
+        <div class="row mt-4">
+          <div class="col-md-6">
+            <div class="extras-card">
+              <h4 class="admin-card-subtitle">Store Configuration</h4>
+              <p class="admin-card-text-small">
+                Manage general store settings and preferences.
+              </p>
+              <button class="btn-secondary">Configure</button>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="extras-card">
+              <h4 class="admin-card-subtitle">Shipping & Tax</h4>
+              <p class="admin-card-text-small">
+                Set up shipping zones and tax rates.
+              </p>
+              <button class="btn-secondary">Manage</button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-
-    
   </div>
 </div>
-</div>
 
-
-
-<div id="bookDataModal">
-  
-</div>
-
-<div id="addProductModal">
-
-</div>
-
-<div id="editBookModal">
-  
-</div>
-
-
-<div id="userCartModal">
-
-</div>
-
-<div id="userOrderHistory">
-  
-</div>
-
-
-<div id="moreUserInfo">
-
-</div>
+<!-- Modal Containers -->
+<div id="editCustomerModal"></div>
+<div id="customerOrderHistoryModal"></div>
 
 <script>
   AdminService.init();

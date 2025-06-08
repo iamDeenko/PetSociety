@@ -1,15 +1,11 @@
 let AdminService = {
   init: function () {
-    AdminService.renderAdminDiv();
+    AdminService.loadCustomerData();
+    AdminService.getTotalSales();
   },
 
-  
-
   getUsersByName: function (name) {
-    console.log("CURRENT NAME:: ", name);
-
     if (!name) {
-      console.log("CURRENT NAME:: ", name);
       const cardBody = document.getElementById("user-card-body");
       cardBody.innerHTML = "";
       cardBody.innerHTML =
@@ -104,6 +100,126 @@ let AdminService = {
   getUserByID: function (id) {
     RestClient.get(`admin/user/id/${id}`, function (data) {
       return data;
+    });
+  },
+
+  getTotalSales: function () {
+    RestClient.get("/orders/total-sales", function (data) {
+      console.log("Total Sales Data:", data);
+
+      const salesChartContainer = document.getElementById("salesChart");
+
+      if (!data || data.length === 0) {
+        console.warn("No sales data available.");
+        salesChartContainer.innerHTML = `
+          <div class="text-center mt-5">
+            <h5 class="text-danger">No Sales Data Available</h5>
+            <p class="text-muted">You have not made any sales yet. Encourage customers to make purchases to see data here.</p>
+          </div>
+        `;
+        return;
+      }
+
+      const ctx = salesChartContainer.getContext("2d");
+
+      // Extract order_date and total_amount from the JSON data
+      const orderDates = data.map((item) => item.order_date);
+      const totalAmounts = data.map((item) => parseFloat(item.total_amount));
+
+      console.log(totalAmounts);
+      console.log(orderDates);
+
+      // Format the order_date to a more readable format
+      const formattedDates = orderDates.map((date) => {
+        const options = { month: "short", day: "numeric" };
+        return new Date(date).toLocaleDateString("en-US", options);
+      });
+
+      // Create the chart
+      new Chart(ctx, {
+        type: "line",
+        data: {
+          labels: formattedDates,
+          datasets: [
+            {
+              label: "Daily Sales",
+              data: totalAmounts,
+              borderColor: "#4CAF50",
+              backgroundColor: "rgba(76, 175, 80, 0.2)",
+              pointBackgroundColor: "#4CAF50",
+              pointBorderColor: "#4CAF50",
+              pointHoverBackgroundColor: "#81C784",
+              pointHoverBorderColor: "#388E3C",
+              fill: true,
+              tension: 0.4827,
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: {
+              position: "top",
+              labels: {
+                font: {
+                  size: 14,
+                  family: "Arial, sans-serif",
+                },
+                color: "#333",
+              },
+            },
+            tooltip: {
+              backgroundColor: "#4CAF50",
+              titleFont: {
+                size: 14,
+                weight: "bold",
+              },
+              bodyFont: {
+                size: 12,
+              },
+              footerFont: {
+                size: 10,
+              },
+            },
+          },
+          scales: {
+            x: {
+              title: {
+                display: true,
+                text: "Date",
+                font: {
+                  size: 14,
+                  weight: "bold",
+                },
+                color: "#333",
+              },
+              ticks: {
+                font: {
+                  size: 12,
+                },
+                color: "#666",
+              },
+            },
+            y: {
+              title: {
+                display: true,
+                font: {
+                  size: 14,
+                  weight: "bold",
+                },
+                color: "#333",
+              },
+              ticks: {
+                font: {
+                  size: 12,
+                },
+                color: "#666",
+              },
+              beginAtZero: true,
+            },
+          },
+        },
+      });
     });
   },
 
@@ -423,6 +539,321 @@ let AdminService = {
       );
       modal.show();
     });
+  },
+  showSection: function (sectionId) {
+    const sections = document.querySelectorAll(".admin-content");
+    sections.forEach((section) => section.classList.add("d-none"));
+
+    const selectedSection = document.getElementById(sectionId);
+    if (selectedSection) {
+      selectedSection.classList.remove("d-none");
+
+      // Load data based on section
+      if (sectionId === "customers") {
+        AdminService.loadCustomerData();
+      } else if (sectionId === "sales") {
+        // Initialize sales chart if not already done
+        setTimeout(() => {
+          AdminService.getTotalSales();
+        }, 100);
+      }
+    }
+  },
+  loadCustomerData: function () {
+    RestClient.get("/admin/users", function (data) {
+      console.log(data);
+
+      const tableBody = document.getElementById("customer-table-body");
+
+      tableBody.innerHTML = "";
+      data.forEach((customer) => {
+        tableBody.innerHTML += `
+        <tr>
+          <td>${customer.user_id}</td>
+          <td>${customer.first_name} ${customer.last_name}</td>
+          <td>${customer.email}</td>
+          <td>${customer.phone || "N/A"}</td>
+          <td>${customer.country || "N/A"}</td>
+          <td class="text-center">
+            <button class="action-btn action-btn-edit" onclick="AdminService.viewCustomerOrderHistory(${
+              customer.user_id
+            })">
+              Order History
+            </button>
+            <button class="action-btn action-btn-delete" onclick="AdminService.editCustomer(${
+              customer.user_id
+            }, '${customer.first_name}', '${customer.last_name}', '${
+          customer.email
+        }', '${customer.phone || ""}', '${customer.country || ""}', '${
+          customer.city || ""
+        }', '${customer.postal_code || ""}', '${
+          customer.address_line1 || ""
+        }')">
+              Edit
+            </button>
+          </td>
+        </tr>
+        `;
+      });
+    });
+  },
+
+  viewCustomerOrderHistory: function (customerId) {
+    RestClient.get(`/admin/user/orders/${customerId}`, function (orders) {
+      const modalContainer = document.getElementById(
+        "customerOrderHistoryModal"
+      );
+
+      const modalHTML = `
+        <div class="modal fade" id="orderHistoryModal" tabindex="-1" aria-labelledby="orderHistoryModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-xl modal-dialog-centered">
+            <div class="modal-content notion-modal">
+              <div class="notion-modal-header">
+                <div class="notion-modal-title">
+                  Order History
+                </div>
+                <div class="notion-modal-subtitle">Customer ID: ${customerId}</div>
+              </div>
+              <div class="notion-modal-body">
+                ${
+                  orders && orders.length > 0
+                    ? `
+                  <table class="notion-order-table">
+                    <thead>
+                      <tr>
+                        <th>Order ID</th>
+                        <th>Order Date</th>
+                        <th>Status</th>
+                        <th>Total Amount</th>
+                        <th>Items</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      ${orders
+                        .map(
+                          (order) => `
+                        <tr>
+                          <td>#${order.order_id}</td>
+                          <td>${new Date(order.order_date).toLocaleDateString(
+                            "en-US",
+                            {
+                              year: "numeric",
+                              month: "short",
+                              day: "numeric",
+                            }
+                          )}</td>
+                          <td>
+                            <span class="notion-status-badge ${
+                              order.status === "completed" ||
+                              order.status === "Completed"
+                                ? "notion-status-completed"
+                                : order.status === "pending" ||
+                                  order.status === "Pending"
+                                ? "notion-status-pending"
+                                : "notion-status-cancelled"
+                            }">
+                              ${order.status || "Completed"}
+                            </span>
+                          </td>
+                          <td>$${parseFloat(order.total_amount || 0).toFixed(
+                            2
+                          )}</td>
+                          <td>${order.item_count || "N/A"} items</td>
+                          <td>
+                            <button class="notion-btn notion-btn-secondary" onclick="AdminService.viewOrderDetails(${
+                              order.order_ID
+                            })">
+                              View Details
+                            </button>
+                          </td>
+                        </tr>
+                      `
+                        )
+                        .join("")}
+                    </tbody>
+                  </table>
+                `
+                    : `
+                  <div class="notion-empty-state">
+                    <div class="notion-empty-state-icon">📦</div>
+                    <div class="notion-empty-state-title">No Orders Found</div>
+                    <div class="notion-empty-state-text">This customer hasn't placed any orders yet.</div>
+                  </div>
+                `
+                }
+              </div>
+              <div class="notion-modal-footer">
+                <button type="button" class="notion-btn notion-btn-secondary" data-bs-dismiss="modal">
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+
+      modalContainer.innerHTML = modalHTML;
+      const modal = new bootstrap.Modal(
+        document.getElementById("orderHistoryModal")
+      );
+      modal.show();
+    });
+  },
+
+  editCustomer: function (
+    userId,
+    firstName,
+    lastName,
+    email,
+    phone,
+    country,
+    city,
+    postalCode,
+    address
+  ) {
+    const modalContainer = document.getElementById("editCustomerModal");
+
+    const modalHTML = `
+      <div class="modal fade" id="editCustomerModalInner" tabindex="-1" aria-labelledby="editCustomerModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+          <div class="modal-content notion-modal">
+            <div class="notion-modal-header">
+              <div class="notion-modal-title">
+                <div class="notion-modal-icon notion-modal-icon-edit">✏️</div>
+                Edit Customer
+              </div>
+              <div class="notion-modal-subtitle">Update customer information</div>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="editCustomerForm">
+              <div class="notion-modal-body">
+                <div class="notion-customer-grid">
+                  <div class="notion-form-group">
+                    <label class="notion-form-label" for="edit-first-name">First Name</label>
+                    <input type="text" id="edit-first-name" class="notion-form-input" value="${firstName}" required>
+                  </div>
+                  <div class="notion-form-group">
+                    <label class="notion-form-label" for="edit-last-name">Last Name</label>
+                    <input type="text" id="edit-last-name" class="notion-form-input" value="${lastName}" required>
+                  </div>
+                  <div class="notion-form-group">
+                    <label class="notion-form-label" for="edit-email">Email Address</label>
+                    <input type="email" id="edit-email" class="notion-form-input" value="${email}" required>
+                  </div>
+                  <div class="notion-form-group">
+                    <label class="notion-form-label" for="edit-phone">Phone Number</label>
+                    <input type="tel" id="edit-phone" class="notion-form-input" value="${
+                      phone || ""
+                    }" placeholder="Enter phone number">
+                  </div>
+                  <div class="notion-form-group">
+                    <label class="notion-form-label" for="edit-country">Country</label>
+                    <input type="text" id="edit-country" class="notion-form-input" value="${
+                      country || ""
+                    }" placeholder="Enter country">
+                  </div>
+                  <div class="notion-form-group">
+                    <label class="notion-form-label" for="edit-city">City</label>
+                    <input type="text" id="edit-city" class="notion-form-input" value="${
+                      city || ""
+                    }" placeholder="Enter city">
+                  </div>
+                  <div class="notion-form-group">
+                    <label class="notion-form-label" for="edit-postal-code">Postal Code</label>
+                    <input type="text" id="edit-postal-code" class="notion-form-input" value="${
+                      postalCode || ""
+                    }" placeholder="Enter postal code">
+                  </div>
+                  <div class="notion-form-group">
+                    <label class="notion-form-label" for="edit-address">Address</label>
+                    <textarea id="edit-address" class="notion-form-input notion-form-textarea" placeholder="Enter full address">${
+                      address || ""
+                    }</textarea>
+                  </div>
+                </div>
+                
+                <div class="notion-customer-field" style="margin-top: 24px;">
+                  <div class="notion-customer-field-label">Customer ID</div>
+                  <div class="notion-customer-field-value">#${userId}</div>
+                </div>
+              </div>
+              <div class="notion-modal-footer">
+                <button type="button" class="notion-btn notion-btn-secondary" data-bs-dismiss="modal">
+                  Cancel
+                </button>
+                <button type="submit" class="notion-btn notion-btn-primary">
+                  💾 Save Changes
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    `;
+
+    modalContainer.innerHTML = modalHTML;
+
+    // Add form submission handler
+    document
+      .getElementById("editCustomerForm")
+      .addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        const updatedCustomer = {
+          user_id: userId,
+          first_name: document.getElementById("edit-first-name").value,
+          last_name: document.getElementById("edit-last-name").value,
+          email: document.getElementById("edit-email").value,
+          phone: document.getElementById("edit-phone").value,
+          country: document.getElementById("edit-country").value,
+          city: document.getElementById("edit-city").value,
+          postal_code: document.getElementById("edit-postal-code").value,
+          address_line1: document.getElementById("edit-address").value,
+        };
+
+        // Call your API to update customer
+        RestClient.put(
+          `/admin/user/${userId}`,
+          updatedCustomer,
+          function (response) {
+            console.log("Customer updated successfully:", response);
+
+            // Show success message and close modal
+            const modal = bootstrap.Modal.getInstance(
+              document.getElementById("editCustomerModalInner")
+            );
+            modal.hide();
+
+            // Reload customer data
+            AdminService.loadCustomerData();
+
+            // You can add a toast notification here
+            if (typeof toastr !== "undefined") {
+              toastr.success("Customer updated successfully!");
+            }
+          },
+          function (error) {
+            console.error("Error updating customer:", error);
+            if (typeof toastr !== "undefined") {
+              toastr.error("Failed to update customer. Please try again.");
+            }
+          }
+        );
+      });
+
+    const modal = new bootstrap.Modal(
+      document.getElementById("editCustomerModalInner")
+    );
+    modal.show();
+  },
+
+  viewOrderDetails: function (orderId) {
+    // This function can be implemented later to show detailed order information
+    console.log(`Viewing details for order ID: ${orderId}`);
+    if (typeof toastr !== "undefined") {
+      toastr.info(`Order details for #${orderId} - Feature coming soon!`);
+    }
   },
 };
 
