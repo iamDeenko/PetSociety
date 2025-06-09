@@ -49,9 +49,8 @@ class AdminDao extends BaseDao
     {
         $sql = "select *
                 from users
-                JOIN PetSociety.orders o on users.user_id = o.user_id
-                join PetSociety.order_items oi on o.order_id = oi.order_id
-                JOIN PetSociety.
+                JOIN orders o on users.user_id = o.user_id
+                join order_items oi on o.order_id = oi.order_id
                 WHERE users.user_id = :id";
 
         $statement = $this->connection->prepare($sql);

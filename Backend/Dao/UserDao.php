@@ -55,10 +55,10 @@ class UserDao extends BaseDao
 
     public function getUserOrders($user_ID)
     {
-        $sql = "SELECT * FROM cart_items ci JOIN petsociety.carts c ON ci.cart_ID = c.cart_ID join products p on ci.product_ID = p.product_id WHERE user_id = :user_id";
+        $sql = "SELECT * FROM cart_items ci JOIN carts c ON ci.cart_ID = c.cart_ID join products p on ci.product_ID = p.product_id WHERE user_id = :user_id";
 
 
-        
+
         $statement = $this->connection->prepare($sql);
 
         $statement->bindValue("user_id", $user_ID);
