@@ -13,13 +13,11 @@ class Config
         return isset($_ENV[$name]) && trim($_ENV[$name]) != "" ? $_ENV[$name] : $default;
     }
 
-    // Your original functions are now updated to use the get_env() logic.
-    // The default values are your local development settings.
+
 
     public static function DATABASE_NAME()
     {
-        // Environment variable: DB_NAME
-        // Default (your local): 'PetSociety'
+
         return Config::get_env("DB_NAME", "PetSociety");
     }
 
