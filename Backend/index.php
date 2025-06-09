@@ -96,6 +96,7 @@ Flight::register('authMiddleware', 'AuthMiddleWare');
 
 
 
+Flight::set('flight.base_url', '/api');
 
 ####################################ROUTES##################################
 require_once __DIR__ . '/Routes/AdminRoutes.php';
