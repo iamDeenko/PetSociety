@@ -11,9 +11,6 @@ class Config
     {
         return isset($_ENV[$name]) && trim($_ENV[$name]) != "" ? $_ENV[$name] : $default;
     }
-
-
-
     public static function DATABASE_NAME()
     {
 
