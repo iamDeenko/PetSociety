@@ -15,7 +15,7 @@ require __DIR__ . "/Services/CartItemsService.php";
 
 
 //  MIDDLEWARE
-require __DIR__ . "/middleware/AuthMiddleWare.php";
+require __DIR__ . "/Middleware/AuthMiddleWare.php";
 //  MIDDLEWARE
 
 

@@ -1,4 +1,5 @@
-/backend/vendor/
+/Backend/vendor/
 /.vscode/
 /.idea/
 /node_modules/
+/vendor/
