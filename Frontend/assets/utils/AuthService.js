@@ -39,7 +39,7 @@ let AuthService = {
         toastr.error("Invalid Email!");
       } else {
         $.ajax({
-          url: Constants.PROJECT_BASE_URL + "/api/auth/register",
+          url: Constants.PROJECT_BASE_URL + "/auth/register",
           type: "POST",
           data: JSON.stringify(data),
           contentType: "application/json",

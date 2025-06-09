@@ -291,17 +291,18 @@ let CartService = {
     console.log("deleting item with id:", data);
     const userToken = localStorage.getItem("user_token");
     const userID = UserService.getUserId();
-    RestClient.request(
-      `/api/cart/item/${data}/${userID}`,
-      "DELETE",
+
+    RestClient.delete(
+      `/cart/item/${data}/${userID}`,
       null,
-      function (data) {
-        console.log(data);
+      function (response) {
+        console.log("Delete successful:", response);
         toastr.success("Deleted product from cart.");
+        CartService.__init(); // Refresh the cart after deletion
       },
       function (error) {
-        console.log(error);
-        toastr.success("Deleted product from cart.");
+        console.error("Delete failed:", error);
+        toastr.error("Error deleting product from cart.");
       }
     );
   },
