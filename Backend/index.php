@@ -102,7 +102,7 @@ Flight::set('flight.base_url', '/api');
 require_once __DIR__ . '/Routes/AdminRoutes.php';
 require_once __DIR__ . '/Routes/AuthRoutes.php';
 require_once __DIR__ . '/Routes/CartRoutes.php';
-require_once __DIR__ . '/routes/CartItemRoutes.php';
+require_once __DIR__ . '/Routes/CartItemRoutes.php';
 require_once __DIR__ . '/Routes/CategoryRoutes.php';
 require_once __DIR__ . '/Routes/ProductRoutes.php';
 require_once __DIR__ . '/Routes/UserRoutes.php';
