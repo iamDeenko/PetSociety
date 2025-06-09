@@ -11,8 +11,6 @@ let ProductService = {
 
         productItemsDiv.innerHTML = "";
         for (pet of data) {
-          Constants.printThings();
-
           productItemsDiv.innerHTML += `
            <a href = "#view_product" style="text-decoration: none; color:black; outline: none;" onclick = "ProductService.getProductById(${pet.product_id})">
           <div class="product-item" data-id=${pet.product_id}>

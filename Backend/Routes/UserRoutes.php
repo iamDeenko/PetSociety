@@ -162,11 +162,13 @@ Flight::route('GET /user/@user_ID/orders', function ($user_ID) {
 Flight::route('DELETE /user/cart/deletecart/@user_ID', function ($user_ID) {
     $USER_TOKEN = Flight::get('user');
 
-    
+
     if ($USER_TOKEN->user_id != $user_ID) {
         Flight::json(['Status' => 'Error', 'Message' => 'You are not that user :) ']);
     };
 
-    Flight::json(Flight::userService()->checkOut($user_ID));
-    Flight::json(Flight::cartService()->deleteCartByUserID($user_ID));
+    Flight::userService()->checkOut($user_ID);
+    Flight::cartService()->deleteCartByUserID($user_ID);
+
+    Flight::json(['Status' => 'Success', 'Message' => 'Cart deleted and checkout completed successfully!']);
 });
