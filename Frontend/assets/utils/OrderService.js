@@ -3,20 +3,17 @@ let OrderService = {
     const userID = UserService.getUserId();
     const userToken = localStorage.getItem("user_token");
     console.log(userID);
-
-    $.ajax({
-      url: `/api/user/cart/deletecart/${userID}`,
-      type: "DELETE",
-      headers: {
-        Authentication: userToken,
-      },
-      success: function (data) {
+    RestClient.request(
+      `/api/user/cart/deletecart/${userID}`,
+      "DELETE",
+      null,
+      function (data) {
         console.log("Delete successful:", data);
       },
-      error: function (error) {
+      function (error) {
         toastr.success("Successfuly purchased!");
         console.error("Delete failed:", error);
-      },
-    });
+      }
+    );
   },
 };

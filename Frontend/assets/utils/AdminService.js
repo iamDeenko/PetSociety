@@ -580,17 +580,11 @@ let AdminService = {
         const originalText = submitBtn.innerHTML;
         submitBtn.innerHTML = "⏳ Adding Product...";
         submitBtn.disabled = true;
-
-        $.ajax({
-          url: "/api/admin/product/addproduct",
-          type: "POST",
-          headers: {
-            Authentication: userToken,
-          },
-          data: formData,
-          processData: false,
-          contentType: false,
-          success: function (response) {
+        RestClient.request(
+          "/admin/product/addproduct",
+          "POST",
+          formData,
+          function (response) {
             if (typeof toastr !== "undefined") {
               toastr.success("Product added successfully!");
             }
@@ -603,15 +597,15 @@ let AdminService = {
             // Refresh products if we're on the products section
             // AdminService.loadProductData(); // Uncomment when product loading function exists
           },
-          error: function (xhr) {
+          function (xhr) {
             if (typeof toastr !== "undefined") {
               toastr.error("Failed to add product. Please try again.");
             }
             // Reset button state
             submitBtn.innerHTML = originalText;
             submitBtn.disabled = false;
-          },
-        });
+          }
+        );
       });
 
     // Show modal
@@ -1196,16 +1190,9 @@ let AdminService = {
 
   searchProducts: function (query, action) {
     const userToken = localStorage.getItem("user_token");
-
-    $.ajax({
-      url: `/api/admin/products/search/${encodeURIComponent(
-        query
-      )}`,
-      type: "GET",
-      headers: {
-        Authentication: userToken,
-      },
-      success: function (products) {
+    RestClient.get(
+      `/admin/products/search/${encodeURIComponent(query)}`,
+      function (products) {
         const resultsContainer = document.getElementById(
           `${action}-product-results`
         );
@@ -1252,35 +1239,29 @@ let AdminService = {
           `;
         }
       },
-      error: function (xhr) {
+      function (xhr) {
         console.error("Error searching products:", xhr);
         if (typeof toastr !== "undefined") {
           toastr.error("Failed to search products. Please try again.");
         }
-      },
-    });
+      }
+    );
   },
 
   editProduct: function (productId) {
-    const userToken = localStorage.getItem("user_token");
-
-    // First, get the product details
-    $.ajax({
-      url: `/api/admin/product/${productId}`,
-      type: "GET",
-      headers: {
-        Authentication: userToken,
-      },
-      success: function (product) {
+    const userToken = localStorage.getItem("user_token"); // First, get the product details
+    RestClient.get(
+      `/admin/product/${productId}`,
+      function (product) {
         AdminService.showEditProductForm(product);
       },
-      error: function (xhr) {
+      function (xhr) {
         console.error("Error fetching product:", xhr);
         if (typeof toastr !== "undefined") {
           toastr.error("Failed to load product details.");
         }
-      },
-    });
+      }
+    );
   },
 
   showEditProductForm: function (product) {
@@ -1410,17 +1391,11 @@ let AdminService = {
         const originalText = submitBtn.innerHTML;
         submitBtn.innerHTML = "⏳ Updating Product...";
         submitBtn.disabled = true;
-
-        $.ajax({
-          url: `/api/admin/product/${productId}`,
-          type: "PUT",
-          headers: {
-            Authentication: userToken,
-          },
-          data: formData,
-          processData: false,
-          contentType: false,
-          success: function (response) {
+        RestClient.request(
+          `/admin/product/${productId}`,
+          "PUT",
+          formData,
+          function (response) {
             if (typeof toastr !== "undefined") {
               toastr.success("Product updated successfully!");
             }
@@ -1430,14 +1405,14 @@ let AdminService = {
             modal.hide();
             document.getElementById("editProductFormModal").remove();
           },
-          error: function (xhr) {
+          function (xhr) {
             if (typeof toastr !== "undefined") {
               toastr.error("Failed to update product. Please try again.");
             }
             submitBtn.innerHTML = originalText;
             submitBtn.disabled = false;
-          },
-        });
+          }
+        );
       });
 
     const modal = new bootstrap.Modal(
@@ -1454,14 +1429,11 @@ let AdminService = {
       )
     ) {
       const userToken = localStorage.getItem("user_token");
-
-      $.ajax({
-        url: `/api/admin/product/${productId}`,
-        type: "DELETE",
-        headers: {
-          Authentication: userToken,
-        },
-        success: function (response) {
+      RestClient.request(
+        `/admin/product/${productId}`,
+        "DELETE",
+        null,
+        function (response) {
           if (typeof toastr !== "undefined") {
             toastr.success("Product deleted successfully!");
           }
@@ -1476,13 +1448,13 @@ let AdminService = {
           document.getElementById("remove-product-results").innerHTML = "";
           document.getElementById("remove-product-search").value = "";
         },
-        error: function (xhr) {
+        function (xhr) {
           console.error("Error deleting product:", xhr);
           if (typeof toastr !== "undefined") {
             toastr.error("Failed to delete product. Please try again.");
           }
-        },
-      });
+        }
+      );
     }
   },
 };

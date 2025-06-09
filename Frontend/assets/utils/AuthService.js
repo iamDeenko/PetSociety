@@ -38,23 +38,21 @@ let AuthService = {
       if (AuthService.validateEmail(email) == null) {
         toastr.error("Invalid Email!");
       } else {
-        $.ajax({
-          url: "/api/auth/register",
-          type: "POST",
-          data: JSON.stringify(data),
-          contentType: "application/json",
-          success: function (res) {
+        RestClient.post(
+          "/api/auth/register",
+          JSON.stringify(data),
+          function (res) {
             console.log(res);
             console.log(data);
 
             toastr.success("Registration successful");
             window.location.href = "#view_login";
           },
-          error: function (err) {
+          function (err) {
             console.log(err);
             toastr.error("Registration failed: " + err.responseText);
-          },
-        });
+          }
+        );
       }
     });
   },
@@ -84,23 +82,20 @@ let AuthService = {
         email: email,
         password: password,
       };
-
-      $.ajax({
-        url: "/api/auth/login",
-        type: "POST",
-        data: JSON.stringify(loginData),
-        contentType: "application/json",
-        success: function (res) {
+      RestClient.post(
+        "/auth/login",
+        JSON.stringify(loginData),
+        function (res) {
           console.log(res);
           localStorage.setItem("user_token", res.data.user_token);
           toastr.success("Login successful");
           window.location.href = "#view_main";
         },
-        error: function (err) {
+        function (err) {
           console.log(err);
           toastr.error("Login failed: " + err.responseText);
-        },
-      });
+        }
+      );
     });
   },
 
