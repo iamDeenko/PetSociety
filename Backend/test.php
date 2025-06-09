@@ -1,23 +1,13 @@
 <?php
 
+use App\Product;
+use OpenApi\Annotations\Post;
 
-require_once '../PetSociety/Backend/Dao/ProductDao.php';
-require_once '../PetSociety/Backend/Dao/AuthDao.php';
-require_once '../PetSociety/Backend/Dao/BaseDao.php';
-require_once '../PetSociety/Backend/Dao/CartDao.php';
-require_once '../PetSociety/Backend/Dao/AdminDao.php';
-require_once '../PetSociety/Backend/Dao/OrderDao.php';
-require_once '../PetSociety/Backend/Dao/OrderItemDao.php';
-require_once '../PetSociety/Backend/Dao/CategoryDao.php';
-
-require_once '../PetSociety/Backend/Dao/UserDao.php';
+require_once __DIR__ . '/Dao/ProductDao.php';
 
 
+$test = new ProductDao();
 
-$test = new AdminDao();
-
-
-$res = $test->getUsersByName('dE');
-
+$res = $test->getAllProducts();
 
 print_r($res);

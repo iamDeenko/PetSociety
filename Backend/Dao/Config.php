@@ -17,7 +17,12 @@ class Config
     public static function DATABASE_NAME()
     {
 
-        return Config::get_env("DB_NAME", "PetSociety");
+        return Config::get_env("DB_NAME", "petsociety");
+    }
+
+    public static function DATABASE_PORT()
+    {
+        return Config::get_env("DB_PORT", "3306");
     }
 
     public static function DATABASE_HOST()

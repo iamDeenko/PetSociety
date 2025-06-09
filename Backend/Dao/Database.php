@@ -2,19 +2,20 @@
 
 require_once 'Config.php';
 
-class Database{
+class Database
+{
 
-  private static $connection = null;
+    private static $connection = null;
 
-
-
-    public static function connect() {
+    public static function connect()
+    {
         if (self::$connection === null) {
             try {
                 self::$connection = new PDO(
-                    "mysql:host=" . Config::DATABASE_HOST() . ";dbname=" . Config::DATABASE_NAME(),
+                    "mysql:host=" . Config::DATABASE_HOST() . ";dbname=" . Config::DATABASE_NAME() . ";port=" . Config::DATABASE_PORT(),
                     Config::DATABASE_USERNAME(),
                     Config::DATABASE_PASSWORD(),
+
                     [
                         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
                         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
@@ -27,4 +28,3 @@ class Database{
         return self::$connection;
     }
 }
-?>
