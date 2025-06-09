@@ -20,7 +20,7 @@ class Config
         return Config::get_env("DB_NAME", "PetSociety");
     }
 
-    public static function DATABASE_HOST()d
+    public static function DATABASE_HOST()
     {
         return Config::get_env("DB_HOST", "localhost");
     }
