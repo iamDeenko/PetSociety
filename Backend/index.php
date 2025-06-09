@@ -96,7 +96,7 @@ Flight::register('authMiddleware', 'AuthMiddleWare');
 
 
 
-Flight::set('flight.base_url', '/Backend');
+Flight::set('flight.base_url', '/api');
 
 
 ####################################ROUTES##################################

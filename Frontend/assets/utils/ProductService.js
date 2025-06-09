@@ -5,18 +5,14 @@ let ProductService = {
     RestClient.get(
       "/shop/pets",
       function (data) {
-        console.log(data);
-
-        console.log("VIBE CODE ", data[0].category_id);
-
         const subcategories = CategoryService.getAllSubcategories(
           data[0].category_id
         );
 
-        console.log(subcategories);
-
         productItemsDiv.innerHTML = "";
         for (pet of data) {
+          console.log("PET DATA:", pet);
+
           productItemsDiv.innerHTML += `
            <a href = "#view_product" style="text-decoration: none; color:black; outline: none;" onclick = "ProductService.getProductById(${pet.product_id})">
           <div class="product-item" data-id=${pet.product_id}>
