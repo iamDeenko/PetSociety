@@ -532,7 +532,6 @@ let AdminService = {
 
     document.body.insertAdjacentHTML("beforeend", modalHTML);
 
-    // Image preview functionality
     document
       .getElementById("add-product-image")
       .addEventListener("change", function (e) {
@@ -547,7 +546,6 @@ let AdminService = {
         }
       });
 
-    // Category change handler for dynamic fields
     document
       .getElementById("add-product-category")
       .addEventListener("change", function (e) {
@@ -1085,12 +1083,10 @@ let AdminService = {
           <div class="modal-content notion-modal">
             <div class="notion-modal-header">
               <div class="notion-modal-title">
-                <div class="notion-modal-icon notion-modal-icon-edit">🔍</div>
+            
                 Search & Edit Product
               </div>
               <div class="notion-modal-subtitle">Search for a product to edit</div>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
             <div class="notion-modal-body">
               <div class="notion-form-group">
                 <label class="notion-form-label">Search Products</label>
@@ -1138,11 +1134,11 @@ let AdminService = {
           <div class="modal-content notion-modal">
             <div class="notion-modal-header">
               <div class="notion-modal-title">
-                <div class="notion-modal-icon notion-modal-icon-delete">🗑️</div>
+                
                 Search & Remove Product
               </div>
               <div class="notion-modal-subtitle">Search for a product to remove</div>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          
             </div>
             <div class="notion-modal-body">
               <div class="notion-form-group">
