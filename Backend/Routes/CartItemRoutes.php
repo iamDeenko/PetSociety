@@ -35,8 +35,7 @@ Flight::route('POST /cart/item/new-item', function () {
         $quantity = $data['quantity'];
 
 
-
-        return Flight::json(Flight::cartItemsService()->addCartItem($cart_ID, $book_ID, $quantity));
+        return Flight::json(Flight::cartItemsService()->addCartItem($cart_ID, $product_ID, $quantity));
     }
 
     $error = ["Message" => "No Data!", "Status" => 'Failed!'];
@@ -62,8 +61,5 @@ Flight::route('POST /cart/item/new-item', function () {
  * )
  */
 Flight::route('DELETE /cart/item/@cart_item_ID/@user_ID', function ($cart_item_ID, $user_ID) {
-
-    echo " hit hit ";
-
     Flight::json(Flight::cartItemsService()->deleteCartItem($cart_item_ID, $user_ID));
 });
