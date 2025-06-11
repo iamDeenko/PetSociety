@@ -1,22 +1,37 @@
 <?php
 
 
-require_once __DIR__ . '/../Dao/Factory.php';
+require_once 'BaseService.php';
+require_once __DIR__ . '/../Dao/UserDao.php';
 
-class UserService
+
+class UserService extends BaseService
 {
-    private UserDao $userDao;
+
 
     public function __construct()
     {
-        $this->userDao = new UserDao();
+        $dao = new UserDao();
+        parent::__construct($dao);
     }
 
-
-
-    public function getUserOrders($id)
+    public function getUserCart($user_ID)
     {
-       return $this->userDao->getUserOrders($id);
+        return $this->dao->getUserCart($user_ID);
     }
 
+    public function getUserOrders($user_ID)
+    {
+        return $this->dao->getUserOrders($user_ID);
+    }
+
+    public function createCart($user_ID)
+    {
+        return $this->dao->createCart($user_ID);
+    }
+
+    public function checkOut($user_ID)
+    {
+        return $this->dao->checkOut($user_ID);
+    }
 }

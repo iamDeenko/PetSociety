@@ -1,19 +1,21 @@
 <?php
-class Database{
-  private static $host = 'localhost';
-  private static $dbName = 'PetSociety';
-  private static $username = 'root';
-  private static $password = '';
-  private static $connection = null;
 
+require_once 'Config.php';
 
-    public static function connect() {
+class Database
+{
+
+    private static $connection = null;
+
+    public static function connect()
+    {
         if (self::$connection === null) {
             try {
                 self::$connection = new PDO(
-                    "mysql:host=" . self::$host . ";dbname=" . self::$dbName,
-                    self::$username,
-                    self::$password,
+                    "mysql:host=" . Config::DATABASE_HOST() . ";dbname=" . Config::DATABASE_NAME() . ";port=" . Config::DATABASE_PORT(),
+                    Config::DATABASE_USERNAME(),
+                    Config::DATABASE_PASSWORD(),
+
                     [
                         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
                         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
@@ -26,4 +28,3 @@ class Database{
         return self::$connection;
     }
 }
-?>

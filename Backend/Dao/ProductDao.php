@@ -1,7 +1,9 @@
 <?php
 
+require_once 'BaseDao.php';
 
-class ProductDao extends BaseDao{
+class ProductDao extends BaseDao
+{
 
     protected $table = 'products';
 
@@ -26,21 +28,7 @@ class ProductDao extends BaseDao{
     }
 
 
-    public function getBySubcategory($category_name, $subcategory_name)
-    {
-        $sql = "SELECT * FROM products pr
-                  JOIN subcategories ps ON pr.subcategory_id = ps.subcategory_id
-                  JOIN categories c ON ps.category_id = c.category_id where c.name = :category_name AND ps.name = :subcategory_name";
 
-        $statement = $this->connection->prepare($sql);
-
-        $statement->bindParam(':category_name', $category_name);
-        $statement->bindParam(':subcategory_name', $subcategory_name);
-
-        $statement->execute();
-
-        return $statement->fetchAll();
-    }
     public function createProduct($data)
     {
         try {
@@ -83,7 +71,7 @@ class ProductDao extends BaseDao{
             }
 
             $this->connection->commit();
-
+            return $product_id; // Return the created product ID
         } catch (PDOException $e) {
             $this->connection->rollBack();
             error_log("Error in createProduct: " . $e->getMessage());
@@ -95,7 +83,7 @@ class ProductDao extends BaseDao{
 
     public function getByCategory($category_name)
     {
-        $sql = "SELECT * FROM products pr
+        $sql = "SELECT c.category_id, pr.name AS product_name, pr.product_id, pr.subcategory_id, pr.description, pr.price, pr.image_url, c.name AS category_name, ps.name AS subcategory_name FROM products pr
                 JOIN subcategories ps ON pr.subcategory_id = ps.subcategory_id
                 JOIN categories c ON ps.category_id = c.category_id
                 WHERE c.name = :category_name
@@ -127,8 +115,6 @@ class ProductDao extends BaseDao{
         $statement->execute();
 
         return $statement->fetchAll();
-
-
     }
 
 
@@ -241,7 +227,7 @@ class ProductDao extends BaseDao{
                        
         ";
 
-           $statement = $this->connection->prepare($sql);
+            $statement = $this->connection->prepare($sql);
 
             $statement->bindParam('category_name', $category_name);
             $statement->bindParam('id', $id);
@@ -253,31 +239,95 @@ class ProductDao extends BaseDao{
         }
     }
 
-
-    public function update($id, $data)
+    public function getProductsInSubcategory($subcategory_name)
     {
 
-        if(!$id || !$data) throw new Exception("ERROR::No_Data");
 
+        $sql = "SELECT pr.*, ps.name as subcategory_name, c.category_id, c.name as category_name FROM products pr
+                JOIN subcategories ps ON pr.subcategory_id = ps.subcategory_id
+                JOIN categories c ON c.category_id = ps.category_ID
+                WHERE ps.name = :subcategory_name";
 
-        try {
-            $fields = '';
+        $statement = $this->connection->prepare($sql);
 
-            foreach ($data as $key => $value) {
-                $fields .= " $key = :$key, ";
-            }
+        $statement->bindParam('subcategory_name', $subcategory_name);
 
-            $fields = rtrim($fields, ", ");
-            $sql = "UPDATE " . $this->table . " SET $fields WHERE " . $this->idColumn . " = :id";
-            $stmt = $this->connection->prepare($sql);
-            $data['id'] = $id;
-            return $stmt->execute($data);
-        } catch (PDOException $exception) {
-            echo $exception->getMessage();
-        }
+        $statement->execute();
+
+        return $statement->fetchAll();
+    }
+
+    public function getProductInfoByID($product_id)
+    {
+        $sql = "SELECT pr.*, ps.name as subcategory_name, c.category_id, c.name as category_name FROM products pr
+        JOIN subcategories ps ON pr.subcategory_id = ps.subcategory_id
+        JOIN categories c ON c.category_id = ps.category_ID
+        WHERE pr.product_id = :product_id";
+
+        $statement = $this->connection->prepare($sql);
+
+        $statement->bindParam('product_id', $product_id);
+
+        $statement->execute();
+
+        return $statement->fetch();
     }
 
 
 
+    public function getPetDetails($product_id)
+    {
+        $sql = 'SELECT * FROM products p JOIN pet_details pd ON p.product_id = pd.product_id WHERE p.product_id = :product_id;';
 
+
+        $statement = $this->connection->prepare($sql);
+
+        $statement->bindParam('product_id', $product_id);
+
+        $statement->execute();
+
+        return $statement->fetch();
+    }
+
+    public function getToyDetails($product_id)
+    {
+        $sql = 'SELECT * FROM products p JOIN toys_details pd ON p.product_id = pd.product_id WHERE p.product_id = :product_id;';
+
+
+        $statement = $this->connection->prepare($sql);
+
+        $statement->bindParam('product_id', $product_id);
+
+        $statement->execute();
+
+        return $statement->fetch();
+    }
+
+    public function getAccessoryDetails($product_id)
+    {
+        $sql = 'SELECT * FROM products p JOIN accessories_details pd ON p.product_id = pd.product_id WHERE p.product_id = :product_id;';
+
+
+        $statement = $this->connection->prepare($sql);
+
+        $statement->bindParam('product_id', $product_id);
+
+        $statement->execute();
+
+        return $statement->fetch();
+    }
+
+    public function getFoodDetails($product_id)
+    {
+        $sql = 'SELECT * FROM products p JOIN food_details pd ON p.product_id = pd.product_id WHERE p.product_id = :product_id;';
+
+
+        $statement = $this->connection->prepare($sql);
+
+        $statement->bindParam('product_id', $product_id);
+
+        $statement->execute();
+
+        return $statement->fetch();
+    }
 }

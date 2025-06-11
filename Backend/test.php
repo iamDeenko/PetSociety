@@ -1,16 +1,13 @@
 <?php
 
-require_once "Dao/Factory.php";
+use App\Product;
+use OpenApi\Annotations\Post;
 
-require_once "Dao/AdminDao.php";
-
-
-$object = new AdminDao();
+require_once __DIR__ . '/Dao/ProductDao.php';
 
 
+$test = new ProductDao();
 
-$res = $object->getAllUsers();
+$res = $test->getAllProducts();
 
 print_r($res);
-
-?>
