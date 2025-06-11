@@ -145,16 +145,12 @@ let AdminService = {
           return;
         }
 
-        const ctx = canvas.getContext("2d");
-
-        // Extract order_date and total_amount from the JSON data
-        const orderDates = data.map((item) => item.order_date);
-        const totalAmounts = data.map((item) => parseFloat(item.total_amount));
+        const ctx = canvas.getContext("2d"); // Extract sale_date and total_sales from the JSON data
+        const orderDates = data.map((item) => item.sale_date);
+        const totalAmounts = data.map((item) => parseFloat(item.total_sales));
 
         console.log("Total Amounts:", totalAmounts);
-        console.log("Order Dates:", orderDates);
-
-        // Format the order_date to a more readable format
+        console.log("Order Dates:", orderDates); // Format the sale_date to a more readable format
         const formattedDates = orderDates.map((date) => {
           const options = { month: "short", day: "numeric" };
           return new Date(date).toLocaleDateString("en-US", options);
@@ -168,24 +164,19 @@ let AdminService = {
           window.salesChart.destroy();
         } // Create the chart and store reference globally
         window.salesChart = new Chart(ctx, {
-          type: "line",
+          type: "bar",
           data: {
             labels: formattedDates,
             datasets: [
               {
-                label: "Daily Sales ($)",
+                label: "Daily Revenue ($)",
                 data: totalAmounts,
+                backgroundColor: "rgba(76, 175, 80, 0.8)",
                 borderColor: "#4CAF50",
-                backgroundColor: "rgba(76, 175, 80, 0.2)",
-                pointBackgroundColor: "#4CAF50",
-                pointBorderColor: "#4CAF50",
-                pointHoverBackgroundColor: "#81C784",
-                pointHoverBorderColor: "#388E3C",
-                fill: true,
-                tension: 0.4,
-                borderWidth: 3,
-                pointRadius: 5,
-                pointHoverRadius: 7,
+                borderWidth: 2,
+                borderRadius: 4,
+                hoverBackgroundColor: "rgba(76, 175, 80, 0.9)",
+                hoverBorderColor: "#388E3C",
               },
             ],
           },
@@ -221,7 +212,7 @@ let AdminService = {
                 displayColors: false,
                 callbacks: {
                   label: function (context) {
-                    return "Sales: $" + context.parsed.y.toFixed(2);
+                    return "Revenue: $" + context.parsed.y.toFixed(2);
                   },
                 },
               },
@@ -250,7 +241,7 @@ let AdminService = {
               y: {
                 title: {
                   display: true,
-                  text: "Sales Amount ($)",
+                  text: "Revenue Amount ($)",
                   font: {
                     size: 14,
                     weight: "bold",
@@ -294,29 +285,29 @@ let AdminService = {
       }
     );
   },
-
   updateSalesSummary: function (salesData) {
     if (!salesData || salesData.length === 0) {
       document.getElementById("sales-summary").style.display = "none";
       return;
     }
 
-    // Calculate total sales
-    const totalSales = salesData.reduce(
-      (sum, item) => sum + parseFloat(item.total_amount),
+    // Calculate total revenue (sum of all total_sales)
+    const totalRevenue = salesData.reduce(
+      (sum, item) => sum + parseFloat(item.total_sales),
       0
     );
 
-    // Calculate average order value
-    const averageOrder = totalSales / salesData.length;
-
-    // Total number of orders
-    const totalOrders = salesData.length;
+    // Calculate average order value (total revenue divided by total number of orders)
+    const totalOrders = salesData.reduce(
+      (sum, item) => sum + parseInt(item.number_of_orders),
+      0
+    );
+    const averageOrder = totalOrders > 0 ? totalRevenue / totalOrders : 0;
 
     // Update the summary cards
     document.getElementById(
       "total-sales-amount"
-    ).textContent = `$${totalSales.toFixed(2)}`;
+    ).textContent = `$${totalRevenue.toFixed(2)}`;
     document.getElementById(
       "average-order-amount"
     ).textContent = `$${averageOrder.toFixed(2)}`;
