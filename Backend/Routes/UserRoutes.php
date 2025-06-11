@@ -10,6 +10,7 @@
  *     summary="Get user cart and orders",
  *     description="Retrieve the cart and orders for a specific user.",
  *     tags={"user"},
+ *     security={{"ApiKey": {}}},
  *     @OA\Parameter(
  *         name="user_ID",
  *         in="path",
@@ -20,6 +21,10 @@
  *     @OA\Response(
  *         response=200,
  *         description="User cart and orders retrieved successfully."
+ *     ),
+ *     @OA\Response(
+ *         response=401,
+ *         description="Unauthorized. Missing or invalid token."
  *     ),
  *     @OA\Response(
  *         response=403,
@@ -55,6 +60,7 @@ Flight::route("GET /user/cart/@user_ID", function ($user_ID) {
  *     summary="Create a cart for a user",
  *     description="Create a new cart for a specific user.",
  *     tags={"user"},
+ *     security={{"ApiKey": {}}},
  *     @OA\Parameter(
  *         name="user_ID",
  *         in="path",
@@ -65,6 +71,10 @@ Flight::route("GET /user/cart/@user_ID", function ($user_ID) {
  *     @OA\Response(
  *         response=200,
  *         description="Cart created successfully."
+ *     ),
+ *     @OA\Response(
+ *         response=401,
+ *         description="Unauthorized. Missing or invalid token."
  *     ),
  *     @OA\Response(
  *         response=403,
@@ -100,6 +110,7 @@ Flight::route('POST /user/create-cart/@user_ID', function ($user_ID) {
  *     summary="Get user orders",
  *     description="Retrieve all orders for a specific user.",
  *     tags={"user"},
+ *     security={{"ApiKey": {}}},
  *     @OA\Parameter(
  *         name="user_ID",
  *         in="path",
@@ -110,6 +121,10 @@ Flight::route('POST /user/create-cart/@user_ID', function ($user_ID) {
  *     @OA\Response(
  *         response=200,
  *         description="User orders retrieved successfully."
+ *     ),
+ *     @OA\Response(
+ *         response=401,
+ *         description="Unauthorized. Missing or invalid token."
  *     ),
  *     @OA\Response(
  *         response=403,
@@ -135,6 +150,7 @@ Flight::route('GET /user/@user_ID/orders', function ($user_ID) {
  *     summary="Delete user cart and checkout",
  *     description="Delete the cart of a specific user and perform checkout.",
  *     tags={"user"},
+ *     security={{"ApiKey": {}}},
  *     @OA\Parameter(
  *         name="user_ID",
  *         in="path",
@@ -142,16 +158,14 @@ Flight::route('GET /user/@user_ID/orders', function ($user_ID) {
  *         description="ID of the user",
  *         @OA\Schema(type="integer", example=1)
  *     ),
- * 
  *     @OA\Response(
  *         response=200,
  *         description="Cart deleted and checkout completed successfully."
  *     ),
- *      @OA\Response(
+ *     @OA\Response(
  *         response=401,
- *         description="Missing auth header. Go to Postman/SwaggerUI and login as a user. In Headers provide Authentication : <JWT_TOKEN>."
+ *         description="Unauthorized. Missing or invalid token."
  *     ),
- *
  *     @OA\Response(
  *         response=403,
  *         description="Unauthorized access to another user's data."

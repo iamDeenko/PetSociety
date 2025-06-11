@@ -65,6 +65,18 @@ Flight::group("/admin", function () {
         Flight::json(Flight::productService()->getByTitle($product_title));
     });
 
+    /**
+     * @OA\Get(
+     *     path="/admin/users",
+     *     tags={"admin"},
+     *     summary="Get all users (admin)",
+     *     description="Returns a list of all users in the system.",
+     *     security={{"ApiKey": {}}},
+     *     @OA\Response(response=200, description="All users returned successfully."),
+     *     @OA\Response(response=401, description="Unauthorized. Missing or invalid token."),
+     *     @OA\Response(response=500, description="Internal server error.")
+     * )
+     */
     Flight::route("GET /users", function () {
         Flight::json(Flight::adminService()->getAllUsers());
     });
