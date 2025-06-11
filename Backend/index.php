@@ -45,6 +45,7 @@ Flight::route('/*', function () {
         strpos(Flight::request()->url, '/subcategory/2') === 0 ||
         strpos(Flight::request()->url, '/subcategory/3') === 0 ||
         strpos(Flight::request()->url, '/subcategory/4') === 0 ||
+        strpos(Flight::request()->url, '/subcategory-items/') === 0 ||
         strpos(Flight::request()->url, '/subcategories/all') === 0
     ) {
         return TRUE;
