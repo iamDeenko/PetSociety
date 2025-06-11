@@ -3,7 +3,7 @@
         <h3>Login</h3>
         <form action="/api/auth/login" method="post" id="loginForm" class="d-flex flex-column gather-email">
             <input type="text" class="text-center" placeholder="Your email here..." name="email"  id = "email-login" required />
-            <input type="text" placeholder="Password" min="8" max= "31" name='password' id = "password-login" required>
+            <input type="text" placeholder="Password" minlength="8" maxlength= "31" name='password' id = "password-login" required>
             <button class="button mt-5" style="width: 50% !important;">Continue </button>
             <div class="flex-column">
                 <p class="mt-5">Don't have an account?</p>
